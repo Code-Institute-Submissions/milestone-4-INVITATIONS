@@ -34,6 +34,18 @@ body {
     font-size: 1.2em;
 }
 
+.page__default {
+    background: var(--themePageGrey);
+}
+
+.shop__button {
+    padding: 0.5em 1.5em;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: unset;
+}
+
+
 /* Navbar */
 .nav__logo {
     padding: 4px 8px;

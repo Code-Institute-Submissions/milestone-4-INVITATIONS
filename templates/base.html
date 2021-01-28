@@ -43,7 +43,7 @@
 
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-white">
-            <a class="navbar-brand d-none d-lg-block mr-0" href="index4.html">
+            <a class="navbar-brand d-none d-lg-block mr-0" href="{% url 'home' %}">
                 <div class="site__logo nav__logo">- INVITATIONS -</div>
             </a>
             <button class="custom-toggler navbar-toggler mr-auto" type="button" data-toggle="collapse" data-target="#products-menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +52,7 @@
                 </span>
             </button>
 
-            <!-- products menu -->
+            <!-- product dropdown menus -->
             <div class="collapse navbar-collapse" id="products-menu">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item dropdown mr-lg-4">
@@ -100,7 +100,7 @@
             <div class="nav__icons-width nav__icons-position">
                 <div class="d-flex justify-content-between mt-2">
                     <div class="d-flex d-lg-none">
-                        <a class="nav-link nav__icons" href="#">
+                        <a class="nav-link nav__icons" href="{% url 'home' %}">
                             <i class="fas fa-home"></i>
                         </a>
                     </div>

@@ -2,59 +2,27 @@
 {% load static %}
 
 {% block content %}
-    <h1>This is the home page</h1>
-    <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis ea ducimus cumque, error necessitatibus, minus velit hic nihil eaque nobis ipsam ad voluptatum quae modi accusantium beatae neque soluta autem!
-    </p>
-    <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis ea ducimus cumque, error necessitatibus, minus velit hic nihil eaque nobis ipsam ad voluptatum quae modi accusantium beatae neque soluta autem!
-    </p>
-    <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis ea ducimus cumque, error necessitatibus, minus velit hic nihil eaque nobis ipsam ad voluptatum quae modi accusantium beatae neque soluta autem!
-    </p>
-    <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis ea ducimus cumque, error necessitatibus, minus velit hic nihil eaque nobis ipsam ad voluptatum quae modi accusantium beatae neque soluta autem!
-    </p>
-    <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis ea ducimus cumque, error necessitatibus, minus velit hic nihil eaque nobis ipsam ad voluptatum quae modi accusantium beatae neque soluta autem!
-    </p>
-    <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis ea ducimus cumque, error necessitatibus, minus velit hic nihil eaque nobis ipsam ad voluptatum quae modi accusantium beatae neque soluta autem!
-    </p>
-    <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis ea ducimus cumque, error necessitatibus, minus velit hic nihil eaque nobis ipsam ad voluptatum quae modi accusantium beatae neque soluta autem!
-    </p>
-    <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis ea ducimus cumque, error necessitatibus, minus velit hic nihil eaque nobis ipsam ad voluptatum quae modi accusantium beatae neque soluta autem!
-    </p>
-    <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis ea ducimus cumque, error necessitatibus, minus velit hic nihil eaque nobis ipsam ad voluptatum quae modi accusantium beatae neque soluta autem!
-    </p>
-    <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis ea ducimus cumque, error necessitatibus, minus velit hic nihil eaque nobis ipsam ad voluptatum quae modi accusantium beatae neque soluta autem!
-    </p>
-    <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis ea ducimus cumque, error necessitatibus, minus velit hic nihil eaque nobis ipsam ad voluptatum quae modi accusantium beatae neque soluta autem!
-    </p>
-    <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis ea ducimus cumque, error necessitatibus, minus velit hic nihil eaque nobis ipsam ad voluptatum quae modi accusantium beatae neque soluta autem!
-    </p>
-    <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis ea ducimus cumque, error necessitatibus, minus velit hic nihil eaque nobis ipsam ad voluptatum quae modi accusantium beatae neque soluta autem!
-    </p>
-    <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis ea ducimus cumque, error necessitatibus, minus velit hic nihil eaque nobis ipsam ad voluptatum quae modi accusantium beatae neque soluta autem!
-    </p>
-    <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis ea ducimus cumque, error necessitatibus, minus velit hic nihil eaque nobis ipsam ad voluptatum quae modi accusantium beatae neque soluta autem!
-    </p>
-    <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis ea ducimus cumque, error necessitatibus, minus velit hic nihil eaque nobis ipsam ad voluptatum quae modi accusantium beatae neque soluta autem!
-    </p>
-    <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis ea ducimus cumque, error necessitatibus, minus velit hic nihil eaque nobis ipsam ad voluptatum quae modi accusantium beatae neque soluta autem!
-    </p>
-    <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perspiciatis ea ducimus cumque, error necessitatibus, minus velit hic nihil eaque nobis ipsam ad voluptatum quae modi accusantium beatae neque soluta autem!
-    </p>
-    {% endblock %}
+<main class="container-fluid page__default pt-2 pb-3">
+        <div class="row">
+            <div class="col-12 col-lg-5 text-center mt-2 my-lg-auto order-1 order-lg-2">
+                <div class="d-block d-lg-none">
+                    <p class="mb-1">Designs and more by</p>
+                    <h1 class="site__logo">- INVITATIONS -<br>
+                    </h1>
+                </div>
+                <div class="d-none d-lg-block">
+                    <h1 class="display-4 text-dark mb-0">NEW DESIGNS</h1>
+                    <h2 class="text-dark">COMING SOON</h2>
+                </div>
+                <div class="my-4">
+                    <h4>
+                        <a href="" class="btn btn-primary shop__button py-3">SHOP NOW</a>
+                    </h4>
+                </div>
+            </div>
+            <div class="offset-xs-2 col-xs-10 col-lg-7 text-center mt-2 my-lg-auto order-2 order-lg-1">
+                <img src="{{ MEDIA_URL }}home-page.png" class="img-fluid" alt="Home page samples" title="Home page samples">
+            </div>
+        </div>
+</main>
+{% endblock %}
