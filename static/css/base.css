@@ -1,0 +1,18 @@
+:root {
+    --themePageGrey: rgb(250, 250, 250);
+    --themePageWhite: rgb(254, 254, 254);
+    --themeTitleBlack: rgb(85, 85, 85);
+    --themeLogoGrey: rgb(119, 119, 119);
+    --themeIconBlack: rgb(51, 51, 51);
+    --themeButtonBlue: rgb(0, 105, 217);
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    color: var(--themeIconBlack);
+    font-family: 'Mukta', sans-serif;
+    font-size: 14px;
+}
