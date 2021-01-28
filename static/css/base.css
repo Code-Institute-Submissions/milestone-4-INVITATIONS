@@ -1,9 +1,9 @@
 :root {
     --themePageGrey: rgb(250, 250, 250);
     --themePageWhite: rgb(254, 254, 254);
-    --themeTitleBlack: rgb(85, 85, 85);
+    --themeDarkGrey: rgb(85, 85, 85);
     --themeLogoGrey: rgb(119, 119, 119);
-    --themeIconBlack: rgb(51, 51, 51);
+    --themeBlack: rgb(51, 51, 51);
     --themeButtonBlue: rgb(0, 105, 217);
 }
 
@@ -12,7 +12,129 @@ html {
 }
 
 body {
-    color: var(--themeIconBlack);
+    color: var(--themeBlack);
     font-family: 'Mukta', sans-serif;
     font-size: 14px;
+}
+
+.site__logo {
+    display: inline-block;
+    padding: 12px 16px;
+    color: #000;
+    border: 2px solid var(--themeLogoGrey);
+    font-size: 2.2em;
+    font-weight: 500;
+}
+
+.header__tagline {
+    height: 2em;
+    padding: 5px 0;
+    color: #fff;
+    background: #000;
+    font-size: 1.2em;
+}
+
+/* Navbar */
+.nav__logo {
+    padding: 4px 8px;
+    font-size: 1.6em;
+}
+
+.nav__logo:hover,
+.nav__logo:focus,
+.nav__logo:active {
+    color: #000 !important;
+    background: transparent;
+}
+
+.nav__toggler {
+    padding: 0;
+    font-size: 1.5em;
+    color: var(--themeBlack);
+}
+
+.nav__toggler:hover,
+.nav__toggler:focus,
+.nav__toggler:active {
+    color: #111 !important;
+    background: transparent;
+}
+
+.nav__icons-width {
+    width: 200px;
+    /* width: 225px; */
+}
+
+.nav__icons-position {
+    position: absolute;
+    top: 5px;
+    right: 1rem;
+}
+
+.nav__icons {
+    padding: 0;
+    font-size: 1.4em;
+    color: var(--themeDarkGrey);
+}
+
+.nav__icons:hover,
+.nav__icons:focus,
+.nav__icons:active {
+    color: var(--themeButtonBlue) !important;
+    background: transparent;
+    transition: ease-in-out, .35s;
+}
+
+.nav__links {
+    padding: 0.5em !important;
+    color: var(--themeDarkGrey) !important;
+    font-weight: 400;
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
+
+.nav__links:hover {
+    color:#000 !important;
+    background: transparent;
+}
+
+.nav__links:active,
+.nav__links:focus {
+    color:#fefefe !important;
+    background: var(--themeDarkGrey);
+    transition: ease-in-out, .45s;
+}
+
+/* Media Queries */
+
+/* Small devices (tablets, 576px and up) */
+@media (min-width: 576px) {
+
+    .nav__icons-width {
+        width: 300px;
+    }
+
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+    body {
+        font-size: 16px;
+    }
+
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+    .nav__icons-width {
+        width: 225px;
+    }
+
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
 }
