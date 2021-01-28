@@ -117,6 +117,47 @@ body {
     transition: ease-in-out, .45s;
 }
 
+
+/* Footer */
+.footer__logo {
+    padding: 2px 4px;
+    font-size: 0.8em;
+}
+
+footer h4 {
+    font-size: 1em;
+}
+
+.footer__links {
+    padding: 0;
+    font-size: 0.8em;
+    color: var(--themeDarkGrey);
+}
+
+.footer__links:hover,
+.footer__links:focus,
+.footer__links:active {
+    color: #000 !important;
+    background: transparent;
+    text-decoration: none;
+    transition: ease-in-out, .35s;
+}
+
+.social__icons {
+    padding: 0;
+    font-size: 0.6em;
+    color: var(--themeIconBlack);
+}
+
+.social__icons:hover,
+.social__icons:focus,
+.social__icons:active {
+    color: var(--themeButtonBlue) !important;
+    background: transparent;
+    transition: ease-in-out, .35s;
+}
+
+
 /* Media Queries */
 
 /* Small devices (tablets, 576px and up) */
