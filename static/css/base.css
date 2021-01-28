@@ -38,6 +38,12 @@ body {
     background: var(--themePageGrey);
 }
 
+.page__title {
+    color: var(--themeTitleBlack);
+    font-size: 2.2em;
+    text-transform: uppercase;
+}
+
 .shop__button {
     padding: 0.5em 1.5em;
     font-size: 1.25rem;
