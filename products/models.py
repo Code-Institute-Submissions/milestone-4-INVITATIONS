@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 
 
 class Category(models.Model):
@@ -20,10 +19,11 @@ class Product(models.Model):
         on_delete=models.SET_NULL)
     name = models.CharField(max_length=254)
     description = models.TextField()
-    customization = models.TextField()
+    customization = models.TextField(blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     featured = models.BooleanField(default=False)
-    date_created = models.DateField(auto_now_add=True, blank=True, null=True)
+    date_created = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True)
     raw_image = models.ImageField(blank=True)
     view_image = models.ImageField(blank=True)
 
