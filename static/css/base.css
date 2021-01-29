@@ -35,6 +35,7 @@ body {
 }
 
 .page__default {
+    min-height: 70vh;
     background: var(--themePageGrey);
 }
 
