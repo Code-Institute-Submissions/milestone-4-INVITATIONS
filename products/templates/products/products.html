@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<main class="container-fluid page__default">
+    <div class="container pt-4 pt-md-5 pb-3 pb-md-5 pl-1 pl-md-5 pl-lg-0 pr-1 pr-md-5 pr-lg-0">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="mb-4 page__title">all products</h1>
+            </div>
+        </div>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-sm-6 col-lg-4 col-xl-3 mb-4">
+                    <div class="card h-100">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title product__title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.price }}</p>
+                            <a href="#" class="btn btn-primary">View</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+
+{% endblock %}

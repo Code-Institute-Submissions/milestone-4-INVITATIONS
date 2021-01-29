@@ -124,6 +124,11 @@ body {
     transition: ease-in-out, .45s;
 }
 
+/* Products */
+
+.product__title {
+    font-size: 1.2em;
+}
 
 /* Footer */
 .footer__logo {
