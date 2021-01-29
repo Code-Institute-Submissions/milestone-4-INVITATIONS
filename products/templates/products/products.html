@@ -3,20 +3,31 @@
 
 {% block content %}
 <main class="container-fluid page__default">
-    <div class="container pt-4 pt-md-5 pb-3 pb-md-5 pl-1 pl-md-5 pl-lg-0 pr-1 pr-md-5 pr-lg-0">
+    <div class="product__container pt-5 pb-5">
+        <!-- Page header -->
         <div class="row">
             <div class="col-12">
                 <h1 class="mb-4 page__title">all products</h1>
             </div>
         </div>
+        <!-- Display products -->
         <div class="row">
             {% for product in products %}
-                <div class="col-sm-6 col-lg-4 col-xl-3 mb-4">
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4">
                     <div class="card h-100">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
+                        {% if product.view_image %}
+                            <a href="#">
+                                <img class="card-img-top img-fluid" src="{{ product.view_image.url }}" alt="{{ product.name }}">
+                            </a>
+                            {% else %}
+                            <a href="#">
+                                <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-found.png" alt="{{ product.name }}">
+                            </a>
+                        {% endif %}
+                        <div class="card-body pt-2 pb-2">
                             <h5 class="card-title product__title">{{ product.name }}</h5>
-                            <p class="card-text">{{ product.price }}</p>
+                            <p class="card-text product__price">£{{ product.price }}</p>
+
                             <a href="#" class="btn btn-primary">View</a>
                         </div>
                     </div>

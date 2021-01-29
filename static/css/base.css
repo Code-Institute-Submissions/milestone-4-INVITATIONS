@@ -125,9 +125,18 @@ body {
 }
 
 /* Products */
+.product__container {
+    width: 85%;
+    margin: 0 auto;
+}
 
 .product__title {
-    font-size: 1.2em;
+    font-size: 1em;
+}
+
+.product__price {
+    font-size: 1.8em;
+    font-weight: bold;
 }
 
 /* Footer */
