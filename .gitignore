@@ -6,4 +6,5 @@ core.python*
 env.py
 __pycache__/
 *.py[cod]
+.theia/
 
