@@ -144,7 +144,36 @@ body {
 }
 
 .product__featured {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
     color: orangered;
+    font-size: 1.5em;
+}
+
+.product__link {
+    color: var(--themeBlack);
+}
+
+.product__link:hover,
+.product__link:focus,
+.product__link:active {
+    color: var(--themeBlack);
+    text-decoration: none;
+}
+
+
+.product__admin {
+
+}
+
+.product__admin-btn {
+    padding: 2px 8px;
+    margin-left: 10px;
+    float: right;
+    border-radius: 0;
+    font-size: 0.8em;
 }
 
 /* Footer */

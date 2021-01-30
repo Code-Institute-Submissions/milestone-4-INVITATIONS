@@ -14,38 +14,43 @@
         <div class="row">
             {% for product in products %}
                 <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4 {{ product_border }}">
-                    <a href="#">
-                        <div class="card h-100 product__card">
-                            {% if product.view_image %}
-                                <a href="#">
-                                    <img class="card-img-top img-fluid" src="{{ product.view_image.url }}" alt="{{ product.name }}">
-                                </a>
-                                {% else %}
-                                <a href="#">
-                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-found.png" alt="{{ product.name }}">
+                    <div class="card h-100 product__card">
+                        {% if product.view_image %}
+                            <a href="#detail">
+                                <img class="card-img-top img-fluid" src="{{ product.view_image.url }}" alt="{{ product.name }}">
+                            </a>
+                            {% else %}
+                            <a href="#">
+                                <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-found.png" alt="{{ product.name }}">
+                            </a>
+                        {% endif %}
+                        <a class="product__link" href="#detail">
+                            <div class="card-body pt-0 pb-0">
+                                <h5 class="card-title product__title">{{ product.name }}</h5>
+                                <p class="card-text product__price mb-0">£{{ product.price }}</p>
+                            </div>
+                        </a>
+                        <div class="card-footer bg-white border-0 pt-0">
+                            <p class="small mt-1 mb-0">
+                            {% if product.category %}
+                                <a class="text-muted" href="#cat" alt="Category: {{ product.category.display_name }}" title="Category: {{ product.category.display_name }}">
+                                    <i class="fas fa-tag mr-1"></i>{{ product.category.display_name }}
                                 </a>
                             {% endif %}
-                            <div class="card-body pt-2 pb-2">
-                                <h5 class="card-title product__title">{{ product.name }}</h5>
-                            </div>
-                            <div class="card-footer bg-white border-0">
-                                <p class="card-text product__price">£{{ product.price }}</p>
-                                <!-- <a href="{% url 'home' %}" class="btn btn-primary">View</a> -->
-                                <p class="small mt-1 mb-0">
-                                {% if product.category %}
-                                    <a class="text-muted" href="#cat" alt="Category: {{ product.category.display_name }}" title="Category: {{ product.category.display_name }}">
-                                        <i class="fas fa-tag mr-1"></i>{{ product.category.display_name }}
-                                    </a>
-                                {% endif %}
-                                {% if product.featured %}
-                                    <a class="product__featured float-right" href="#feat" alt="Featured product" title="Featured product">
-                                        <i class="fas fa-star mr-1"></i>
-                                    </a>
-                                </p>
-                                {% endif %}
-                            </div>
+                            {% if product.featured %}
+                                <a class="product__featured float-right" href="#feat" alt="Featured product" title="Featured product">
+                                    <i class="fas fa-star mr-1"></i>
+                                </a>
+                            </p>
+                            {% endif %}
+                            {% if request.user.is_superuser %}
+                                <div class="mt-2">
+                                    <a href="#edit" class="btn btn-success product__admin-btn" role="button" >EDIT</a>
+                                    <a href="#delete" class="btn btn-danger product__admin-btn" role="button" >DELETE</a>
+                                </div>
+                            {% endif %}
                         </div>
-                    </a>
+                    </div>
                 </div>
             {% endfor %}
         </div>
