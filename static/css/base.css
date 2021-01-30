@@ -135,6 +135,8 @@ body {
 }
 
 .product__title {
+    height: 2em;
+    margin-bottom: 4px;
     font-size: 1.2em;
 }
 
