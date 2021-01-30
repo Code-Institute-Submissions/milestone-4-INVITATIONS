@@ -7,7 +7,17 @@
         <!-- Page header -->
         <div class="row">
             <div class="col-12">
-                <h1 class="mb-4 page__title">all products</h1>
+                <h1 class="mb-0 page__title">{{ main_title }}</h1>
+                {% if categories %}
+                    <div class="d-flex mt-0 mb-4">
+                        {% for category in categories %}
+                            <div class="flex-wrap text-capitalize">{{ category.display_name }}</div>
+                            <!-- <br class="d-sm-none"> -->
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="mt-0 mb-4"></p>
+                {% endif %}
             </div>
         </div>
         <!-- Display products -->

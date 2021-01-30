@@ -71,9 +71,9 @@
                             <a class="dropdown-item" href="#">By Category</a>
                             <a class="dropdown-item" href="#">By Rating</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">New Products</a>
-                            <a class="dropdown-item" href="#">Featured Products</a>
-                            <a class="dropdown-item" href="#">All Products</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?show=new">New Products</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?show=featured">Featured Products</a>
+                            <a class="dropdown-item" href="{% url 'products' %}">All Products</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown mr-lg-4">
@@ -81,11 +81,11 @@
                             Invitations
                         </a>
                         <div class="dropdown-menu" aria-labelledby="invitations-dropdown">
-                            <a class="dropdown-item" href="#">Wedding</a>
-                            <a class="dropdown-item" href="#">Birthday</a>
-                            <a class="dropdown-item" href="#">Social Event</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?category=wedding">Wedding</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?category=birthday">Birthday</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?category=social">Social Event</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">All Invitations</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?show=invitations&category=wedding,birthday,social">All Invitations</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -93,11 +93,11 @@
                             Stationery
                         </a>
                         <div class="dropdown-menu" aria-labelledby="stationery-dropdown">
-                            <a class="dropdown-item" href="#">Paper</a>
-                            <a class="dropdown-item" href="#">Envelopes</a>
-                            <a class="dropdown-item" href="#">Markers, pens, etc</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?category=paper">Paper</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?category=envelopes">Envelopes</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?category=markers_pens">Markers, pens, etc</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">All Stationery</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?show=stationery&category=paper,envelopes,markers_pens">All Stationery</a>
                         </div>
                     </li>
                 </ul>
