@@ -13,24 +13,39 @@
         <!-- Display products -->
         <div class="row">
             {% for product in products %}
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4">
-                    <div class="card h-100">
-                        {% if product.view_image %}
-                            <a href="#">
-                                <img class="card-img-top img-fluid" src="{{ product.view_image.url }}" alt="{{ product.name }}">
-                            </a>
-                            {% else %}
-                            <a href="#">
-                                <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-found.png" alt="{{ product.name }}">
-                            </a>
-                        {% endif %}
-                        <div class="card-body pt-2 pb-2">
-                            <h5 class="card-title product__title">{{ product.name }}</h5>
-                            <p class="card-text product__price">£{{ product.price }}</p>
-
-                            <a href="#" class="btn btn-primary">View</a>
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4 {{ product_border }}">
+                    <a href="#">
+                        <div class="card h-100 product__card">
+                            {% if product.view_image %}
+                                <a href="#">
+                                    <img class="card-img-top img-fluid" src="{{ product.view_image.url }}" alt="{{ product.name }}">
+                                </a>
+                                {% else %}
+                                <a href="#">
+                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-found.png" alt="{{ product.name }}">
+                                </a>
+                            {% endif %}
+                            <div class="card-body pt-2 pb-2">
+                                <h5 class="card-title product__title">{{ product.name }}</h5>
+                            </div>
+                            <div class="card-footer bg-white border-0">
+                                <p class="card-text product__price">£{{ product.price }}</p>
+                                <!-- <a href="{% url 'home' %}" class="btn btn-primary">View</a> -->
+                                <p class="small mt-1 mb-0">
+                                {% if product.category %}
+                                    <a class="text-muted" href="#cat" alt="Category: {{ product.category.display_name }}" title="Category: {{ product.category.display_name }}">
+                                        <i class="fas fa-tag mr-1"></i>{{ product.category.display_name }}
+                                    </a>
+                                {% endif %}
+                                {% if product.featured %}
+                                    <a class="product__featured float-right" href="#feat" alt="Featured product" title="Featured product">
+                                        <i class="fas fa-star mr-1"></i>
+                                    </a>
+                                </p>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             {% endfor %}
         </div>
