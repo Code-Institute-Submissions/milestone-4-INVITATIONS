@@ -48,6 +48,39 @@
             Free delivery on all orders over £25
         </div>
 
+        <!-- Search Box Modal -->
+        <div class="modal" id="search-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form action="{% url 'products' %}" method="GET">
+                            <div class="float-right">
+                                <button type="button" class="search__close close" data-dismiss="modal">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="input-group search__input mt-2">
+                                <input class="form-control" type="text" name="q" placeholder="Search products">
+                                <div class="input-group-append">
+                                    <button class="form-control" id="search-clear-text">
+                                        <span class="">
+                                            <i class="fas fa-backspace"></i>
+                                        </span>
+                                    </button>
+                                    <button class="form-control" type="submit">
+                                        <span class="">
+                                            <i class="fas fa-search"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of search box modal -->
+
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-white">
             <a class="navbar-brand d-none d-lg-block mr-0" href="{% url 'home' %}">
@@ -112,7 +145,7 @@
                         </a>
                     </div>
                     <div class="d-flex">
-                        <a href="#search-box" id="nav-search-btn" class="nav-link nav__icons" data-toggle="collapse">
+                        <a href="#" id="nav-search-btn" class="nav-link search__icon"  data-toggle="modal" data-target="#search-modal">
                             <i class="fas fa-search"></i>
                         </a>
                     </div>
@@ -139,6 +172,7 @@
 
             <!-- Div to pad out the navbar when the logo is removed -->
             <div class="nav__icons-width d-none d-lg-flex"></div>
+
         </nav>
 
         {% block page_header %}
