@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 
 from .models import Product, Category
 
@@ -10,6 +10,8 @@ def products(request):
     main_title = 'all products'
     categories = None
     show = None
+    search_text = None
+
     if 'show' in request.GET:
         show = request.GET['show']
 
@@ -39,12 +41,21 @@ def products(request):
             products = Product.objects.order_by('-date_created')[:2]
             main_title = 'new products'
 
+        elif 'search-text' in request.GET:
+            search_text = request.GET['search-text']
+            if not search_text:
+                return redirect(reverse('products'))
+
+            products = Product.objects.all().filter(
+                name__icontains=search_text).order_by(default_sort)
+
     else:
         products = Product.objects.all().order_by(default_sort)
 
     context = {
         'products': products,
         'main_title': main_title,
+        'search_text': search_text,
         'categories': categories,
     }
 
