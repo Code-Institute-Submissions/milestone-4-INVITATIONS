@@ -45,7 +45,7 @@
                         <div class="card-footer bg-white border-0 pt-0">
                             <p class="small mt-1 mb-0">
                             {% if product.category %}
-                                <a class="text-muted" href="#cat" alt="Category: {{ product.category.display_name }}" title="Category: {{ product.category.display_name }}">
+                                <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}" alt="Category: {{ product.category.display_name }}" title="Category: {{ product.category.display_name }}">
                                     <i class="fas fa-tag mr-1"></i>{{ product.category.display_name }}
                                 </a>
                             {% endif %}
