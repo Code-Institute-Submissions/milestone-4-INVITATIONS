@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<main class="container-fluid page__default">
+    <div class="product__container pt-5 pb-5">
+        <!-- Product -->
+        <div class="row">
+            <!-- Product image -->
+            <div class="col-12 col-md-6 offset-lg-2 col-lg-4 pr-0">
+                {% if product.view_image %}
+                    <img class="card-img-top img-fluid" src="{{ product.view_image.url }}" alt="{{ product.name }}">
+                {% else %}
+                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ product.name }}">
+                {% endif %}
+                {% if product.featured %}
+                    <a class="product__featured float-right" href="#feat" alt="Featured product" title="Featured product">
+                        <i class="fas fa-star mr-1"></i>
+                    </a>
+                {% endif %}
+            </div>
+            <!-- Product details -->
+            <div class="col-12 col-md-6 col-lg-4 d-flex flex-column justify-content-between">
+                <!-- Product name, price and description -->
+                <div class="row">
+                    <div class="col-12">
+                        <h5 class="product__title">{{ product.name }}</h5>
+                        <p class="product__price mt-0 mb-0">£{{ product.price }}</p>
+                        <hr>
+                        <p class="product__descr">{{ product.description }}</p>
+                    </div>
+                </div>
+                <!-- Product category tag, admin links -->
+                <div class="row">
+                    <div class="col-12">
+                        {% if product.category %}
+                            <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}" alt="Category: {{ product.category.display_name }}" title="Category: {{ product.category.display_name }}">
+                                <i class="fas fa-tag mr-1"></i>{{ product.category.display_name }}
+                            </a>
+                        {% endif %}
+                        {% if request.user.is_superuser %}
+                                <a href="#edit" class="btn btn-success product__admin-btn" role="button" >EDIT</a>
+                                <a href="#delete" class="btn btn-danger product__admin-btn" role="button" >DELETE</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
