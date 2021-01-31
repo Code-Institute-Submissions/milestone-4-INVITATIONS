@@ -10,7 +10,7 @@
             <div class="col-12">
                 <h1 class="mb-0 page__title">{{ main_title }}</h1>
                 {% if categories and categories|length > 1 %}
-                    <div class="d-flex mt-0 mb-4">
+                    <div class="d-flex mt-0 mb-0">
                         {% for category in categories %}
                             <a href="{% url 'products' %}?category={{ category.name }}" class="text-muted">
                                 <div class="flex-wrap text-capitalize mr-3">{{ category.display_name }}</div>
@@ -18,14 +18,15 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    <div class="d-flex mt-0 mb-4">&nbsp;</div>
+                    <div class="d-flex mt-0">&nbsp;</div>
                 {% endif %}
+                <hr class="mt-1">
             </div>
         </div>
         <!-- Display products -->
         <div class="row">
             {% for product in products %}
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4 {{ product_border }}">
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4">
                     <div class="card h-100 product__card">
                         {% if product.view_image %}
                             <a href="{% url 'product_info' product.id %}">
@@ -63,6 +64,10 @@
                             {% endif %}
                         </div>
                     </div>
+                </div>
+            {% empty %}
+                <div class="col-12 mb-4">
+                    <div class="text-uppercase">no products found</div>
                 </div>
             {% endfor %}
         </div>
