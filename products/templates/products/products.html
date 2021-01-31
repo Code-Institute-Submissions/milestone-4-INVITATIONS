@@ -17,6 +17,8 @@
                             </a>
                         {% endfor %}
                     </div>
+                {% elif search_text %}
+                    <div class="d-flex mt-0">found for <em>"{{ search_text }}"</em></div>
                 {% else %}
                     <div class="d-flex mt-0">&nbsp;</div>
                 {% endif %}
