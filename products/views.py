@@ -16,23 +16,19 @@ def products(request):
     if request.GET:
         if 'category' in request.GET:
             categories = request.GET['category'].split(',')
-            print(len(categories))
             products = Product.objects.filter(
                 category__name__in=categories).order_by(
                     'category', default_sort)
-            # categories = list(Category.objects.filter(name__in=categories))
             categories = Category.objects.filter(name__in=categories)
+
             if len(categories) == 1:
-                # main_title = "single name"
-                # main_title = [category.display_name for category in categories]
-                for category in categories:
-                    main_title = category.display_name
-                    print(main_title)
+                main_title = categories[0].display_name
             else:
                 main_title = show
-            # print(type(categories))
-            # for category in categories:
-            #     print(category.display_name)
+
+            if main_title == 'invitations':
+                for cat in categories:
+                    cat.display_name = cat.display_name.rpartition(' ')[0]
 
         elif show == 'featured':
             products = Product.objects.filter(
