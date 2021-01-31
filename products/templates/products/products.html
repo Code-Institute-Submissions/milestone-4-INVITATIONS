@@ -28,15 +28,15 @@
                 <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-4 {{ product_border }}">
                     <div class="card h-100 product__card">
                         {% if product.view_image %}
-                            <a href="#detail">
+                            <a href="{% url 'product_info' product.id %}">
                                 <img class="card-img-top img-fluid" src="{{ product.view_image.url }}" alt="{{ product.name }}">
                             </a>
                             {% else %}
-                            <a href="#">
+                            <a href="{% url 'product_info' product.id %}">
                                 <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ product.name }}">
                             </a>
                         {% endif %}
-                        <a class="product__link" href="#detail">
+                        <a class="product__link" href="{% url 'product_info' product.id %}">
                             <div class="card-body pt-0 pb-0">
                                 <h5 class="card-title product__title">{{ product.name }}</h5>
                                 <p class="card-text product__price mb-0">£{{ product.price }}</p>
