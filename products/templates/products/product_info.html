@@ -14,7 +14,7 @@
                     <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ product.name }}">
                 {% endif %}
                 {% if product.featured %}
-                    <a class="product__featured float-right" href="#feat" alt="Featured product" title="Featured product">
+                    <a class="product__featured float-right" href="{% url 'products' %}?show=featured" alt="View more featured products" title="View more featured products">
                         <i class="fas fa-star icon"></i>
                     </a>
                 {% endif %}
