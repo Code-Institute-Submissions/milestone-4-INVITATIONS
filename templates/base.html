@@ -56,20 +56,20 @@
                         <form action="{% url 'products' %}" method="GET">
                             <div class="float-right">
                                 <button type="button" class="search__close close" data-dismiss="modal">
-                                    <i class="fas fa-times"></i>
+                                    <i class="fas fa-times icon"></i>
                                 </button>
                             </div>
                             <div class="input-group search__input mt-2">
                                 <input class="form-control" type="text" id="search-text" name="search-text" placeholder="Search products">
                                 <div class="input-group-append">
-                                    <button class="form-control" id="search-clear-text">
+                                    <button class="form-control p-0" id="search-clear-text">
                                         <span class="">
-                                            <i class="fas fa-backspace"></i>
+                                            <i class="fas fa-backspace icon"></i>
                                         </span>
                                     </button>
-                                    <button class="form-control" type="submit">
+                                    <button class="form-control p-0" type="submit">
                                         <span class="">
-                                            <i class="fas fa-search"></i>
+                                            <i class="fas fa-search icon"></i>
                                         </span>
                                     </button>
                                 </div>
@@ -141,17 +141,17 @@
                 <div class="d-flex justify-content-between mt-2">
                     <div class="d-flex d-lg-none">
                         <a class="nav-link nav__icons" href="{% url 'home' %}">
-                            <i class="fas fa-home"></i>
+                            <i class="fas fa-home icon"></i>
                         </a>
                     </div>
                     <div class="d-flex">
                         <a href="#" id="nav-search-btn" class="nav-link search__icon"  data-toggle="modal" data-target="#search-modal">
-                            <i class="fas fa-search"></i>
+                            <i class="fas fa-search icon"></i>
                         </a>
                     </div>
                     <div class="d-flex">
                         <a class="nav-link nav__icons" href="#" id="my-account-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-user-alt"></i>
+                            <i class="fas fa-user-alt icon"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="my-account-dropdown">
                             <a class="dropdown-item" href="{% url 'account_login' %}">Login</a>
@@ -164,7 +164,7 @@
                     </div>
                     <div class="d-flex">
                         <a class="nav-link nav__icons" href="#">
-                            <i class="fas fa-shopping-cart"></i>
+                            <i class="fas fa-shopping-cart icon"></i>
                         </a>
                     </div>
                 </div>
