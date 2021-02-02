@@ -181,6 +181,15 @@ body {
     font-size: 1.5em;
 }
 
+
+.product__featured:hover,
+.product__featured:focus,
+.product__featured:active {
+    color: var(--themeButtonBlue);
+    transition: ease-in-out, .35s;
+    text-decoration: none;
+}
+
 .product__link {
     color: var(--themeBlack);
 }

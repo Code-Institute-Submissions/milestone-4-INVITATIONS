@@ -47,17 +47,17 @@
                         </a>
                         <div class="card-footer bg-white border-0 pt-0">
                             <p class="small mt-1 mb-0">
-                            {% if product.category %}
-                                <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}" alt="Category: {{ product.category.display_name }}" title="Category: {{ product.category.display_name }}">
-                                    <i class="fas fa-tag mr-1"></i>{{ product.category.display_name }}
-                                </a>
-                            {% endif %}
-                            {% if product.featured %}
-                                <a class="product__featured float-right" href="#feat" alt="Featured product" title="Featured product">
-                                    <i class="fas fa-star icon" title="Featured product"></i>
-                                </a>
+                                {% if product.category %}
+                                    <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}" alt="Category: {{ product.category.display_name }}" title="Category: {{ product.category.display_name }}">
+                                        <i class="fas fa-tag mr-1"></i>{{ product.category.display_name }}
+                                    </a>
+                                {% endif %}
+                                {% if product.featured %}
+                                    <a class="product__featured float-right" href="{% url 'product_info' product.id %}" alt="Featured product" title="Featured product">
+                                        <i class="fas fa-star icon" title="Featured product"></i>
+                                    </a>
+                                {% endif %}
                             </p>
-                            {% endif %}
                             {% if request.user.is_superuser %}
                                 <div class="mt-2">
                                     <a href="#edit" class="btn btn-success product__admin-btn" role="button" >EDIT</a>
