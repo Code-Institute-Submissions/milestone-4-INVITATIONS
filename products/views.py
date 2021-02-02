@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.db.models import Q
 
 from .models import Product, Category
 
@@ -46,8 +47,12 @@ def products(request):
             if not search_text:
                 return redirect(reverse('products'))
 
+            text_query = Q(
+                name__icontains=search_text) | Q(
+                    description__icontains=search_text)
+
             products = Product.objects.all().filter(
-                name__icontains=search_text).order_by(default_sort)
+                text_query).order_by(default_sort)
 
     else:
         products = Product.objects.all().order_by(default_sort)
