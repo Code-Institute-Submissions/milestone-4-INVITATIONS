@@ -62,7 +62,7 @@
                             <div class="input-group search__input mt-2">
                                 <input class="form-control rounded-0" type="text" id="search-text" name="search-text" placeholder="search products">
                                 <div class="input-group-append">
-                                    <button class="btn btn-secondary rounded-0 p-0 border-right-0" id="search-clear-text">
+                                    <button class="btn btn-secondary rounded-0 p-0 border-right-0" type="button" id="search-clear-text">
                                         <span class="">
                                             <i class="fas fa-backspace icon"></i>
                                         </span>
@@ -293,7 +293,6 @@
 
             // Reset the search text when clicked
             $('#search-clear-text').click(function (e) {
-               e.preventDefault();
                $('#search-text').val('');
                $('#search-text').trigger('focus');
             });
