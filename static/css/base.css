@@ -151,8 +151,9 @@ body {
 }
 
 .product__title {
-    height: 2em;
+    height: 2.4em;
     margin-bottom: 4px;
+    overflow: hidden;
     font-size: 1.2em;
 }
 
