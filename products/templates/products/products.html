@@ -73,6 +73,20 @@
                 </div>
             {% endfor %}
         </div>
+        <div class="page__top-btn nav__icons">
+            <span alt="Page top" title="Page top">
+                <i class="fas fa-chevron-circle-up"></i>
+            </span>	
+        </div>
     </div>
 </main>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script type="text/javascript">
+		$('.page__top-btn').click(function(e) {
+			window.scrollTo(0,0)
+		})
+	</script>
 {% endblock %}

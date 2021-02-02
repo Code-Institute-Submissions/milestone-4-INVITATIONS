@@ -55,6 +55,17 @@ body {
     text-transform: uppercase;
 }
 
+.page__top-btn {
+    height: 42px;
+    width: 42px;
+    position: fixed;
+    /* 86px is the height of the nav area */
+    bottom: calc((100% - 86px) / 2);
+    right: 0;
+    font-size: 1.6em !important;
+    cursor: pointer;
+}
+
 .shop__button {
     padding: 0.5em 1.5em;
     font-size: 1.25rem;
@@ -180,7 +191,6 @@ body {
     color: orangered;
     font-size: 1.5em;
 }
-
 
 .product__featured:hover,
 .product__featured:focus,
