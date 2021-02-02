@@ -60,7 +60,7 @@
                                 </button>
                             </div>
                             <div class="input-group search__input mt-2">
-                                <input class="form-control" type="text" name="search-text" placeholder="Search products">
+                                <input class="form-control" type="text" id="search-text" name="search-text" placeholder="Search products">
                                 <div class="input-group-append">
                                     <button class="form-control" id="search-clear-text">
                                         <span class="">
@@ -280,5 +280,26 @@
                 </div>
             </div>
         </footer>
+
+        {% block postloadjs %}
+        <script type="text/javascript">
+
+            // Give the text input field focus when the modal is shown
+            $(document).ready(function() {
+                $('#search-modal').on('shown.bs.modal', function() {
+                    $('#search-text').trigger('focus');
+                });
+            });
+
+            // Reset the search text when clicked
+            $('#search-clear-text').click(function (e) {
+               e.preventDefault();
+               $('#search-text').val('');
+               $('#search-text').trigger('focus');
+            });
+
+        </script>
+        {% endblock %}
+        
     </body>
 </html>
