@@ -39,7 +39,7 @@ def products(request):
             main_title = 'featured products'
 
         elif show == 'new':
-            products = Product.objects.order_by('-date_created')[:2]
+            products = Product.objects.order_by('-date_created')[:4]
             main_title = 'new products'
 
         elif 'search-text' in request.GET:
