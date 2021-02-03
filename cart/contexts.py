@@ -15,13 +15,16 @@ def cart_contents(request):
     for product_id, item_quantity in cart.items():
         if isinstance(item_quantity, int):
             product = get_object_or_404(Product, pk=product_id)
-            cart_total += item_quantity * product.price
+            line_total = item_quantity * product.price
+            cart_total += line_total
             product_count += item_quantity
             cart_items.append({
                 'product_id': product_id,
                 'quantity': item_quantity,
                 'name': product.name,
+                'price': product.price,
                 'image': product.view_image,
+                'line_total': line_total,
             })
 
     grand_total = delivery + cart_total
