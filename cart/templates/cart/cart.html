@@ -13,7 +13,7 @@
         </div>
         <!-- Cart column headings -->
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 col-lg-8">
                 <div class="row d-none d-sm-flex">
                     <div class="col-12 col-sm-2">
                         <p><strong>Product</strong></p>
@@ -31,10 +31,13 @@
                     </div>
                 </div>
             </div>
+            <div class="d-none col-lg-4 d-lg-block">
+                <p>&nbsp;</p>
+            </div>
         </div>
-        <!-- Display cart contents -->
+        <!-- Cart contents -->
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 col-lg-8">
                 {% for item in cart_items %}
                     <div class="row">
                         <div class="col-12 col-sm-2">
@@ -78,6 +81,29 @@
                         </div>
                     </div>
                 {% endfor %}
+            </div>
+            <div class="d-none col-lg-4 d-lg-block pl-5">
+                <div class="row mr-0">
+                    <div class="col-12 pt-2 bg-info">
+                        <h3>Summary</h3>
+                        <hr>
+                        <p>Product sub-Total: £{{ cart_total }}</p>
+                        <p>Delivery cost: £{{ cart_delivery|floatformat:2 }}</p>
+                        <h3><strong>Total £{{ cart_grand_total|floatformat:2 }}</strong></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Cart totals -->
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12">
+                        Product sub-Total: £{{ cart_total }}
+                        Delivery cost: £{{ cart_delivery|floatformat:2 }}
+                        Total: £{{ cart_grand_total|floatformat:2 }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
