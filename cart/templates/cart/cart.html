@@ -10,15 +10,68 @@
                 <h1 class="mb-0 page__title">shopping cart</h1>
                 <hr class="mt-1">
             </div>
-        </div>        
+        </div>
+        <!-- Display cart items -->
+        <div class="row">
+            <div class="col-12">
+                <div class="row d-none d-sm-flex">
+                    <div class="col-12 col-sm-2">
+                        <p><strong>Product</strong></p>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <p></p>
+                    </div>
+                    <div class="col-12 col-sm-2 text-right">
+                        <p><strong>Price</strong></p>
+                    </div>
+                    <div class="col-12 col-sm-2 text-right">
+                        <p><strong>Qty</strong></p>
+                    </div>
+                    <div class="col-12 col-sm-2 text-right">
+                        <p><strong>Total</strong></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
         <div class="row">
             <div class="col-12">
                 {% for item in cart_items %}
                     <div class="row">
-                        <div class="col-12 col-sm-6 mb-2">
-                            <p>Name: {{ item.name }} | Qty: {{ item.quantity }} | {{ item.image }}</p>
+                        <div class="col-12 col-sm-2">
+                            {% if item.image %}
+                                <a href="{% url 'product_info' item.product_id %}">
+                                    <img class="card-img-top img-fluid" src="{{ item.image.url }}" alt="{{ item.name }}">
+                                </a>
+                                {% else %}
+                                <a href="{% url 'product_info' item.product_id %}">
+                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ item.name }}">
+                                </a>
+                            {% endif %}
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <p class="mt-2 mt-sm-0">{{ item.name }}</p>
+                        </div>
+                        <div class="col-6 col-sm-2 text-sm-right">
+                            <p>
+                                <span class="d-sm-none"><strong>Price: </strong></span>
+                                £{{ item.price }}
+                            </p>
+                        </div>
+                        <div class="col-6 col-sm-2 text-right">
+                            <p>
+                                <span class="d-sm-none"><strong>Qty: </strong></span>
+                                {{ item.quantity }}
+                            </p>
+                        </div>
+                        <div class="col-12 col-sm-2 text-right">
+                            <p>
+                                <span class="d-sm-none"><strong>Total: </strong></span>
+                                £{{ item.line_total }}
+                            </p>
                         </div>
                     </div>
+                    <hr>
                 {% empty %}
                     <div class="row">
                         <div class="col-12 col-sm-6 mb-2">
