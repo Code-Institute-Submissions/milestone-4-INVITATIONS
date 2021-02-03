@@ -11,7 +11,7 @@
                 <hr class="mt-1">
             </div>
         </div>
-        <!-- Display cart items -->
+        <!-- Cart column headings -->
         <div class="row">
             <div class="col-12">
                 <div class="row d-none d-sm-flex">
@@ -19,7 +19,6 @@
                         <p><strong>Product</strong></p>
                     </div>
                     <div class="col-12 col-sm-4">
-                        <p></p>
                     </div>
                     <div class="col-12 col-sm-2 text-right">
                         <p><strong>Price</strong></p>
@@ -31,9 +30,9 @@
                         <p><strong>Total</strong></p>
                     </div>
                 </div>
-
             </div>
         </div>
+        <!-- Display cart contents -->
         <div class="row">
             <div class="col-12">
                 {% for item in cart_items %}
