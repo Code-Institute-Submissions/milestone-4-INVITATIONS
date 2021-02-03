@@ -234,6 +234,18 @@ body {
     right: 0;
 }
 
+/* Cart */
+.cart__badge {
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: -6px;
+    padding: .2em .36em;
+    background: limegreen;
+    color: white;
+    font-weight: 600;
+}
+
 /* Footer */
 .footer__logo {
     padding: 2px 4px;
