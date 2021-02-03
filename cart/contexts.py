@@ -2,8 +2,8 @@ def cart_contents(request):
 
     cart_items = []
     cart_total = 0
-    product_count = 5
-    delivery = 6
+    product_count = 0
+    delivery = 0
     grand_total = 0
 
     cart = request.session.get('cart', {})
