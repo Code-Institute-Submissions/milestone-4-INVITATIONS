@@ -1,4 +1,7 @@
 from django.shortcuts import get_object_or_404
+from django.conf import settings
+from decimal import Decimal
+
 from products.models import Product
 
 
@@ -7,7 +10,6 @@ def cart_contents(request):
     cart_items = []
     cart_total = 0
     product_count = 0
-    delivery = 0
     grand_total = 0
 
     cart = request.session.get('cart', {})
@@ -27,7 +29,12 @@ def cart_contents(request):
                 'line_total': line_total,
             })
 
-    grand_total = delivery + cart_total
+    if cart_total < settings.FREE_DELIVERY_AMOUNT:
+        delivery = Decimal(settings.STANDARD_DELIVERY_CHARGE)
+    else:
+        delivery = 0
+
+    grand_total = (delivery + cart_total)
 
     context = {
             'cart_items': cart_items,
