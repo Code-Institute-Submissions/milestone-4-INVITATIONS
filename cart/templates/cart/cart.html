@@ -13,11 +13,19 @@
         </div>        
         <div class="row">
             <div class="col-12">
-                TEST TOTAL: {{ cart_product_count }}
-                <br>
-                TEST DELIVERY: {{ cart_delivery }}
-            </div>
-            <div class="col-12 col-md-6">
+                {% for item in cart_items %}
+                    <div class="row">
+                        <div class="col-12 col-sm-6 mb-2">
+                            <p>Name: {{ item.name }} | Qty: {{ item.quantity }} | {{ item.image }}</p>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="row">
+                        <div class="col-12 col-sm-6 mb-2">
+                            <p>Your shopping cart is currently empty.</p>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>
