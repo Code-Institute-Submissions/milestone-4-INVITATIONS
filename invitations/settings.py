@@ -157,3 +157,7 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Delivery values
+FREE_DELIVERY_AMOUNT = 15
+STANDARD_DELIVERY_CHARGE = 6.99
