@@ -80,7 +80,7 @@
                                                 <i class="fas fa-minus icon"></i>
                                             </button>
                                         </div>
-                                        <input class="form-control form-control-sm text-center" type="number" value="{{ item.quantity }}" name="qty-item-{{ item.product_id }}" id="qty-item-{{ item.product_id }}">
+                                        <input class="form-control form-control-sm text-center" type="number" min="1" max="99" value="{{ item.quantity }}" name="qty-item-{{ item.product_id }}" id="qty-item-{{ item.product_id }}">
                                         <div class="input-group-append">
                                             <button class="btn btn-light rounded-0 p-0 qty__btn" type="button" id="btn-plus-item-{{ item.product_id }}">
                                                 <i class="fas fa-plus icon"></i>
@@ -117,8 +117,35 @@
 {% block postloadjs %}
     {{ block.super }}
     <script type="text/javascript">
-        $('.qty__btn').click(function(){
-            console.log('Button clicked');
+        // Add event listeners for the qty buttons to add and subtract from their qty
+        $('.qty__btn').click(function(e){
+            buttonClicked = e.currentTarget.id;
+            whichQtyButton = buttonClicked.split('-');
+
+            if (whichQtyButton[1] == 'plus') {
+                currentQty = parseInt($('#qty-item-' + whichQtyButton[3]).val());
+                if (currentQty < 99) {
+                    currentQty++;
+                    $(`#btn-minus-item-${whichQtyButton[3]}`).prop('disabled', false);
+                }
+                if (currentQty == 99) {
+                    $('#' + e.currentTarget.id).prop('disabled', true);
+                }
+            }
+
+            if (whichQtyButton[1] == 'minus') {
+                currentQty = parseInt($('#qty-item-' + whichQtyButton[3]).val());
+                if (currentQty > 1) {
+                    currentQty--;
+                    $(`#btn-plus-item-${whichQtyButton[3]}`).prop('disabled', false);
+                }
+                if (currentQty == 1) {
+                    $('#' + e.currentTarget.id).prop('disabled', true);
+                }
+            }
+
+            $('#qty-item-' + whichQtyButton[3]).val(currentQty);
+
         });
     </script>
 {% endblock %}
