@@ -49,68 +49,79 @@
         <div class="row">
             <!-- Cart items -->
             <div class="col-12 col-xl-8">
-                {% for item in cart_items %}
-                    <div class="row">
-                        <div class="col-12 col-sm-2">
-                            {% if item.image %}
-                                <a href="{% url 'product_info' item.product_id %}">
-                                    <img class="card-img-top img-fluid" src="{{ item.image.url }}" alt="{{ item.name }}">
-                                </a>
-                                {% else %}
-                                <a href="{% url 'product_info' item.product_id %}">
-                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ item.name }}">
-                                </a>
-                            {% endif %}
-                        </div>
-                        <div class="col-12 col-sm-4">
-                            <p class="mt-2 mt-sm-0">{{ item.name }}</p>
-                        </div>
-                        <div class="col-6 col-sm-1 text-sm-right">
-                            <p>
-                                <span class="d-sm-none"><strong>Price: </strong></span>
-                                £{{ item.price }}
-                            </p>
-                        </div>
-                        <div class="col-6 col-sm-3 text-right">
-                                <span class="d-sm-none"><strong>Qty: </strong></span>
-                                <form>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <button class="btn btn-light rounded-0 p-0 qty__btn" type="button" id="btn-minus-item-{{ item.product_id }}">
-                                                <i class="fas fa-minus icon"></i>
-                                            </button>
+                <form id="form-update-cart" method="POST" action="{% url 'update_cart_qty' %}">
+                    {% csrf_token %}
+                    {% for item in cart_items %}
+                        <div class="row">
+                            <div class="col-12 col-sm-2">
+                                {% if item.image %}
+                                    <a href="{% url 'product_info' item.product_id %}">
+                                        <img class="card-img-top img-fluid" src="{{ item.image.url }}" alt="{{ item.name }}">
+                                    </a>
+                                    {% else %}
+                                    <a href="{% url 'product_info' item.product_id %}">
+                                        <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ item.name }}">
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <p class="mt-2 mt-sm-0">{{ item.name }}</p>
+                            </div>
+                            <div class="col-6 col-sm-1 text-sm-right">
+                                <p>
+                                    <span class="d-sm-none"><strong>Price: </strong></span>
+                                    £{{ item.price }}
+                                </p>
+                            </div>
+                            <div class="col-6 col-sm-3 text-right">
+                                    <span class="d-sm-none"><strong>Qty: </strong></span>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <button class="btn btn-light rounded-0 p-0 qty__btn" type="button" id="btn-minus-item-{{ item.product_id }}">
+                                                    <i class="fas fa-minus icon"></i>
+                                                </button>
+                                            </div>
+                                            <input class="form-control form-control-sm text-center" type="number" min="1" max="99" value="{{ item.quantity }}" name="qty-item-{{ item.product_id }}" id="qty-item-{{ item.product_id }}">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-light rounded-0 p-0 qty__btn" type="button" id="btn-plus-item-{{ item.product_id }}">
+                                                    <i class="fas fa-plus icon"></i>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <input class="form-control form-control-sm text-center" type="number" min="1" max="99" value="{{ item.quantity }}" name="qty-item-{{ item.product_id }}" id="qty-item-{{ item.product_id }}">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-light rounded-0 p-0 qty__btn" type="button" id="btn-plus-item-{{ item.product_id }}">
-                                                <i class="fas fa-plus icon"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                                <a class="float-right" href="{% url 'remove_item' item.product_id %}"><small>Remove Item</small></a>
+                                    <a class="float-right" href="{% url 'remove_item' item.product_id %}"><small>Remove Item</small></a>
+                            </div>
+                            <div class="col-12 col-sm-2 text-right">
+                                <p>
+                                    <span class="d-sm-none"><strong>Total: </strong></span>
+                                    £{{ item.line_total }}
+                                </p>
+                            </div>
                         </div>
-                        <div class="col-12 col-sm-2 text-right">
-                            <p>
-                                <span class="d-sm-none"><strong>Total: </strong></span>
-                                £{{ item.line_total }}
-                            </p>
+                        <hr>
+                    {% empty %}
+                        <div class="row">
+                            <div class="col-12 col-sm-6 mb-2">
+                                <p>Your shopping cart is currently empty.</p>
+                            </div>
                         </div>
-                    </div>
-                    <hr>
-                {% empty %}
-                    <div class="row">
-                        <div class="col-12 col-sm-6 mb-2">
-                            <p>Your shopping cart is currently empty.</p>
-                        </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </form>
             </div>
+
             <!-- Cart totals summary (large screens) -->
             <div class="d-none col-xl-4 d-xl-block pl-5">
                 {% include "cart/cart-totals-summary.html" %}
             </div>
+
+            <!-- Update shopping cart -->
+            <div class="col-12 col-xl-8">
+                <button class="btn btn-success rounded-0 float-right" id="btn-update-cart" type="button">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>UPDATE CART</span>
+                </button>
+            </div>
         </div>
+
     </div>
 </main>
 {% endblock %}
@@ -118,6 +129,12 @@
 {% block postloadjs %}
     {{ block.super }}
     <script type="text/javascript">
+
+        $('#btn-update-cart').click(function(){
+            $('#form-update-cart').submit();
+            console.log('submit button pressed');
+        });
+
         // Add event listeners for the qty buttons to add and subtract from their qty
         $('.qty__btn').click(function(e){
             buttonClicked = e.currentTarget.id;
