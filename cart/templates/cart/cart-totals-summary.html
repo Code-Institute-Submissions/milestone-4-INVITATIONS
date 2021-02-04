@@ -1,0 +1,24 @@
+<div class="row m-0">
+    <div class="col-12 pt-2 bg__action-grey">
+        <h3>Summary</h3>
+        <hr class="mt-1">
+        <div class="pt-2 pb-2">
+            <span class="">Product Subtotal</span>
+            <span class="font-weight-bold float-right">£{{ cart_total }}</span>
+        </div>
+        <div class="pt-2 pb-2">
+            <span class="">Delivery Cost</span>
+            <span class="font-weight-bold float-right">£{{ cart_delivery|floatformat:2 }}</span>
+        </div>
+        <div class="pt-3 pb-2">
+            <span class="font-weight-bold fz__lg">Total</span>
+            <span class="font-weight-bold float-right fz__lg">£{{ cart_grand_total|floatformat:2 }}</span>
+        </div>
+    </div>
+    <div class="col-12 p-0 text-center">
+        <a class="w-100 btn btn-primary rounded-0 p-2 fz__lg" href="#">
+            <i class="fas fa-lock icon"></i>
+            <span class="font-weight-bold">Checkout Securely</span>
+        </a>
+    </div>
+</div>
