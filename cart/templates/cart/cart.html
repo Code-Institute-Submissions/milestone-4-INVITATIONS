@@ -12,7 +12,7 @@
             </div>
         </div>
         <!-- Cart totals summary (smaller screens) -->
-        <div class="row mb-4 d-lg-none">
+        <div class="row mb-4 d-xl-none">
             <div class="col-12">
                 <div class="row">
                     <div class="col-12">
@@ -23,17 +23,17 @@
         </div>
         <!-- Cart column headings -->
         <div class="row">
-            <div class="col-12 col-lg-8">
+            <div class="col-12 col-xl-8">
                 <div class="row d-none d-sm-flex">
                     <div class="col-12 col-sm-2">
                         <p><strong>Product</strong></p>
                     </div>
                     <div class="col-12 col-sm-4">
                     </div>
-                    <div class="col-12 col-sm-2 text-right">
+                    <div class="col-12 col-sm-1 text-right">
                         <p><strong>Price</strong></p>
                     </div>
-                    <div class="col-12 col-sm-2 text-right">
+                    <div class="col-12 col-sm-3 text-right">
                         <p><strong>Qty</strong></p>
                     </div>
                     <div class="col-12 col-sm-2 text-right">
@@ -41,14 +41,14 @@
                     </div>
                 </div>
             </div>
-            <div class="d-none col-lg-4 d-lg-block">
+            <div class="d-none col-xl-4 d-xl-block">
                 <p>&nbsp;</p>
             </div>
         </div>
         <!-- Cart contents -->
         <div class="row">
             <!-- Cart items -->
-            <div class="col-12 col-lg-8">
+            <div class="col-12 col-xl-8">
                 {% for item in cart_items %}
                     <div class="row">
                         <div class="col-12 col-sm-2">
@@ -65,17 +65,29 @@
                         <div class="col-12 col-sm-4">
                             <p class="mt-2 mt-sm-0">{{ item.name }}</p>
                         </div>
-                        <div class="col-6 col-sm-2 text-sm-right">
+                        <div class="col-6 col-sm-1 text-sm-right">
                             <p>
                                 <span class="d-sm-none"><strong>Price: </strong></span>
                                 £{{ item.price }}
                             </p>
                         </div>
-                        <div class="col-6 col-sm-2 text-right">
-                            <p>
+                        <div class="col-6 col-sm-3 text-right">
                                 <span class="d-sm-none"><strong>Qty: </strong></span>
-                                {{ item.quantity }}
-                            </p>
+                                <form>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-light rounded-0 p-0 qty__btn" type="button" id="btn-minus-item-{{ item.product_id }}">
+                                                <i class="fas fa-minus icon"></i>
+                                            </button>
+                                        </div>
+                                        <input class="form-control form-control-sm text-center" type="number" value="{{ item.quantity }}" name="qty-item-{{ item.product_id }}" id="qty-item-{{ item.product_id }}">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-light rounded-0 p-0 qty__btn" type="button" id="btn-plus-item-{{ item.product_id }}">
+                                                <i class="fas fa-plus icon"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                         </div>
                         <div class="col-12 col-sm-2 text-right">
                             <p>
@@ -94,10 +106,19 @@
                 {% endfor %}
             </div>
             <!-- Cart totals summary (large screens) -->
-            <div class="d-none col-lg-4 d-lg-block pl-5">
+            <div class="d-none col-xl-4 d-xl-block pl-5">
                 {% include "cart/cart-totals-summary.html" %}
             </div>
         </div>
     </div>
 </main>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script type="text/javascript">
+        $('.qty__btn').click(function(){
+            console.log('Button clicked');
+        });
+    </script>
 {% endblock %}
