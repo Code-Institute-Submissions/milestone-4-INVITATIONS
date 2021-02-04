@@ -88,7 +88,7 @@
                                         </div>
                                     </div>
                                 </form>
-                                <a class="float-right" href="#{{ item.product_id }}"><small>Remove Item</small></a>
+                                <a class="float-right" href="{% url 'remove_item' item.product_id %}"><small>Remove Item</small></a>
                         </div>
                         <div class="col-12 col-sm-2 text-right">
                             <p>

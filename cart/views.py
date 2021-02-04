@@ -26,3 +26,16 @@ def add_to_cart(request, product_id):
 
     request.session['cart'] = cart
     return redirect(original_path)
+
+
+def remove_item(request, product_id):
+    """ A view to remove an item from the shopping cart """
+    cart = request.session.get('cart', {})
+
+    print(cart)
+    print(type(cart))
+    cart.pop(product_id)
+    print(cart)
+
+    request.session['cart'] = cart
+    return render(request, 'cart/cart.html')
