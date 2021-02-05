@@ -156,11 +156,11 @@
 
             if (whichQtyButton[1] == 'minus') {
                 currentQty = parseInt($('#qty-item-' + whichQtyButton[3]).val());
-                if (currentQty > 1) {
+                if (currentQty > 0) {
                     currentQty--;
                     $(`#btn-plus-item-${whichQtyButton[3]}`).prop('disabled', false);
                 }
-                if (currentQty == 1) {
+                if (currentQty == 0) {
                     $('#' + e.currentTarget.id).prop('disabled', true);
                 }
             }

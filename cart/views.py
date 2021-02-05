@@ -52,10 +52,11 @@ def update_cart_qty(request):
     for product_id_element, item_quantity in form_data:
         print(f'Part= {product_id_element[0:3]}')
         if product_id_element[0:3] == 'qty':
-            product_id = product_id_element.split('-')[-1]
             item_quantity = int(item_quantity)
-            print(f'Product ID: {product_id_element} is ID: {product_id} with qty of: {item_quantity}')
-            cart[product_id] = item_quantity
+            if item_quantity > 0:
+                product_id = product_id_element.split('-')[-1]
+                print(f'Product ID: {product_id_element} is ID: {product_id} with qty of: {item_quantity}')
+                cart[product_id] = item_quantity
 
     request.session['cart'] = cart
     return render(request, 'cart/cart.html')
