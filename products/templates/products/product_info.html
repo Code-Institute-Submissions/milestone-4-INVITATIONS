@@ -21,26 +21,45 @@
             </div>
             <!-- Product details -->
             <div class="col-12 col-md-6 col-lg-4 d-flex flex-column justify-content-between">
-                <!-- Product name, price and description -->
+                <!-- Product name, price, qty and description -->
                 <div class="row">
+                    <form class="form" action="{% url 'add_to_cart' product.id %}" method="POST">
                     <div class="col-12">
                         <h5 class="product__title">{{ product.name }}</h5>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <p class="product__price mt-0 mb-0">£{{ product.price }}</p>
                             </div>
-                            <div class="col-md-6">
-                                <form class="form" action="{% url 'add_to_cart' product.id %}" method="POST">
+                            <!-- Quantity to add to the cart -->
+                            <div class="col-6">
+                                
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-light rounded-0 p-0 qty__btn" type="button" id="btn-minus-item-{{ product.id }}">
+                                            <i class="fas fa-minus icon"></i>
+                                        </button>
+                                    </div>
+                                    <input class="form-control form-control-sm text-center" type="number" min="1" max="99" value="1" name="qty-item-{{ product.id }}" id="qty-item-{{ product.id }}">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-light rounded-0 p-0 qty__btn" type="button" id="btn-plus-item-{{ product.id }}">
+                                            <i class="fas fa-plus icon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                                              
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
                                     {% csrf_token %}
                                     <input type="submit" class="btn btn-primary" value="Add to Cart">
                                     <input type="hidden" name="original_path" value="{{ request.path }}">
-                                </form>
                             </div>
                         </div>
-                        
                         <hr>
                         <p class="product__descr">{{ product.description }}</p>
                     </div>
+                    </form>
                 </div>
                 <!-- Product category tag, admin links -->
                 <div class="row">
@@ -60,4 +79,8 @@
         </div>
     </div>
 </main>
+{% endblock %}
+{% block postloadjs %}
+    {{ block.super }}
+    {% include 'cart/includes/quantity_buttons_script.html' %}
 {% endblock %}
