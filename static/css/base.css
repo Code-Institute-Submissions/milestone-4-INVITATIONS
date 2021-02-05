@@ -245,6 +245,12 @@ body {
 }
 
 /* Cart */
+
+.cart__container {
+    width: 75%;
+    margin: 0 auto;
+}
+
 .cart__badge {
     border-radius: 50%;
     position: absolute;
@@ -301,6 +307,10 @@ footer h4 {
 /* Small devices (tablets, 576px and up) */
 @media (min-width: 576px) {
 
+    .cart__container {
+        width: 95%;
+    }
+
     .nav__icons-width {
         width: 300px;
     }
@@ -312,6 +322,10 @@ footer h4 {
 
     body {
         font-size: 16px;
+    }
+
+    .cart__container {
+        width: 85%;
     }
 
 }
