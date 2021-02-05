@@ -134,40 +134,14 @@
     {{ block.super }}
     <script type="text/javascript">
 
+        /* 
+         * Add event listeners to submit the update cart form.
+         */
         $('#btn-update-cart').click(function(){
             $('#form-update-cart').submit();
             console.log('submit button pressed');
         });
 
-        // Add event listeners for the qty buttons to add and subtract from their qty
-        $('.qty__btn').click(function(e){
-            buttonClicked = e.currentTarget.id;
-            whichQtyButton = buttonClicked.split('-');
-
-            if (whichQtyButton[1] == 'plus') {
-                currentQty = parseInt($('#qty-item-' + whichQtyButton[3]).val());
-                if (currentQty < 99) {
-                    currentQty++;
-                    $(`#btn-minus-item-${whichQtyButton[3]}`).prop('disabled', false);
-                }
-                if (currentQty == 99) {
-                    $('#' + e.currentTarget.id).prop('disabled', true);
-                }
-            }
-
-            if (whichQtyButton[1] == 'minus') {
-                currentQty = parseInt($('#qty-item-' + whichQtyButton[3]).val());
-                if (currentQty > 0) {
-                    currentQty--;
-                    $(`#btn-plus-item-${whichQtyButton[3]}`).prop('disabled', false);
-                }
-                if (currentQty == 0) {
-                    $('#' + e.currentTarget.id).prop('disabled', true);
-                }
-            }
-
-            $('#qty-item-' + whichQtyButton[3]).val(currentQty);
-
-        });
     </script>
+    {% include 'cart/includes/quantity_buttons_script.html' %}
 {% endblock %}
