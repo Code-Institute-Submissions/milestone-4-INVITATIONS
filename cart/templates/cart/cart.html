@@ -69,7 +69,7 @@
                             </div>
                             <div class="col-5 col-sm-1 text-sm-right">
                                 <p>
-                                    <span class="d-sm-none"><strong>Price: </strong></span>
+                                    <span class="d-sm-none"><strong>Price:<br></strong></span>
                                     £{{ item.price }}
                                 </p>
                             </div>
@@ -91,8 +91,8 @@
                                     <a class="float-right" href="{% url 'remove_item' item.product_id %}"><small>Remove Item</small></a>
                             </div>
                             <div class="col-12 col-sm-2 text-right">
-                                <p>
-                                    <span class="d-sm-none"><strong>Total: </strong></span>
+                                <p class="mt-1 mt-sm-0 mb-0">
+                                    <span class="d-sm-none"><strong>Product Total: </strong></span>
                                     £{{ item.line_total }}
                                 </p>
                             </div>
