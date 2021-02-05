@@ -10,7 +10,13 @@ def view_cart(request):
 def add_to_cart(request, product_id):
     """ A view to add an item to the shopping cart """
 
-    quantity = 1
+    qty_element = f'qty-item-{product_id}'
+    print(f'Qty ELE: {qty_element}')
+
+    form_qty = int(request.POST.get(qty_element))
+    print(f'Value is: {form_qty}')
+
+    quantity = form_qty
     original_path = request.POST.get('original_path')
     print(f'Path: {original_path}')
     cart = request.session.get('cart', {})
