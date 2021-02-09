@@ -12,15 +12,17 @@
             </div>
         </div>
         <!-- Cart totals summary (smaller screens) -->
-        <div class="row mb-4 d-xl-none">
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-12">
-                        {% include "cart/cart-totals-summary.html" %}
+        {% if cart_items %}
+            <div class="row mb-4 d-xl-none">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            {% include "cart/cart-totals-summary.html" %}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
         <!-- Cart column headings -->
         <div class="row">
             <div class="col-12 col-xl-8">
@@ -121,10 +123,11 @@
             </div>
 
             <!-- Cart totals summary (large screens) -->
-            <div class="d-none col-xl-4 d-xl-block pl-5">
-                {% include "cart/cart-totals-summary.html" %}
-            </div>
-
+            {% if cart_items %}
+                <div class="d-none col-xl-4 d-xl-block pl-5">
+                    {% include "cart/cart-totals-summary.html" %}
+                </div>
+            {% endif %}
 
         </div>
 
