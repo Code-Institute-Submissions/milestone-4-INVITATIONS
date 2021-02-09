@@ -262,6 +262,19 @@ body {
     font-weight: 600;
 }
 
+/* Toasts */
+.toast {
+    position: fixed;
+    right: 16px;
+    top: 85px;
+    width: 90%;
+    z-index: 99999;
+    color: #000;
+    background: rgba(225, 225, 225, 0.95);
+    border: 1px solid var(--themeLogoGrey);
+    border-radius: 0;
+}
+
 /* Footer */
 .footer__logo {
     padding: 2px 4px;
