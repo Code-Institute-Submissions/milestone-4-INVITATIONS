@@ -275,6 +275,20 @@ body {
     border-radius: 0;
 }
 
+.toast-header {
+    color: #fefefe;
+    font-size: 1em;
+    font-weight: normal;
+}
+
+.toast__header-25 {
+    background: #0f842a;
+}
+
+.toast-body {
+    background: #fefefe;
+}
+
 /* Footer */
 .footer__logo {
     padding: 2px 4px;
