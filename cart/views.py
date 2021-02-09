@@ -57,4 +57,6 @@ def update_cart_qty(request):
                 cart[product_id] = item_quantity
 
     request.session['cart'] = cart
+    messages.success(request, 'Shopping cart quantities have been updated.',
+                              extra_tags='shopping cart quantities')
     return render(request, 'cart/cart.html')
