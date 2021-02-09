@@ -291,7 +291,13 @@ body {
 }
 
 .toast-body {
+    max-height: 350px;
+    overflow:auto;
     background: #fefefe;
+}
+
+.toast__item-name {
+    line-height: 1.2;
 }
 
 /* Footer */

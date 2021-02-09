@@ -22,7 +22,7 @@ def add_to_cart(request, product_id):
         cart[product_id] += quantity
         messages.success(request, f'{product.name} quantity has been \
                                   updated to {cart[product_id]}.',
-                                  extra_tags='shopping cart updated')
+                                  extra_tags='updated shopping cart')
     else:
         cart[product_id] = quantity
         messages.success(request, f'(x{cart[product_id]}) {product.name}\
