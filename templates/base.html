@@ -176,7 +176,12 @@
 
         </nav>
 
-        {% block page_header %}
+        {% block messages %}
+            {% for message in messages %}
+                <div>
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endblock %}
 
         {% block content %}
