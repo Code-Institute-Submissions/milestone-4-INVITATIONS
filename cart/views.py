@@ -1,5 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+
+from products.models import Product
 
 
 def view_cart(request):
@@ -14,14 +16,18 @@ def add_to_cart(request, product_id):
     quantity = int(request.POST.get(f'qty-item-{product_id}'))
     original_path = request.POST.get('original_path')
     cart = request.session.get('cart', {})
+    product = get_object_or_404(Product, pk=product_id)
 
     if product_id in list(cart.keys()):
         cart[product_id] += quantity
+        messages.success(request, f'{product.name} quantity has been \
+                                  updated to {cart[product_id]}.')
     else:
         cart[product_id] = quantity
+        messages.success(request, f'(x{cart[product_id]}) {product.name} \
+                                  has been added to your shopping cart.')
 
     request.session['cart'] = cart
-    messages.success(request, f'{product_id} has been added to your shopping cart.')
     return redirect(original_path)
 
 
