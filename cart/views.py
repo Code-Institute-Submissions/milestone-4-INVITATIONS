@@ -37,7 +37,11 @@ def remove_item(request, product_id):
     """ A view to remove an item from the shopping cart """
     cart = request.session.get('cart', {})
     cart.pop(product_id)
+    product = get_object_or_404(Product, pk=product_id)
     request.session['cart'] = cart
+    messages.success(request, f'{product.name} \
+                              has been removed from your shopping cart.',
+                              extra_tags='removed from shopping cart')
     return render(request, 'cart/cart.html')
 
 
