@@ -21,11 +21,13 @@ def add_to_cart(request, product_id):
     if product_id in list(cart.keys()):
         cart[product_id] += quantity
         messages.success(request, f'{product.name} quantity has been \
-                                  updated to {cart[product_id]}.')
+                                  updated to {cart[product_id]}.',
+                                  extra_tags='shopping cart updated')
     else:
         cart[product_id] = quantity
         messages.success(request, f'(x{cart[product_id]}) {product.name} \
-                                  has been added to your shopping cart.')
+                                  has been added to your shopping cart.',
+                                  extra_tags='added to shopping cart')
 
     request.session['cart'] = cart
     return redirect(original_path)

@@ -179,9 +179,9 @@
         {% block messages %}
             {% for message in messages %}
                 <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false" data-delay="5000">
-                    <div class="toast-header toast__header-{{ message.level }}">
-                        <strong class="mr-auto">Level: {{ message.level }}</strong>
-                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <div class="toast-header {{ message.level_tag }}">
+                        <strong class="mr-auto">{{ message.extra_tags|upper }}</strong>
+                        <button type="button" class="ml-2 mb-1 close toast__close" data-dismiss="toast" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
