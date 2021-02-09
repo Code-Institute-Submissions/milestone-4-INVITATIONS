@@ -27,12 +27,11 @@
                     <div class="col-12">
                         <h5 class="product__title">{{ product.name }}</h5>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-6 col-sm-8 col-md-6 col-xl-7">
                                 <p class="product__price mt-0 mb-0">£{{ product.price }}</p>
                             </div>
                             <!-- Quantity to add to the cart -->
-                            <div class="col-6">
-                                
+                            <div class="col-6 col-sm-4 col-md-6 col-xl-5">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <button class="btn btn-light rounded-0 p-0 qty__btn" type="button" id="btn-minus-item-{{ product.id }}">
@@ -46,7 +45,6 @@
                                         </button>
                                     </div>
                                 </div>
-                                                              
                             </div>
                         </div>
                         <div class="row">
