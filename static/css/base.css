@@ -279,10 +279,15 @@ body {
     color: #fefefe;
     font-size: 1em;
     font-weight: normal;
+    border-radius: 0;
 }
 
-.toast__header-25 {
+.toast__success {
     background: #0f842a;
+}
+
+.toast__close {
+    color: #fefefe;
 }
 
 .toast-body {
