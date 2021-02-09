@@ -25,8 +25,9 @@ def add_to_cart(request, product_id):
                                   extra_tags='shopping cart updated')
     else:
         cart[product_id] = quantity
-        messages.success(request, f'(x{cart[product_id]}) {product.name} \
-                                  has been added to your shopping cart.',
+        messages.success(request, f'(x{cart[product_id]}) {product.name}\
+                                  {" has" if quantity == 1 else " have"} \
+                                  been added to your shopping cart.',
                                   extra_tags='added to shopping cart')
 
     request.session['cart'] = cart
