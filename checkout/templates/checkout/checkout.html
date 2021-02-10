@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% load static %}
 
 {% block content %}
@@ -83,8 +84,8 @@
                 <h2 class="page__subtitle pt-3 pt-lg-2">Order Form <span class="small d-inline d-md-none d-lg-inline"> (to complete your order)</span></h2>
                 <form action="" method="POST" id="checkout-payment-form">
                     {% csrf_token %}
-                    {{ order_form.full_name }}
-                    {{ order_form.email }}
+                    {{ order_form.full_name|as_crispy_field }}
+                    {{ order_form.email|as_crispy_field }}
                 </form>
             </div>
         </div>
