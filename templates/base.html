@@ -222,7 +222,7 @@
                         <!-- Only show toast footer if message comes from a product page -->
                         {% if 'ADDED' in msg_title or 'UPDATE' in msg_title %}
                             <div class="toast-footer">
-                                <a class="w-100 btn btn-primary rounded-0 p-2 fz__lg" href="#">
+                                <a class="w-100 btn btn-primary rounded-0 p-2 fz__lg" href="{% url 'view_checkout' %}">
                                     <i class="fas fa-lock icon" aria-hidden="true"></i>
                                     <span class="font-weight-bold">Secure Checkout</span>
                                 </a>
