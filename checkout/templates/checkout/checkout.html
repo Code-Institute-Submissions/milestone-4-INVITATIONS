@@ -14,10 +14,18 @@
         <div class="row">
             <!-- Order summary -->
             <div class="col-12 col-md-6">
-                <p>Order Summary</p>
+                <h2 class="page__subtitle pt-1">Order Summary<span class="small"> ({{ cart_product_count }} items)</span></h2>
+                <div class="row mt-1">
+                    <div class="col-10">
+                        <p class="mb-1 small text-muted">Item Details & Qty</p>
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-1 small text-muted float-right">Subtotal</p>
+                    </div>
+                </div>            
                 {% for item in cart_items %}
-                    <div class="row toast__shopping-cart no-gutters mt-1">
-                        <div class="col-3">
+                    <div class="row mt-1">
+                        <div class="col-2">
                             {% if item.image %}
                                 <a href="{% url 'product_info' item.product_id %}">
                                     <img class="card-img-top img-fluid" src="{{ item.image.url }}" alt="{{ item.name }}">
@@ -28,20 +36,51 @@
                                 </a>
                             {% endif %}                                            
                         </div>
-                        <div class="col-9 font-weight-bolder">
-                            <p class="toast__item-name mb-0 ml-2">
+                        <div class="col-7 p-0 font-weight-bolder">
+                            <p class="mb-0 ml-2 line-h__sm">
                                 {{ item.name|truncatechars:72 }}
                             </p>
                             <p class="mt-0 ml-2">
                                 <small>Qty: {{ item.quantity }}</small>
                             </p>
                         </div>
+                        <div class="col-3 pl-0 text-right">
+                            <p>
+                                £{{ item.line_total|floatformat:2 }}
+                            </p>
+                        </div>
                     </div>
+                    <hr class="mt-1 mb-1">
                 {% endfor %}
+                <div class="row font-weight-bold">
+                    <div class="col-9">
+                        <p class="mt-1 mb-1 float-right">Order Total:</p>
+                    </div>
+                    <div class="col-3">
+                        <p class="mt-1 mb-1 float-right">£{{ cart_total|floatformat:2 }}</p>
+                    </div>
+                </div>
+                <div class="row font-weight-bold">
+                    <div class="col-9">
+                        <p class="mt-1 mb-1 float-right">Delivery:</p>
+                    </div>
+                    <div class="col-3">
+                        <p class="mt-1 mb-1 float-right">£{{ cart_delivery|floatformat:2 }}</p>
+                    </div>
+                </div>
+                <div class="row font-weight-bold">
+                    <div class="col-9">
+                        <p class="mt-1 mb-1 float-right">Grand Total:</p>
+                    </div>
+                    <div class="col-3">
+                        <p class="mt-1 mb-1 float-right">£{{ cart_grand_total|floatformat:2 }}</p>
+                    </div>
+                </div>
+                <hr class="mt-1 mb-1">
             </div>
             <!-- Checkout form -->
-            <div class="col-12 col-md-6">
-                <p>To complete your order, please fill out the form below. Thank you</p>
+            <div class="col-12 col-md-6 pl-2 pl-lg-5">
+                <h2 class="page__subtitle pt-3 pt-lg-2">Order Form <span class="small d-inline d-md-none d-lg-inline"> (to complete your order)</span></h2>
                 <p>Checkout form fields</p>
                 <p>Checkout form fields</p>
                 <p>Checkout form fields</p>

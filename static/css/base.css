@@ -23,6 +23,10 @@ body {
     font-size: 1.5em;
 }
 
+.line-h__sm {
+    line-height: 1.2;
+}
+
 .bg__action-grey {
     background: rgb(221, 221, 221);
 }
@@ -63,6 +67,11 @@ body {
     color: var(--themeTitleBlack);
     font-size: 2.2em;
     text-transform: uppercase;
+}
+
+.page__subtitle {
+    color: var(--themeLogoGrey);
+    font-size: 1.6em;
 }
 
 .page__top-btn {
@@ -302,7 +311,7 @@ body {
 
 /* Checkout */
 .checkout__container {
-    width: 75%;
+    width: 85%;
     margin: 0 auto;
 }
 
@@ -356,6 +365,7 @@ footer h4 {
         width: 95%;
     }
 
+
     .nav__icons-width {
         width: 300px;
     }
@@ -370,10 +380,6 @@ footer h4 {
     }
 
     .cart__container {
-        width: 85%;
-    }
-
-    .checkout__container {
         width: 85%;
     }
 
