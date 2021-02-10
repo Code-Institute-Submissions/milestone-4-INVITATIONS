@@ -19,7 +19,7 @@ class Product(models.Model):
         on_delete=models.SET_NULL)
     name = models.CharField(max_length=254)
     description = models.TextField()
-    customization = models.TextField(blank=True)
+    customization = models.TextField(default='', blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     featured = models.BooleanField(default=False)
     date_created = models.DateTimeField(
