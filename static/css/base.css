@@ -300,6 +300,13 @@ body {
     line-height: 1.2;
 }
 
+/* Checkout */
+.checkout__container {
+    width: 75%;
+    margin: 0 auto;
+}
+
+
 /* Footer */
 .footer__logo {
     padding: 2px 4px;
@@ -363,6 +370,10 @@ footer h4 {
     }
 
     .cart__container {
+        width: 85%;
+    }
+
+    .checkout__container {
         width: 85%;
     }
 

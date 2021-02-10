@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<main class="container-fluid page__default">
+    <div class="checkout__container pt-5 pb-5">
+        <!-- Page header -->
+        <div class="row">
+            <div class="col-12">
+                <h1 class="mb-0 page__title">secure checkout</h1>
+                <hr class="mt-1">
+            </div>
+        </div>
+        <div class="row">
+            <!-- Order summary -->
+            <div class="col-12 col-md-6">
+                <p>Order Summary</p>
+                {% for item in cart_items %}
+                    <div class="row toast__shopping-cart no-gutters mt-1">
+                        <div class="col-3">
+                            {% if item.image %}
+                                <a href="{% url 'product_info' item.product_id %}">
+                                    <img class="card-img-top img-fluid" src="{{ item.image.url }}" alt="{{ item.name }}">
+                                </a>
+                                {% else %}
+                                <a href="{% url 'product_info' item.product_id %}">
+                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ item.name }}">
+                                </a>
+                            {% endif %}                                            
+                        </div>
+                        <div class="col-9 font-weight-bolder">
+                            <p class="toast__item-name mb-0 ml-2">
+                                {{ item.name|truncatechars:72 }}
+                            </p>
+                            <p class="mt-0 ml-2">
+                                <small>Qty: {{ item.quantity }}</small>
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- Checkout form -->
+            <div class="col-12 col-md-6">
+                <p>To complete your order, please fill out the form below. Thank you</p>
+                <p>Checkout form fields</p>
+                <p>Checkout form fields</p>
+                <p>Checkout form fields</p>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script type="text/javascript">
+    </script>
+{% endblock %}
