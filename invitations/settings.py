@@ -176,3 +176,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Delivery values
 FREE_DELIVERY_AMOUNT = 15
 STANDARD_DELIVERY_CHARGE = 10
+
+# Stripe
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')

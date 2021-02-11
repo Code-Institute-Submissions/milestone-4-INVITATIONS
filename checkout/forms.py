@@ -2,7 +2,7 @@ from django import forms
 from .models import Order
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, HTML, Field
+from crispy_forms.layout import Layout, Row, Column, HTML, Field, Div
 
 
 class OrderForm(forms.ModelForm):
@@ -47,13 +47,19 @@ class OrderForm(forms.ModelForm):
                        css_class='form-group col-sm-6 mb-0 pl-0 pr-1'),
                 css_class='form-row'
             ),
-            HTML('<button type="submit" '
+            HTML('<p class="small text-muted mt-3 mb-1">Card Details</p>'),
+            HTML('<div id="card-element">'
+                 '<!--Stripe.js injects the Card Element--></div>'),
+            HTML('<p id="card-error" role="alert"></p>'),
+            HTML('<p class="result-message hidden">Payment succeeded.</p>'),
+            HTML('<button id="order-submit" '
                  'class="btn btn-primary rounded-0 mt-2 float-right">'
+                 '<span class="hidden" id="spinner">'
+                 '<i class="fas fa-spinner"></i></span>'
+                 '<span class="" id="button-text">'
                  '<i class="fas fa-lock icon" aria-hidden="true"></i>'
-                 'Make Payment</button>'),
+                 'Make Payment</button></span>'),
         )
-
-        # self.helper.add_input(Submit('submit', 'Make Payment'))
 
         self.fields['full_name'].widget.attrs['autofocus'] = True
 
