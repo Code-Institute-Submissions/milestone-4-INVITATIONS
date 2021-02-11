@@ -97,11 +97,12 @@
 
         var form = document.getElementById("id-orderform");
         // The items the customer wants to buy
+
+        // stripeCartItems = JSON.parse(document.getElementById('stripe-cart-items').textContent);
+        
         var purchase = {
         items: [{ id: "xl-tshirt" }]
         };
-
-        console.log('JSON:', JSON.stringify(purchase))
 
         // Disable the button until we have Stripe set up on the page
         document.querySelector("button").disabled = true;
@@ -110,7 +111,7 @@
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(purchase)
+        // body: JSON.stringify(purchase)
         })
         .then(function(result) {
             return result.json();
@@ -159,20 +160,33 @@
         loading(true);
         stripe
             .confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: card,
-                billing_details: {
+                payment_method: {
+                    card: card,
+                    billing_details: {
+                        name: $.trim(form.full_name.value),
+                        email: $.trim(form.email.value),
+                        phone: $.trim(form.phone_number.value),
+                        address:{
+                            line1: $.trim(form.street_address1.value),
+                            line2: $.trim(form.street_address2.value),
+                            city: $.trim(form.town_or_city.value),
+                            state: $.trim(form.county.value),
+                            country: $.trim(form.country.value),
+                        }
+                    }
+                },
+                shipping: {
                     name: $.trim(form.full_name.value),
-                    email: $.trim(form.email.value),
-                    address:{
+                    phone: $.trim(form.phone_number.value),
+                    address: {
                         line1: $.trim(form.street_address1.value),
                         line2: $.trim(form.street_address2.value),
                         city: $.trim(form.town_or_city.value),
                         country: $.trim(form.country.value),
                         state: $.trim(form.county.value),
+                        postal_code: $.trim(form.postcode.value),
                     }
-                }
-            }
+                },
             })
             .then(function(result) {
             if (result.error) {
