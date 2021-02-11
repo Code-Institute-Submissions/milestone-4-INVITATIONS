@@ -1,9 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Order
-from .forms import OrderForm
 from django.conf import settings
+from .models import Order
+from products.models import Product
+
+from .forms import OrderForm
+from cart.contexts import cart_contents
+from decimal import Decimal
 
 import stripe
 import json
@@ -25,20 +29,35 @@ def view_checkout(request):
     return render(request, 'checkout/checkout.html', context)
 
 
-def calculate_order_amount(items):
-    # Replace this constant with a calculation of the order's amount
-    # Calculate the order total on the server to prevent
-    # people from directly manipulating the amount on the client
-    return 1400
+def calculate_order_amount(order_items):
+    """ Re-calculate the order total using the database price """
+
+    print('Shopping cart:', order_items)
+    order_total = 0
+    grand_total = 0
+
+    for item in order_items:
+        product = get_object_or_404(Product, pk=item['product_id'])
+        database_price = product.price
+        order_total += Decimal((database_price * item['quantity']) * 100)
+
+    if order_total < settings.FREE_DELIVERY_AMOUNT:
+        delivery = Decimal(settings.STANDARD_DELIVERY_CHARGE)
+    else:
+        delivery = 0
+
+    grand_total = order_total + delivery
+    return grand_total
 
 
 @csrf_exempt
 def create_payment_intent(request):
     try:
-        data = json.loads(request.body)
-        print('Data:', data)
+        # data = json.loads(request.body)
+        # print('Data:', data)
+        current_shopping_cart = cart_contents(request)
         intent = stripe.PaymentIntent.create(
-            amount=calculate_order_amount(data['items']),
+            amount=calculate_order_amount(current_shopping_cart['cart_items']),
             currency='gbp'
         )
         print('Intent: ', intent['client_secret'])
