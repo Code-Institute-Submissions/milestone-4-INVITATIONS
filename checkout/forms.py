@@ -2,7 +2,7 @@ from django import forms
 from .models import Order
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, HTML, Field, Div
+from crispy_forms.layout import Layout, Row, Column, HTML, Field
 
 
 class OrderForm(forms.ModelForm):
@@ -31,6 +31,7 @@ class OrderForm(forms.ModelForm):
             HTML('<p class="small text-muted mb-1">Your Details</p>'),
             Field('full_name', css_class="rounded-0"),
             Field('email', css_class="rounded-0"),
+            Field('phone_number', css_class="rounded-0"),
             HTML('<p class="small text-muted mt-3 mb-1">Delivery Details</p>'),
             Field('street_address1', css_class="rounded-0"),
             Field('street_address2', css_class="rounded-0"),
@@ -77,37 +78,3 @@ class OrderForm(forms.ModelForm):
                   'street_address1', 'street_address2',
                   'town_or_city', 'postcode', 'country',
                   'county',)
-
-# class OrderForm(forms.ModelForm):
-#     class Meta:
-#         model = Order
-#         fields = ('full_name', 'email', 'phone_number',
-#                   'street_address1', 'street_address2',
-#                   'town_or_city', 'postcode', 'country',
-#                   'county',)
-
-#     def __init__(self, *args, **kwargs):
-#         """
-#         Use placeholders and remove the default crispy labels
-#         """
-#         super().__init__(*args, **kwargs)
-#         placeholder_text = {
-#             'full_name': 'Full Name',
-#             'email': 'Email Address',
-#             'phone_number': 'Phone Number',
-#             'street_address1': 'Street Address 1',
-#             'street_address2': 'Street Address 2',
-#             'town_or_city': 'Town or City',
-#             'postcode': 'Post Code',
-#             'county': 'County, State or Locality',
-#             'country': 'Country',
-#         }
-
-#         self.fields['full_name'].widget.attrs['autofocus'] = True
-#         for field in self.fields:
-#             if self.fields[field].required:
-#                 placeholder = f'{placeholder_text[field]} *'
-#             else:
-#                 placeholder = placeholder_text[field]
-#             self.fields[field].widget.attrs['placeholder'] = placeholder
-#             self.fields[field].label = False
