@@ -32,17 +32,18 @@ def view_checkout(request):
 def calculate_order_amount(order_items):
     """ Re-calculate the order total using the database price """
 
-    print('Shopping cart:', order_items)
+    # print('Shopping cart:', order_items)
     order_total = 0
     grand_total = 0
 
     for item in order_items:
         product = get_object_or_404(Product, pk=item['product_id'])
         database_price = product.price
-        order_total += Decimal((database_price * item['quantity']) * 100)
+        product_total = Decimal(database_price * item['quantity'])
+        order_total += int(product_total * 100)
 
-    if order_total < settings.FREE_DELIVERY_AMOUNT:
-        delivery = Decimal(settings.STANDARD_DELIVERY_CHARGE)
+    if order_total < (settings.FREE_DELIVERY_AMOUNT * 100):
+        delivery = int(settings.STANDARD_DELIVERY_CHARGE * 100)
     else:
         delivery = 0
 
@@ -58,7 +59,12 @@ def create_payment_intent(request):
         current_shopping_cart = cart_contents(request)
         intent = stripe.PaymentIntent.create(
             amount=calculate_order_amount(current_shopping_cart['cart_items']),
-            currency='gbp'
+            currency='gbp',
+            description='Test description',
+            metadata={
+                    'hello': 'World',
+                    'supper': 'Cornflakes',
+            },
         )
         print('Intent: ', intent['client_secret'])
         return JsonResponse({
