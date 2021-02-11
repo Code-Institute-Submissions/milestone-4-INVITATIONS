@@ -19,6 +19,10 @@ body {
 }
 
 /* Helpers */
+.form__default .form-group {
+    margin-bottom: 4px;
+}
+
 .fz__lg {
     font-size: 1.5em;
 }
