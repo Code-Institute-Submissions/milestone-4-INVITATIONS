@@ -29,26 +29,26 @@ def view_checkout(request):
     return render(request, 'checkout/checkout.html', context)
 
 
-def calculate_order_amount(order_items):
-    """ Re-calculate the order total using the database price """
+# def calculate_order_amount(order_items):
+#     """ Re-calculate the order total using the database price """
 
-    # print('Shopping cart:', order_items)
-    order_total = 0
-    grand_total = 0
+#     # print('Shopping cart:', order_items)
+#     order_total = 0
+#     grand_total = 0
 
-    for item in order_items:
-        product = get_object_or_404(Product, pk=item['product_id'])
-        database_price = product.price
-        product_total = Decimal(database_price * item['quantity'])
-        order_total += int(product_total * 100)
+#     for item in order_items:
+#         product = get_object_or_404(Product, pk=item['product_id'])
+#         database_price = product.price
+#         product_total = Decimal(database_price * item['quantity'])
+#         order_total += int(product_total * 100)
 
-    if order_total < (settings.FREE_DELIVERY_AMOUNT * 100):
-        delivery = int(settings.STANDARD_DELIVERY_CHARGE * 100)
-    else:
-        delivery = 0
+#     if order_total < (settings.FREE_DELIVERY_AMOUNT * 100):
+#         delivery = int(settings.STANDARD_DELIVERY_CHARGE * 100)
+#     else:
+#         delivery = 0
 
-    grand_total = order_total + delivery
-    return grand_total
+#     grand_total = order_total + delivery
+#     return grand_total
 
 
 @csrf_exempt
@@ -58,9 +58,9 @@ def create_payment_intent(request):
         # print('Data:', data)
         current_shopping_cart = cart_contents(request)
         intent = stripe.PaymentIntent.create(
-            amount=calculate_order_amount(current_shopping_cart['cart_items']),
+            # amount=calculate_order_amount(current_shopping_cart['cart_items']),
+            amount=int(current_shopping_cart['cart_grand_total'] * 100),
             currency='gbp',
-            description='Test description',
             metadata={
                     'hello': 'World',
                     'supper': 'Cornflakes',
