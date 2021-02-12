@@ -56,7 +56,7 @@ class OrderForm(forms.ModelForm):
             HTML('<button id="order-submit" '
                  'class="btn btn-primary rounded-0 mt-2 float-right">'
                  '<span class="hidden" id="spinner">'
-                 '<i class="fas fa-spinner fa-spin"></i>Processing</span>'
+                 '<i class="fas fa-spinner fa-spin"></i> Processing Payment</span>'
                  '<span class="" id="button-text">'
                  '<i class="fas fa-lock icon" aria-hidden="true"></i>'
                  'Make Payment</button></span>'),
