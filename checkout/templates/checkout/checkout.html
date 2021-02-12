@@ -29,6 +29,7 @@
                     </div>
                 </div>            
                 {% for item in cart_items %}
+                    <!-- Order items -->
                     <div class="row mt-1">
                         <div class="col-2">
                             {% if item.image %}
@@ -57,6 +58,7 @@
                     </div>
                     <hr class="mt-1 mb-1">
                 {% endfor %}
+                <!-- Order total -->
                 <div class="row font-weight-bold">
                     <div class="col-9">
                         <p class="mt-1 mb-1 float-right">Order Total:</p>
@@ -65,6 +67,7 @@
                         <p class="mt-1 mb-1 float-right">£{{ cart_total|floatformat:2 }}</p>
                     </div>
                 </div>
+                <!-- Delivery total -->
                 <div class="row font-weight-bold">
                     <div class="col-9">
                         <p class="mt-1 mb-1 float-right">Delivery:</p>
@@ -73,6 +76,7 @@
                         <p class="mt-1 mb-1 float-right">£{{ cart_delivery|floatformat:2 }}</p>
                     </div>
                 </div>
+                <!-- Grand total -->
                 <div class="row font-weight-bold">
                     <div class="col-9">
                         <p class="mt-1 mb-1 float-right">Grand Total:</p>
