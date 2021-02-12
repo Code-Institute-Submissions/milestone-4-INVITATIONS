@@ -19,6 +19,8 @@ def view_checkout(request):
     """ A view to show the checkout form and order summary """
 
     if request.POST:
+        stripe_pid = request.POST.get('stripe_pid')
+        print('Stripe PID = ', stripe_pid)
         current_shopping_cart = cart_contents(request)
         grand_total = current_shopping_cart['cart_grand_total']
         print('Rec-POST, save order & order-lines')
