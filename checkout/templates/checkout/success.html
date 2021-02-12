@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<main class="container-fluid page__default">
+    <div class="checkout__container pt-5 pb-5">
+        <!-- Page header -->
+        <div class="row">
+            <div class="col-12">
+                <h1 class="mb-0 page__title">Order Confirmation</h1>
+                <hr class="mt-1">
+            </div>
+        </div>
+        <div class="row">
+            <!-- Order confirmation -->
+            <div class="col-12 pr-lg-4">
+                <h2 class="page__subtitle pt-3 pt-lg-2">Payment was processed for:<span class="small"> £the amount </span></h2>
+            </div>
+            Display order receipt below:-
+        </div>
+    </div>
+</main>
+{% endblock %}
