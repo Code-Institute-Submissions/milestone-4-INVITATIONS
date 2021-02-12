@@ -194,6 +194,7 @@
                 showError(result.error.message);
             } else {
                 // The payment succeeded!
+                $('#id_stripe_pid').val(result.paymentIntent.id);
                 orderComplete(result.paymentIntent.id);
                 form.submit();
             }
@@ -205,6 +206,7 @@
         // Shows a success message when the payment is complete
         var orderComplete = function(paymentIntentId) {
             loading(false);
+            console.log({paymentIntentId})
             document.querySelector(".result-message").classList.remove("hidden");
             document.querySelector("button").disabled = true;
         };
