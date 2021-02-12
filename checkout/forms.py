@@ -19,6 +19,7 @@ class OrderForm(forms.ModelForm):
             'postcode': 'Post Code',
             'county': 'County, State or Locality',
             'country': 'Country',
+            'stripe_pid': 'ref',
         }
         self.helper = FormHelper()
         self.helper.form_id = 'id-orderform'
@@ -48,6 +49,7 @@ class OrderForm(forms.ModelForm):
                        css_class='form-group col-sm-6 mb-0 pl-0 pr-1'),
                 css_class='form-row'
             ),
+            Field('stripe_pid', type='hidden'),
             HTML('<p class="small text-muted mt-3 mb-1">Card Details</p>'),
             HTML('<div id="card-element">'
                  '<!--Stripe.js injects the Card Element--></div>'),
@@ -56,7 +58,8 @@ class OrderForm(forms.ModelForm):
             HTML('<button id="order-submit" '
                  'class="btn btn-primary rounded-0 mt-2 float-right">'
                  '<span class="hidden" id="spinner">'
-                 '<i class="fas fa-spinner fa-spin"></i> Processing Payment</span>'
+                 '<i class="fas fa-spinner fa-spin"></i>  '
+                 'Processing Payment</span>'
                  '<span class="" id="button-text">'
                  '<i class="fas fa-lock icon" aria-hidden="true"></i>'
                  'Make Payment</button></span>'),
@@ -77,4 +80,4 @@ class OrderForm(forms.ModelForm):
         fields = ('full_name', 'email', 'phone_number',
                   'street_address1', 'street_address2',
                   'town_or_city', 'postcode', 'country',
-                  'county',)
+                  'county', 'stripe_pid',)
