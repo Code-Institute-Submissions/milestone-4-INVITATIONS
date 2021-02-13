@@ -14,40 +14,110 @@
         </div>
         <div class="row">
             <div class="col-12 pr-lg-4">
-                <h2 class="page__subtitle pt-3 pt-lg-2">Please find details of your order below, a copy of this confirmation will be sent to: {{ order.email}}</h2>
+                <p class="pt-3 pt-lg-2">
+                    Thank you for your order. Please find your order details below, a copy of this confirmation will be sent to: <strong>{{ order.email}}</strong>
+                </p>
             </div>
         </div>
         <!-- Order confirmation -->
-        <div class="row mt-3">
-            <div class="col-12 col-lg-6">
-                <div>
-                    <p>Your Order:</p>
-                    <p>Order Number:<span class="float-right">{{ order.pk|stringformat:"010d" }}</span></p>
-                    <p>Payment Ref:<span class="float-right">{{ order.stripe_pid }}</span></p>
-                    <p>Order Date:<span class="float-right">{{ order.order_date|date:"jS M Y @ g:ia" }}</span></p>
-                    <p>Order Total:<span class="float-right">{{ order.order_total|floatformat:2 }}</span></p>
-                    <p>Delivery Cost:<span class="float-right">{{ order.delivery_cost|floatformat:2 }}</span></p>
-                    <p>Grand Total:<span class="float-right">{{ order.grand_total|floatformat:2 }}</span></p>
+        <div class="row mt-3 no-gutters p-2 border">
+            <!-- Your order info -->
+            <div class="col-12 col-lg-6 pr-lg-4">
+                <p class="mb-2">Your Order:</p>
+                <div class="row">
+                    <div class="col-12 col-sm-5">
+                        <p class="mb-0 mb-sm-1">Order Number:</p>
+                    </div>
+                    <div class="col-12 col-sm-7 text-sm-right">
+                        <p class="mb-1">{{ order.pk|stringformat:"010d" }}</p>
+                    </div>
                 </div>
+                <div class="row">
+                    <div class="col-12 col-sm-5">
+                        <p class="mb-0 mb-sm-1">Payment Ref:</p>
+                    </div>
+                    <div class="col-12 col-sm-7 text-sm-right">
+                        <p class="mb-1">{{ order.stripe_pid }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-5">
+                        <p class="mb-0 mb-sm-1">Order Date:</p>
+                    </div>
+                    <div class="col-12 col-sm-7 text-sm-right">
+                        <p class="mb-1">{{ order.order_date|date:"jS M Y @ g:ia" }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-5">
+                        <p class="mb-0 mb-sm-1">Order Total:</p>
+                    </div>
+                    <div class="col-12 col-sm-7 text-sm-right">
+                        <p class="mb-1">£{{ order.order_total|floatformat:2 }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-5">
+                        <p class="mb-0 mb-sm-1">Delivery Cost:</p>
+                    </div>
+                    <div class="col-12 col-sm-7 text-sm-right">
+                        <p class="mb-1">£{{ order.delivery_cost|floatformat:2 }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-5">
+                        <p class="mb-0 mb-sm-1">Grand Total:</p>
+                    </div>
+                    <div class="col-12 col-sm-7 text-sm-right">
+                        <p class="mb-1">£{{ order.grand_total|floatformat:2 }}</p>
+                    </div>
+                </div>                    
+                <!-- <p class="mb-1">Payment Ref:<span class="float-right">{{ order.stripe_pid }}</span></p> -->
+                <!-- <p class="mb-1">Order Date:<span class="float-right">{{ order.order_date|date:"jS M Y @ g:ia" }}</span></p> -->
+                <!-- <p class="mb-1">Order Total:<span class="float-right">£{{ order.order_total|floatformat:2 }}</span></p> -->
+                <!-- <p class="mb-1">Delivery Cost:<span class="float-right">£{{ order.delivery_cost|floatformat:2 }}</span></p> -->
+                <!-- <p class="mb-1">Grand Total:<span class="float-right">£{{ order.grand_total|floatformat:2 }}</span></p> -->
             </div>
-            <div class="col-12 col-lg-6">
+            <!-- Your delivery address -->
+            <div class="col-12 col-lg-6 pl-lg-4">
+                <hr class="mt-1 mb-1 d-lg-none">
                 <div>
-                    <p>Delivery Address:</p>
-                    <p>{{ order.street_address1}}</p>
+                    <p class="mb-2">Delivery Address:</p>
+                    <p class="mb-1">{{ order.street_address1}}</p>
                     {% if order.street_address2 %}
                         <p>{{ order.street_address2}}</p>
                     {% endif %}
-                    <p>{{ order.town_or_city}}</p>
-                    <p>{{ order.county}}</p>
-                    <p>{{ order.postcode}}</p>
-                    <p>{{ order.country}}</p>
+                    <p class="mb-1">{{ order.town_or_city}}</p>
+                    <p class="mb-1">{{ order.county}}</p>
+                    <p class="mb-1">{{ order.postcode}}</p>
+                    <p class="mb-1">{{ order.country}}</p>
                 </div>
             </div>
+            <!-- Your order items -->
             <div class="col-12">
-                <p>Order Items:</p>
-                <p>items here</p>
-                <p>items here</p>
-                <p>items here</p>
+                <hr class="mt-1 mb-1">
+                <p class="mt-2">Order Items:</p>
+                {% for item in order_items %}
+                    <div class="row mt-1">
+                        <div class="col-2 d-none d-md-block">
+                            {% if item.image %}
+                                <a href="{% url 'product_info' item.product_id %}">
+                                    <img class="card-img-top img-fluid" src="{{ item.image.url }}" alt="{{ item.name }}">
+                                </a>
+                                {% else %}
+                                <a href="{% url 'product_info' item.product_id %}">
+                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ item.name }}">
+                                </a>
+                            {% endif %}                                            
+                        </div>
+                        <div class="col-6 p-0 font-weight-bolder">
+                            <p class="mb-0 ml-2 line-h__sm">{{ item.name|truncatechars:72 }}...</p>
+                        </div>
+                        <div class="col-4 pl-0 text-right">
+                            <p>Qty: {{ item.quantity }} @ £{{ item.price|floatformat:2 }} ea.</p>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>
