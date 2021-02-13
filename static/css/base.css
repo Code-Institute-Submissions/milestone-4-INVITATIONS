@@ -35,6 +35,10 @@ body {
     border-bottom: 1px dashed lightgrey;
 }
 
+hr.border__dashed {
+    border-top-style: dashed;
+}
+
 .bg__action-grey {
     background: rgb(221, 221, 221);
 }
