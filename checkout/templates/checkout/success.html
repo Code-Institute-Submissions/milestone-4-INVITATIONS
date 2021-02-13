@@ -79,13 +79,13 @@
                 <!-- <p class="mb-1">Grand Total:<span class="float-right">£{{ order.grand_total|floatformat:2 }}</span></p> -->
             </div>
             <!-- Your delivery address -->
-            <div class="col-12 col-lg-5 border__left pl-lg-2">
+            <div class="col-12 col-lg-5 border__left pl-lg-3">
                 <hr class="mt-1 mb-1 d-lg-none">
                 <div>
                     <p class="mb-2">Delivery Address:</p>
                     <p class="mb-0">{{ order.street_address1|title}}</p>
                     {% if order.street_address2 %}
-                        <p>{{ order.street_address2|title}}</p>
+                        <p class="mb-0">{{ order.street_address2|title}}</p>
                     {% endif %}
                     <p class="mb-0">{{ order.town_or_city|title}}</p>
                     <p class="mb-0">{{ order.county|title}}</p>
@@ -98,7 +98,7 @@
                 <hr class="mt-1 mb-1">
                 <p class="mt-2 mb-2">Order Items:</p>
                 {% for item in order.lineitems.all %}
-                    <div class="row mt-1 mb-1 {% if not forloop.last %}border__bottom{% endif %}">
+                    <div class="row mt-1 mb-1">
                         <div class="col-1 d-none d-md-block">
                             {% if item.product.view_image %}
                                 <a href="{% url 'product_info' item.product.pk %}">
@@ -121,6 +121,9 @@
                             <p class="mb-0 mb-sm-1">Qty: {{ item.quantity }} @ £{{ item.product.price|floatformat:2 }} ea.</p>
                         </div>
                     </div>
+                     {% if not forloop.last %}
+                        <hr class="mt-1 mb-1 border__dashed">
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
