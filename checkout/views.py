@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from decimal import Decimal
@@ -22,7 +22,6 @@ def view_checkout(request):
 
     if request.POST:
         current_shopping_cart = cart_contents(request)
-        grand_total = current_shopping_cart['cart_grand_total']
         form_data = {
             'full_name': request.POST['full_name'],
             'email': request.POST['email'],
@@ -61,21 +60,7 @@ def view_checkout(request):
                 )
                 order_line_item.save()
 
-            messages.success(request, f'Thank you, payment of £{grand_total} \
-                                      successfully received. Your order \
-                                      number is [{order.pk:010}] \
-                                      Full order confirmation is below.',
-                                      extra_tags='Order confirmation')
-
-            context = {
-                'order_items': current_shopping_cart['cart_items'],
-                'order': order,
-            }
-
-            if 'cart' in request.session:
-                del request.session['cart']
-
-            return render(request, 'checkout/success.html', context)
+            return redirect(reverse('checkout_success', args=[order.pk]))
 
         else:
             messages.error(request, 'Error with form, but I reckon \
@@ -86,6 +71,27 @@ def view_checkout(request):
             'form': form,
         }
         return render(request, 'checkout/checkout.html', context)
+
+
+def checkout_success(request, order_number):
+    """ Process successful checkout """
+    order = get_object_or_404(Order, pk=order_number)
+    messages.success(request, f'Thank you, payment of £{order.grand_total} \
+                              successfully received. Your order \
+                              number is [{order.pk:010}] \
+                              Full order confirmation is below.',
+                              extra_tags='Order confirmation')
+
+    print('Order-cart:', order.original_cart)
+    print('Order-lines', order.lineitems.all)
+    context = {
+        'order': order,
+    }
+
+    if 'cart' in request.session:
+        del request.session['cart']
+
+    return render(request, 'checkout/success.html', context)
 
 
 def shopping_cart_items(ordered_by, items):
