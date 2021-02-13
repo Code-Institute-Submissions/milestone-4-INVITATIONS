@@ -1,13 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
+from decimal import Decimal
 
 from django.conf import settings
-from .models import Order
+from .models import Order, OrderLineItem
 from products.models import Product
 
 from .forms import OrderForm
 from cart.contexts import cart_contents
+import json
 
 import stripe
 from django.http import JsonResponse
@@ -19,24 +21,72 @@ def view_checkout(request):
     """ A view to show the checkout form and order summary """
 
     if request.POST:
-        stripe_pid = request.POST.get('stripe_pid')
-        print('Stripe PID = ', stripe_pid)
         current_shopping_cart = cart_contents(request)
         grand_total = current_shopping_cart['cart_grand_total']
-        print('Rec-POST, save order & order-lines')
-        messages.success(request, 'Thank you, payment received for '
-                                  f'£{grand_total}.\r\n'
-                                  'Your order confirmation is below.',
-                                  extra_tags='Order confirmation')
-        print('empty the shopping cart')
-        return render(request, 'checkout/success.html')
+        form_data = {
+            'full_name': request.POST['full_name'],
+            'email': request.POST['email'],
+            'phone_number': request.POST['phone_number'],
+            'street_address1': request.POST['street_address1'],
+            'street_address2': request.POST['street_address2'],
+            'town_or_city': request.POST['town_or_city'],
+            'postcode': request.POST['postcode'],
+            'county': request.POST['county'],
+            'country': request.POST['country'],
+            'stripe_pid': request.POST['stripe_pid'],
+        }
 
-    form = OrderForm()
-    context = {
-        'form': form,
-    }
+        form = OrderForm(form_data)
 
-    return render(request, 'checkout/checkout.html', context)
+        if form.is_valid():
+            order = form.save(commit=False)
+            original_cart = current_shopping_cart['cart_items']
+            json_cart = []
+            for item in original_cart:
+                json_item = {}
+                json_item['product_id'] = item['product_id']
+                json_item['quantity'] = item['quantity']
+                json_item['name'] = item['name']
+                json_item['price'] = str(item['price'])
+                json_cart.append(json_item)
+
+            order.original_cart = json.dumps(json_cart)
+            order.save()
+            for item in original_cart:
+                product = get_object_or_404(Product, pk=item['product_id'])
+                order_line_item = OrderLineItem(
+                    order=order,
+                    product=product,
+                    quantity=Decimal(item['quantity']),
+                )
+                order_line_item.save()
+
+            messages.success(request, f'Thank you, payment of £{grand_total} \
+                                      successfully received. Your order \
+                                      number is [{order.pk:010}] \
+                                      Full order confirmation is below.',
+                                      extra_tags='Order confirmation')
+
+            context = {
+                'order_detail': current_shopping_cart,
+                'order_number': f'{order.pk:010}',
+                'order_stripe': order.stripe_pid,
+            }
+
+            if 'cart' in request.session:
+                del request.session['cart']
+
+            return render(request, 'checkout/success.html', context)
+
+        else:
+            messages.error(request, 'Error with form, but I reckon \
+                 we have already took payment. Please check your details.')
+    else:
+        form = OrderForm()
+        context = {
+            'form': form,
+        }
+        return render(request, 'checkout/checkout.html', context)
 
 
 def shopping_cart_items(ordered_by, items):
