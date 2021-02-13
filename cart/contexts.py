@@ -30,7 +30,7 @@ def cart_contents(request):
             })
 
     if cart_total < settings.FREE_DELIVERY_AMOUNT:
-        delivery = Decimal(settings.STANDARD_DELIVERY_CHARGE)
+        delivery = settings.STANDARD_DELIVERY_CHARGE
     else:
         delivery = 0
 
