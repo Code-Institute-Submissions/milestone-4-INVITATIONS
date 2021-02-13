@@ -307,6 +307,10 @@ hr.border__dashed {
     background: #0f842a;
 }
 
+.toast__danger {
+    background: #8a0f0f;
+}
+
 .toast__close {
     color: #fefefe;
 }
