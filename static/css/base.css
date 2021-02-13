@@ -31,6 +31,10 @@ body {
     line-height: 1.2;
 }
 
+.border__bottom {
+    border-bottom: 1px dashed lightgrey;
+}
+
 .bg__action-grey {
     background: rgb(221, 221, 221);
 }
@@ -395,7 +399,7 @@ footer h4 {
         width: 225px;
     }
 
-    .checkout__divider {
+    .border__left {
         border-left: 1px dashed lightgrey;
     }
 
