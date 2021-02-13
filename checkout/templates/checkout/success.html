@@ -15,9 +15,11 @@
         <div class="row">
             <!-- Order confirmation -->
             <div class="col-12 pr-lg-4">
-                <h2 class="page__subtitle pt-3 pt-lg-2">Payment was processed for:<span class="small"> £the amount </span></h2>
+                <h2 class="page__subtitle pt-3 pt-lg-2">Payment was processed for: <span class="small"> £{{ order_detail.grand_total }} </span></h2>
             </div>
-            Display order receipt below:-
+            <p>Display order receipt below:-</p><br>
+            <p>Order number: {{ order_number }}</p><br>
+            <p>Payment reference: {{ order_stripe }}</p>
         </div>
     </div>
 </main>
