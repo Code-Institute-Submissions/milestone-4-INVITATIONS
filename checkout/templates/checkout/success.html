@@ -18,8 +18,11 @@
                 <h2 class="page__subtitle pt-3 pt-lg-2">Payment was processed for: <span class="small"> £{{ order_detail.grand_total }} </span></h2>
             </div>
             <p>Display order receipt below:-</p><br>
-            <p>Order number: {{ order_number }}</p><br>
-            <p>Payment reference: {{ order_stripe }}</p>
+            <p>Order number: {{ order.pk|stringformat:"010d" }}</p><br>
+            <p>Payment reference: {{ order.stripe_pid }}</p><br>
+            <p>Order Date: {{ order.order_date }}</p><br>
+            <p>Address Line 1: {{ order.street_address1 }}</p><br>
+
         </div>
     </div>
 </main>

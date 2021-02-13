@@ -68,9 +68,8 @@ def view_checkout(request):
                                       extra_tags='Order confirmation')
 
             context = {
-                'order_detail': current_shopping_cart,
-                'order_number': f'{order.pk:010}',
-                'order_stripe': order.stripe_pid,
+                'order_items': current_shopping_cart['cart_items'],
+                'order': order,
             }
 
             if 'cart' in request.session:
