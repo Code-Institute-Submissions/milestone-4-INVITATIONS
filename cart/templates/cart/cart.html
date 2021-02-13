@@ -83,7 +83,7 @@
                                                     <i class="fas fa-minus icon"></i>
                                                 </button>
                                             </div>
-                                            <input class="form-control form-control-sm text-center" type="number" min="1" max="99" value="{{ item.quantity }}" name="qty-item-{{ item.product_id }}" id="qty-item-{{ item.product_id }}">
+                                            <input class="form-control form-control-sm text-center" type="number" min="0" max="99" value="{{ item.quantity }}" name="qty-item-{{ item.product_id }}" id="qty-item-{{ item.product_id }}">
                                             <div class="input-group-append">
                                                 <button class="btn btn-light rounded-0 p-0 qty__btn" type="button" id="btn-plus-item-{{ item.product_id }}">
                                                     <i class="fas fa-plus icon"></i>
@@ -111,7 +111,7 @@
                     {% if cart_items %}
                         <div class="row">
                             <div class="col-12">
-                                <button class="btn btn-success rounded-0 float-right" id="btn-update-cart" type="button">
+                                <button class="btn btn-success rounded-0 float-right" id="btn-update-cart" type="submit">
                                     <i class="fas fa-sync-alt"></i>
                                     <span>UPDATE CART</span>
                                 </button>
@@ -137,16 +137,5 @@
 
 {% block postloadjs %}
     {{ block.super }}
-    <script type="text/javascript">
-
-        /* 
-         * Add event listeners to submit the update cart form.
-         */
-        $('#btn-update-cart').click(function(){
-            $('#form-update-cart').submit();
-            console.log('submit button pressed');
-        });
-
-    </script>
     {% include 'cart/includes/quantity_buttons_script.html' %}
 {% endblock %}
