@@ -22,7 +22,7 @@
         <!-- Order confirmation -->
         <div class="row mt-3 no-gutters p-2 border">
             <!-- Your order info -->
-            <div class="col-12 col-lg-6 pr-lg-4">
+            <div class="col-12 col-lg-7 pr-lg-5">
                 <p class="mb-2">Your Order:</p>
                 <div class="row">
                     <div class="col-12 col-sm-5">
@@ -79,42 +79,46 @@
                 <!-- <p class="mb-1">Grand Total:<span class="float-right">£{{ order.grand_total|floatformat:2 }}</span></p> -->
             </div>
             <!-- Your delivery address -->
-            <div class="col-12 col-lg-6 pl-lg-4">
+            <div class="col-12 col-lg-5 border__left pl-lg-2">
                 <hr class="mt-1 mb-1 d-lg-none">
                 <div>
                     <p class="mb-2">Delivery Address:</p>
-                    <p class="mb-1">{{ order.street_address1}}</p>
+                    <p class="mb-0">{{ order.street_address1|title}}</p>
                     {% if order.street_address2 %}
-                        <p>{{ order.street_address2}}</p>
+                        <p>{{ order.street_address2|title}}</p>
                     {% endif %}
-                    <p class="mb-1">{{ order.town_or_city}}</p>
-                    <p class="mb-1">{{ order.county}}</p>
-                    <p class="mb-1">{{ order.postcode}}</p>
-                    <p class="mb-1">{{ order.country}}</p>
+                    <p class="mb-0">{{ order.town_or_city|title}}</p>
+                    <p class="mb-0">{{ order.county|title}}</p>
+                    <p class="mb-0">{{ order.postcode|upper}}</p>
+                    <p class="mb-0">{{ order.country}}</p>
                 </div>
             </div>
             <!-- Your order items -->
             <div class="col-12">
                 <hr class="mt-1 mb-1">
-                <p class="mt-2">Order Items:</p>
-                {% for item in order_items %}
-                    <div class="row mt-1">
-                        <div class="col-2 d-none d-md-block">
-                            {% if item.image %}
-                                <a href="{% url 'product_info' item.product_id %}">
-                                    <img class="card-img-top img-fluid" src="{{ item.image.url }}" alt="{{ item.name }}">
+                <p class="mt-2 mb-2">Order Items:</p>
+                {% for item in order.lineitems.all %}
+                    <div class="row mt-1 mb-1 {% if not forloop.last %}border__bottom{% endif %}">
+                        <div class="col-1 d-none d-md-block">
+                            {% if item.product.view_image %}
+                                <a href="{% url 'product_info' item.product.pk %}">
+                                    <img class="card-img-top img-fluid" src="{{ item.product.view_image.url }}" alt="{{ item.product.name }}">
                                 </a>
                                 {% else %}
-                                <a href="{% url 'product_info' item.product_id %}">
-                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ item.name }}">
+                                <a href="{% url 'product_info' item.product.pk %}">
+                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ item.product.name }}">
                                 </a>
                             {% endif %}                                            
                         </div>
-                        <div class="col-6 p-0 font-weight-bolder">
-                            <p class="mb-0 ml-2 line-h__sm">{{ item.name|truncatechars:72 }}...</p>
+                        <div class="col-8 col-md-7">
+                            <p class="mb-0 mb-sm-1">
+                                <a class="text-muted" href="{% url 'product_info' item.product.pk %}">
+                                    {{ item.product.name|truncatechars:80 }}...
+                                </a>
+                            </p>
                         </div>
-                        <div class="col-4 pl-0 text-right">
-                            <p>Qty: {{ item.quantity }} @ £{{ item.price|floatformat:2 }} ea.</p>
+                        <div class="col-12 col-sm-4 text-sm-right">
+                            <p class="mb-0 mb-sm-1">Qty: {{ item.quantity }} @ £{{ item.product.price|floatformat:2 }} ea.</p>
                         </div>
                     </div>
                 {% endfor %}
