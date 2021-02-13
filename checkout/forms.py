@@ -61,8 +61,8 @@ class OrderForm(forms.ModelForm):
                  '<i class="fas fa-spinner fa-spin"></i>  '
                  'Processing Payment</span>'
                  '<span class="" id="button-text">'
-                 '<i class="fas fa-lock icon" aria-hidden="true"></i>'
-                 'Make Payment</button></span>'),
+                 '<i class="far fa-credit-card" aria-hidden="true"></i>'
+                 '&nbsp;&nbsp;Pay Now</button></span>'),
         )
 
         self.fields['full_name'].widget.attrs['autofocus'] = True
