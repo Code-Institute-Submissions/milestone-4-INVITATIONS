@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from products.models import Product
@@ -11,35 +11,53 @@ def view_cart(request):
 
 
 def add_to_cart(request, product_id):
-    """ A view to add an item to the shopping cart """
+    """ A view to add an item to the shopping cart
+        if there are no qty / product errors
+    """
 
-    quantity = int(request.POST.get(f'qty-item-{product_id}'))
-    original_path = request.POST.get('original_path')
-    if quantity < 100:
-        cart = request.session.get('cart', {})
-        product = get_object_or_404(Product, pk=product_id)
+    if request.POST.get(f'qty-item-{product_id}') is not None:
+        quantity = int(request.POST.get(f'qty-item-{product_id}'))
+        original_path = request.POST.get('original_path')
+        if quantity < 100:
+            cart = request.session.get('cart', {})
+            try:
+                product = Product.objects.get(pk=product_id)
+            except (Product.DoesNotExist):
+                messages.error(request,
+                               f'Product code [{product_id}] has not been \
+                               found. Please retry.',
+                               extra_tags='shopping cart')
+            else:
+                if product_id in list(cart.keys()):
+                    cart[product_id] += quantity
+                    messages.success(request,
+                                     f'{product.name} quantity has \
+                                     been updated to {cart[product_id]}.',
+                                     extra_tags='updated shopping cart')
+                    request.session['cart'] = cart
 
-        if product_id in list(cart.keys()):
-            cart[product_id] += quantity
-            messages.success(request, f'{product.name} quantity has been \
-                                      updated to {cart[product_id]}.',
-                                      extra_tags='updated shopping cart')
-            request.session['cart'] = cart
+                else:
+                    cart[product_id] = quantity
+                    messages.success(request,
+                                     f'(x{cart[product_id]}) {product.name}\
+                                     {" has" if quantity == 1 else " have"} \
+                                     been added to your shopping cart.',
+                                     extra_tags='added to shopping cart')
+                    request.session['cart'] = cart
 
         else:
-            cart[product_id] = quantity
-            messages.success(request, f'(x{cart[product_id]}) {product.name}\
-                                      {" has" if quantity == 1 else " have"} \
-                                      been added to your shopping cart.',
-                                      extra_tags='added to shopping cart')
-            request.session['cart'] = cart
+            messages.error(request,
+                           'Please enter a quantity less than 100 or contact\
+                           our sales team to discuss large orders.',
+                           extra_tags='shopping cart quantity')
 
-    else:
-        messages.error(request, 'Please enter a quantity less than 100 or \
-                                contact our sales team to discuss large \
-                                orders.',
-                                extra_tags='shopping cart quantity')
-    return redirect(original_path)
+        return redirect(original_path)
+
+    messages.error(request,
+                   'Invalid product or quantity entered, please retry.',
+                   extra_tags='shopping cart quantity')
+
+    return render(request, 'cart/cart.html')
 
 
 def remove_item(request, product_id):
@@ -52,14 +70,16 @@ def remove_item(request, product_id):
         cart = request.session.get('cart', {})
         cart.pop(product_id)
     except (Product.DoesNotExist, ValueError, KeyError):
-        messages.error(request, f'Product code [{product_id}] has not been \
-                                found in your cart.',
-                                extra_tags='shopping cart')
+        messages.error(request,
+                       f'Product code [{product_id}] has not been \
+                       found in your cart.',
+                       extra_tags='shopping cart')
     else:
         request.session['cart'] = cart
-        messages.success(request, f'{product.name} \
-                                  has been removed from your shopping cart.',
-                                  extra_tags='removed from shopping cart')
+        messages.success(request,
+                         f'{product.name} \
+                         has been removed from your shopping cart.',
+                         extra_tags='removed from shopping cart')
 
     return render(request, 'cart/cart.html')
 
@@ -93,12 +113,14 @@ def update_cart_qty(request):
 
     if quantities_changed:
         request.session['cart'] = cart
-        messages.success(request, f'Shopping cart quantities have been \
-                                  updated. {error_msg}',
-                                  extra_tags='shopping cart quantities')
+        messages.success(request,
+                         f'Shopping cart quantities have been \
+                         updated. {error_msg}',
+                         extra_tags='shopping cart quantities')
     else:
-        messages.success(request, 'Quantity error, please double-check your \
-                                  quantities and click [Update Cart].',
-                                  extra_tags='shopping cart quantities')
+        messages.success(request,
+                         'Quantity error, please double-check your \
+                         quantities and click [Update Cart].',
+                         extra_tags='shopping cart quantities')
 
     return render(request, 'cart/cart.html')
