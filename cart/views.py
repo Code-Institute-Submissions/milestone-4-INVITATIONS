@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+# from django.core.exceptions import KeyError
 
 from products.models import Product
 
@@ -43,14 +44,23 @@ def add_to_cart(request, product_id):
 
 
 def remove_item(request, product_id):
-    """ A view to remove an item from the shopping cart """
-    cart = request.session.get('cart', {})
-    cart.pop(product_id)
-    product = get_object_or_404(Product, pk=product_id)
-    request.session['cart'] = cart
-    messages.success(request, f'{product.name} \
-                              has been removed from your shopping cart.',
-                              extra_tags='removed from shopping cart')
+    """ A view to remove an item from the shopping cart
+        if the product exists in the cart
+    """
+    try:
+        product = Product.objects.get(pk=product_id)
+        cart = request.session.get('cart', {})
+        cart.pop(product_id)
+    except (Product.DoesNotExist, KeyError):
+        messages.error(request, f'Product code [{product_id}] has not been \
+                                found in your cart.',
+                                extra_tags='shopping cart')
+    else:
+        request.session['cart'] = cart
+        messages.success(request, f'{product.name} \
+                                  has been removed from your shopping cart.',
+                                  extra_tags='removed from shopping cart')
+
     return render(request, 'cart/cart.html')
 
 
