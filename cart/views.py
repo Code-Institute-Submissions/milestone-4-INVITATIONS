@@ -47,10 +47,11 @@ def remove_item(request, product_id):
         if the product exists in the cart
     """
     try:
+        int(product_id)
         product = Product.objects.get(pk=product_id)
         cart = request.session.get('cart', {})
         cart.pop(product_id)
-    except (Product.DoesNotExist, KeyError):
+    except (Product.DoesNotExist, ValueError, KeyError):
         messages.error(request, f'Product code [{product_id}] has not been \
                                 found in your cart.',
                                 extra_tags='shopping cart')
