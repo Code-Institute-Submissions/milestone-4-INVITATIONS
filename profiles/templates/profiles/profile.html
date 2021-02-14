@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<main class="container-fluid page__default">
+    <div class="checkout__container pt-5 pb-5">
+        <!-- Page header -->
+        <div class="row">
+            <div class="col-12">
+                <h1 class="mb-0 page__title">your profile</h1>
+                <hr class="mt-1">
+            </div>
+        </div>
+        <div class="row">
+            <!-- Order history -->
+            <div class="col-12 col-lg-6 pr-lg-4">
+                <h2 class="page__subtitle pt-3 pt-lg-2">Order History</h2>
+                <div class="row mt-1">
+                    <div class="col-10">
+                        <p class="mb-1 small text-muted">Item Details & Qty</p>
+                    </div>
+                    <div class="col-2">
+                        <p class="mb-1 small text-muted float-right">Subtotal</p>
+                    </div>
+                </div>            
+                <hr class="mt-1 mb-1">
+            </div>
+            <!-- User profile -->
+            <div class="col-12 col-lg-6 border__left pl-2 pl-lg-4">
+                <h2 class="page__subtitle pt-3 pt-lg-2">User Details</h2>
+                {% crispy form %}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
