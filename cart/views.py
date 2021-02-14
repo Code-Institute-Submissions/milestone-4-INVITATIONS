@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-# from django.core.exceptions import KeyError
 
 from products.models import Product
 
@@ -80,7 +79,7 @@ def update_cart_qty(request):
             if item_quantity > 0:
                 if item_quantity > 99:
                     item_quantity = 1
-                    error_msg = f'However, one or more product quantities were set \
+                    error_msg = 'However, one or more product quantities were set \
                                 above 99. Please enter quantities less than \
                                 100 or contact our sales team to discuss \
                                 large orders.'
@@ -89,7 +88,7 @@ def update_cart_qty(request):
                 quantities_changed = True
 
             if item_quantity == 0:
-                quantities_changed = True 
+                quantities_changed = True
 
     if quantities_changed:
         request.session['cart'] = cart
@@ -100,4 +99,5 @@ def update_cart_qty(request):
         messages.success(request, 'Quantity error, please double-check your \
                                   quantities and click [Update Cart].',
                                   extra_tags='shopping cart quantities')
+
     return render(request, 'cart/cart.html')
