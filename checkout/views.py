@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from decimal import Decimal
@@ -78,12 +78,10 @@ def checkout_success(request, order_number):
     order = get_object_or_404(Order, pk=order_number)
     messages.success(request, f'Thank you, payment of £{order.grand_total} \
                               successfully received. Your order \
-                              number is [{order.pk:010}] \
-                              Full order confirmation is below.',
+                              number is [{order.pk:010}]. Full order \
+                              confirmation details are displayed below.',
                               extra_tags='Order confirmation')
 
-    print('Order-cart:', order.original_cart)
-    print('Order-lines', order.lineitems.all)
     context = {
         'order': order,
     }
