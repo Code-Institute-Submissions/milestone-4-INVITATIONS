@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from decimal import Decimal
@@ -125,4 +125,7 @@ def create_payment_intent(request):
         })
     except Exception as e:
         print('Error:', e)
-        return JsonResponse({'error': str(e)})
+        messages.error(request, 'Problem contacting the Stripe payment  \
+                                system,  please retry your payment later.',
+                                extra_tags='payment processing')
+        return JsonResponse({'error': str(e)}, status=400)

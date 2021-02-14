@@ -20,10 +20,16 @@
     // body: JSON.stringify(purchase)
     })
     .then(function(result) {
-        console.log({result})
-        return result.json();
+        if (result.status != 200) {
+            return;
+        } else {
+            return result.json();
+        }
     })
     .then(function(data) {
+        if (data === undefined) {
+            window.location.href = '/cart/';
+        }
         var elements = stripe.elements();
 
         var style = {
