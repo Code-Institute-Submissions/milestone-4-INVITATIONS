@@ -137,6 +137,21 @@ hr.border__dashed {
     background-color: #218838;
 }
 
+/* Profile */
+.profile__order-line {
+    background-color: transparent !important;
+    cursor: pointer;
+    text-decoration: none;
+
+}
+
+.profile__order-line:hover {
+    color: green;
+    background-color: #fff !important;
+}
+
+
+
 /* Navbar */
 .nav__logo {
     padding: 4px 8px;

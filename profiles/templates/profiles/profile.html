@@ -28,23 +28,25 @@
                     </div>
                 </div>            
                 <hr class="mt-1 mb-1">
-                <div class="row mt-1">
-                    {% for order in order_history %}
+                {% for order in order_history %}
+                    <div data-set-order-line="{{ order.pk }}" class="row no-gutters profile__order-line p-1 mt-1">
                         <div class="col-4">
-                            <p class="">{{ order.pk|stringformat:"010d" }}</p>
+                            <p class="mb-0">{{ order.pk|stringformat:"010d" }}</p>
                         </div>
                         <div class="col-4 p-0">
                             <p class="mb-0 ml-2">{{ order.order_date|date:"jS M Y @ g:ia" }}</p>
                         </div>
                         <div class="col-4 pl-0 text-right">
-                            <p class="">£{{ order.grand_total|floatformat:2 }}</p>
+                            <p class="mb-0">£{{ order.grand_total|floatformat:2 }}</p>
                         </div>
-                    {% empty %}
+                    </div>
+                {% empty %}
+                    <div class="row mt-1">
                         <div class="col-12">
                             <p>You have not placed any orders yet</p>
                         </div>
-                    {% endfor %}
-                </div>
+                    </div>
+                {% endfor %}
             </div>
             <!-- User profile -->
             <div class="col-12 col-lg-6 border__left pl-2 pl-lg-4">
@@ -54,4 +56,16 @@
         </div>
     </div>
 </main>
+{% endblock %}
+{% block postloadjs %}
+{{ block.super }}
+    <script type="text/javascript">
+
+        // Add click event listeners for order history lines
+        $('.profile__order-line').click(function (e) {
+            orderNumber = e.currentTarget.dataset.setOrderLine;
+            window.location.href = `/checkout/history/${orderNumber}`;
+        });
+
+    </script>
 {% endblock %}

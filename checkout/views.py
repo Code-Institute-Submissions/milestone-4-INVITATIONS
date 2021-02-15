@@ -99,6 +99,18 @@ def checkout_success(request, order_number):
     return render(request, 'checkout/success.html', context)
 
 
+def order_history(request, order_number):
+    """ Display historic order confirmation"""
+    order = get_object_or_404(Order, pk=order_number)
+
+    context = {
+        'order': order,
+        'order_history': True,
+    }
+
+    return render(request, 'checkout/success.html', context)
+
+
 def shopping_cart_items(ordered_by, items):
     """ Create metadata containing the order line items to pass to stripe """
     meta_data = {}

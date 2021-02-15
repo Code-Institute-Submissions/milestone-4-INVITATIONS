@@ -8,14 +8,23 @@
         <!-- Page header -->
         <div class="row">
             <div class="col-12">
-                <h1 class="mb-0 page__title">Order Confirmation</h1>
+                <h1 class="mb-0 page__title">
+                    {% if order_history %}
+                        Previous&nbsp;
+                    {% endif %}
+                    Order Confirmation</h1>
                 <hr class="mt-1">
             </div>
         </div>
         <div class="row">
             <div class="col-12 pr-lg-4">
                 <p class="pt-3 pt-lg-2">
-                    Thank you for your order. Please find your order details below, a copy of this confirmation will be sent to: <strong>{{ order.email}}</strong>
+                    {% if order_history %}
+                        Below is the order confirmation for order [<strong>{{ order.pk|stringformat:"010d" }}</strong>] which was originally placed on 
+                        <strong>{{ order.order_date|date:"jS M Y" }}</strong>
+                    {% else %}
+                        Thank you for your order. Please find your order details below, a copy of this confirmation will be sent to: <strong>{{ order.email}}</strong>
+                    {% endif %}
                 </p>
             </div>
         </div>
