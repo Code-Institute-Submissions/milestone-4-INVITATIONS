@@ -111,12 +111,13 @@ hr.border__dashed {
     border-radius: unset;
 }
 
-/* Allauth forms */
+/* Allauth forms and default button */
 .allauth-form-inner-content label:not([class='form-check-label']) {
     display: none;
 }
 
-.allauth-form-inner-content button {
+.allauth-form-inner-content button,
+.btn__default {
 	/* based on bootstrap btn btn-success */
 	display: inline-block;
     padding: .375rem .75rem;
@@ -136,7 +137,8 @@ hr.border__dashed {
     transition: color .15s ease-in-out,background-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-.allauth-form-inner-content button:hover  {	
+.allauth-form-inner-content button:hover,
+.btn__default:hover  {	
     color: #fff;
     background-color: #218838;
 }
