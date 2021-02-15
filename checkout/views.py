@@ -66,6 +66,12 @@ def view_checkout(request):
                 )
                 order_line_item.save()
 
+            messages.success(request,
+                             f'Thank you, payment of £{order.grand_total} \
+                             successfully received. Your order number is \
+                             [{order.pk:010}]. Full order confirmation details\
+                             are displayed below.',
+                             extra_tags='Order confirmation')
             return redirect(reverse('checkout_success', args=[order.pk]))
 
         else:
@@ -82,11 +88,6 @@ def view_checkout(request):
 def checkout_success(request, order_number):
     """ Process successful checkout """
     order = get_object_or_404(Order, pk=order_number)
-    messages.success(request, f'Thank you, payment of £{order.grand_total} \
-                              successfully received. Your order \
-                              number is [{order.pk:010}]. Full order \
-                              confirmation details are displayed below.',
-                              extra_tags='Order confirmation')
 
     context = {
         'order': order,
