@@ -116,6 +116,31 @@ hr.border__dashed {
     display: none;
 }
 
+.allauth-form-inner-content button {
+	/* based on bootstrap btn btn-success */
+	display: inline-block;
+    padding: .375rem .75rem;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    color: #fff;
+    background: #28a745;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    user-select: none;
+    border: 4px ridge #20b942;
+    border-radius: 0;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.allauth-form-inner-content button:hover  {	
+    color: #fff;
+    background-color: #218838;
+}
+
 /* Navbar */
 .nav__logo {
     padding: 4px 8px;
