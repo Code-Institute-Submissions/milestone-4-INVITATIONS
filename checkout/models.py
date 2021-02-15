@@ -5,11 +5,15 @@ from django.db.models import Sum
 from django_countries.fields import CountryField
 
 from products.models import Product
+from django.contrib.auth.models import User
 
 
 class Order(models.Model):
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL,
+                             null=True, blank=True,
+                             related_name='order_history')
     phone_number = models.CharField(max_length=20, null=False, blank=False)
     street_address1 = models.CharField(max_length=80, null=False, blank=False)
     street_address2 = models.CharField(max_length=80, blank=True)

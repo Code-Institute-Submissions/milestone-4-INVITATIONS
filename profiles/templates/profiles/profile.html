@@ -17,14 +17,34 @@
             <div class="col-12 col-lg-6 pr-lg-4">
                 <h2 class="page__subtitle pt-3 pt-lg-2">Order History</h2>
                 <div class="row mt-1">
-                    <div class="col-10">
-                        <p class="mb-1 small text-muted">Item Details & Qty</p>
+                    <div class="col-4">
+                        <p class="mb-1 small text-muted">Order No.</p>
                     </div>
-                    <div class="col-2">
-                        <p class="mb-1 small text-muted float-right">Subtotal</p>
+                    <div class="col-4">
+                        <p class="mb-1 small text-muted">Order Date</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="mb-1 small text-muted float-right">Grand Total</p>
                     </div>
                 </div>            
                 <hr class="mt-1 mb-1">
+                <div class="row mt-1">
+                    {% for order in order_history %}
+                        <div class="col-4">
+                            <p class="">{{ order.pk|stringformat:"010d" }}</p>
+                        </div>
+                        <div class="col-4 p-0">
+                            <p class="mb-0 ml-2">{{ order.order_date|date:"jS M Y @ g:ia" }}</p>
+                        </div>
+                        <div class="col-4 pl-0 text-right">
+                            <p class="">£{{ order.grand_total|floatformat:2 }}</p>
+                        </div>
+                    {% empty %}
+                        <div class="col-12">
+                            <p>You have not placed any orders yet</p>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
             <!-- User profile -->
             <div class="col-12 col-lg-6 border__left pl-2 pl-lg-4">

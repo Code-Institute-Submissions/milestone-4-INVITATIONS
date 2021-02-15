@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
+from checkout.models import Order
 from django.contrib.auth.models import User
 from .forms import ProfileForm
 
@@ -29,9 +30,11 @@ def user_profile(request):
                                         extra_tags='user')
         else:
             form = ProfileForm(instance=profile)
+            order_history = profile.order_history.all()
 
         context = {
             'form': form,
+            'order_history': order_history,
         }
 
         return render(request, 'profiles/profile.html', context)

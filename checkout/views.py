@@ -6,6 +6,7 @@ from decimal import Decimal
 from django.conf import settings
 from .models import Order, OrderLineItem
 from products.models import Product
+from django.contrib.auth.models import User
 
 from .forms import OrderForm
 from cart.contexts import cart_contents
@@ -50,6 +51,11 @@ def view_checkout(request):
                 json_cart.append(json_item)
 
             order.original_cart = json.dumps(json_cart)
+
+            if request.user.is_authenticated:
+                profile = User.objects.get(username=request.user)
+                order.user = profile
+
             order.save()
             for item in original_cart:
                 product = get_object_or_404(Product, pk=item['product_id'])
