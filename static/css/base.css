@@ -112,7 +112,7 @@ hr.border__dashed {
 }
 
 /* Allauth forms */
-.allauth-form-inner-content label {
+.allauth-form-inner-content label:not([class='form-check-label']) {
     display: none;
 }
 
