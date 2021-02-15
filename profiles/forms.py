@@ -25,7 +25,7 @@ class ProfileForm(forms.ModelForm):
             Field('email', placeholder='Last name',
                   css_class="rounded-0"),
             HTML('<button id="user-submit" '
-                 'class="btn btn-primary rounded-0 mt-2 float-right">'
+                 'class="btn__default mt-2 float-right">'
                  '<i class="fas fa-user-alt" aria-hidden="true"></i>'
                  '&nbsp;&nbsp;Update</button></span>'),
         )

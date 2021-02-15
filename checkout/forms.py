@@ -56,7 +56,7 @@ class OrderForm(forms.ModelForm):
             HTML('<p id="card-error" role="alert"></p>'),
             HTML('<p class="result-message hidden">Payment succeeded.</p>'),
             HTML('<button id="order-submit" '
-                 'class="btn btn-primary rounded-0 mt-2 float-right">'
+                 'class="btn__default mt-2 float-right">'
                  '<span class="hidden" id="spinner">'
                  '<i class="fas fa-spinner fa-spin"></i>  '
                  'Processing Payment</span>'
