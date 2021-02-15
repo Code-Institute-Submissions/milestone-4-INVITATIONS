@@ -111,6 +111,10 @@ hr.border__dashed {
     border-radius: unset;
 }
 
+/* Allauth forms */
+.allauth-form-inner-content label {
+    display: none;
+}
 
 /* Navbar */
 .nav__logo {
