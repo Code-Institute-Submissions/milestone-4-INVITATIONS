@@ -6,6 +6,6 @@ urlpatterns = [
     path('create-payment-intent/',
          views.create_payment_intent,
          name='create_payment_intent'),
-    path('checkout_success/<order_number>',
+    path('success/<order_number>',
          views.checkout_success, name='checkout_success'),
 ]
