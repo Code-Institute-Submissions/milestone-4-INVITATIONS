@@ -23,6 +23,12 @@ body {
     margin-bottom: 4px;
 }
 
+.btn__effect-sm {
+    border-width: 4px;
+    border-color: #20b942;
+    border-style: ridge;
+}
+
 .fz__lg {
     font-size: 1.5em;
 }
@@ -70,6 +76,7 @@ hr.border__dashed {
     font-size: 1.2em;
 }
 
+/* Pages */
 .page__default {
     min-height: 70vh;
     background: var(--themePageGrey);
