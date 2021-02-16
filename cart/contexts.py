@@ -36,7 +36,7 @@ def cart_contents(request):
 
     grand_total = (delivery + cart_total)
 
-    cart_items.reverse()
+    # cart_items.reverse()
 
     context = {
             'cart_items': cart_items,
