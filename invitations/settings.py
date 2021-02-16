@@ -95,7 +95,7 @@ MESSAGE_TAGS = {
     messages.INFO: 'toast__info',
     messages.SUCCESS: 'toast__success',
     messages.WARNING: 'toast__warning',
-    messages.ERROR: 'toast__danger',
+    messages.ERROR: 'toast__error',
 }
 
 AUTHENTICATION_BACKENDS = [
