@@ -366,11 +366,15 @@ hr.border__dashed {
     border-radius: 0;
 }
 
-.toast__success {
+.toast__success, .toast__info {
     background: #0f842a;
 }
 
-.toast__danger {
+.toast__warning {
+    background: #973710;
+}
+
+.toast__error {
     background: #8a0f0f;
 }
 
