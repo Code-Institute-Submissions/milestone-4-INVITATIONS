@@ -78,7 +78,15 @@ def view_checkout(request):
             messages.error(request, 'Error with form, but I reckon \
                  we have already took payment. Please check your details.')
     else:
-        form = OrderForm()
+        form_data = {}
+        if request.user.is_authenticated:
+            form_data = {
+                'full_name': f'{request.user.first_name.title()} '
+                             f'{request.user.last_name.title()}',
+                'email': request.user.email,
+            }
+
+        form = OrderForm(initial=form_data)
         context = {
             'form': form,
         }
