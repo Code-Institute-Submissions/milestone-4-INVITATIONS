@@ -129,7 +129,6 @@ def order_history(request, order_number):
     """ Display historic order confirmation"""
     if request.user.is_authenticated:
         try:
-            # order = get_object_or_404(Order, pk=order_number)
             order = Order.objects.get(pk=order_number)
         except Order.DoesNotExist:
             messages.error(request,
@@ -137,6 +136,7 @@ def order_history(request, order_number):
                            extra_tags='order confirmation')
 
             return redirect('user_profile')
+
         else:
             if order.user == request.user:
                 context = {
@@ -146,20 +146,11 @@ def order_history(request, order_number):
 
                 return render(request, 'checkout/success.html', context)
 
-            else:
-                messages.error(request,
-                               'Sorry that order is not in your order \
-                               history.',
-                               extra_tags='order history')
+    messages.error(request,
+                   'Sorry cannot access that order history.',
+                   extra_tags='order history')
 
-                return redirect('user_profile')
-    else:
-        messages.error(request,
-                       'Sorry you must be logged-in to view your order \
-                       history.',
-                       extra_tags='order history')
-
-        return redirect('home')
+    return redirect('home')
 
 
 def shopping_cart_items(ordered_by, items):
