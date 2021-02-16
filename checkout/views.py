@@ -101,14 +101,39 @@ def checkout_success(request, order_number):
 
 def order_history(request, order_number):
     """ Display historic order confirmation"""
-    order = get_object_or_404(Order, pk=order_number)
+    if request.user.is_authenticated:
+        try:
+            # order = get_object_or_404(Order, pk=order_number)
+            order = Order.objects.get(pk=order_number)
+        except Order.DoesNotExist:
+            messages.error(request,
+                           'Sorry that order confirmation cannot be found',
+                           extra_tags='order confirmation')
 
-    context = {
-        'order': order,
-        'order_history': True,
-    }
+            return redirect('user_profile')
+        else:
+            if order.user == request.user:
+                context = {
+                    'order': order,
+                    'order_history': True,
+                }
 
-    return render(request, 'checkout/success.html', context)
+                return render(request, 'checkout/success.html', context)
+
+            else:
+                messages.error(request,
+                               'Sorry that order is not in your order \
+                               history.',
+                               extra_tags='order history')
+
+                return redirect('user_profile')
+    else:
+        messages.error(request,
+                       'Sorry you must be logged-in to view your order \
+                       history.',
+                       extra_tags='order history')
+
+        return redirect('home')
 
 
 def shopping_cart_items(ordered_by, items):
