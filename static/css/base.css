@@ -151,6 +151,7 @@ hr.border__dashed {
 .btn__default:hover  {	
     color: #fff;
     background-color: #218838;
+    text-decoration: none;
 }
 
 /* Profile */
