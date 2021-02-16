@@ -95,16 +95,34 @@ def view_checkout(request):
 
 def checkout_success(request, order_number):
     """ Process successful checkout """
-    order = get_object_or_404(Order, pk=order_number)
+    if request.user.is_authenticated:
+        try:
+            order = Order.objects.get(pk=order_number)
+        except Order.DoesNotExist:
+            messages.error(request,
+                           f'Sorry cannot locate confirmation data for \
+                           order number {int(order_number):010}',
+                           extra_tags='order confirmation')
 
-    context = {
-        'order': order,
-    }
+            return redirect('home')
 
-    if 'cart' in request.session:
-        del request.session['cart']
+        else:
+            if order.user == request.user:
+                context = {
+                    'order': order,
+                }
 
-    return render(request, 'checkout/success.html', context)
+                if 'cart' in request.session:
+                    del request.session['cart']
+
+                return render(request, 'checkout/success.html', context)
+
+    messages.error(request,
+                   f'Sorry cannot view the confirmation for order number \
+                   {int(order_number):010}',
+                   extra_tags='order confirmation')
+
+    return redirect('home')
 
 
 def order_history(request, order_number):
