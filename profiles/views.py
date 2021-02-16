@@ -30,8 +30,8 @@ def user_profile(request):
                                         extra_tags='user')
         else:
             form = ProfileForm(instance=profile)
-            order_history = profile.order_history.all()
 
+        order_history = profile.order_history.all()
         context = {
             'form': form,
             'order_history': order_history,
