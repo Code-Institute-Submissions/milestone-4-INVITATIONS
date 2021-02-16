@@ -111,9 +111,13 @@
                     {% if cart_items %}
                         <div class="row">
                             <div class="col-12">
+                                <a class="btn__default float-left" href="{% url 'products' %}">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span class="pl-1">SHOP MORE</span>
+                                </a>
                                 <button class="btn__default float-right" id="btn-update-cart" type="submit">
                                     <i class="fas fa-sync-alt"></i>
-                                    <span>&nbsp;UPDATE CART</span>
+                                    <span class="pl-1">UPDATE CART</span>
                                 </button>
                             </div>
                         </div>
