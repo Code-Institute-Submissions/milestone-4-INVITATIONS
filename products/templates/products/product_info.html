@@ -50,7 +50,11 @@
                         <div class="row">
                             <div class="col-md-12 text-right">
                                     {% csrf_token %}
-                                    <input type="submit" class="btn__default" value="Add to Cart">
+                                    <button type="submit" class="btn__default">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        <span class="pl-1">ADD TO CART</span>
+                                    </button>
+                                    <!-- <input type="submit" class="btn__default" value="Add to Cart"> -->
                                     <input type="hidden" name="original_path" value="{{ request.path }}">
                             </div>
                         </div>
