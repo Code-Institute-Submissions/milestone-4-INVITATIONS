@@ -67,7 +67,7 @@ def view_checkout(request):
                 order_line_item.save()
 
             messages.success(request,
-                             f'Thank you, payment of £{order.grand_total} \
+                             f'Thank you, payment of £{order.grand_total:.2f} \
                              successfully received. Your order number is \
                              [{order.pk:010}]. Full order confirmation details\
                              are displayed below.',
