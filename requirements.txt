@@ -2,6 +2,7 @@ asgiref==3.3.1
 astroid==2.4.2
 Django==3.1.5
 django-allauth==0.44.0
+django-colorfield==0.4.1
 django-countries==7.0
 django-crispy-forms==1.11.0
 isort==5.7.0
