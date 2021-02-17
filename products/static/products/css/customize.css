@@ -42,12 +42,13 @@
 }
 
 .field__margin {
-    margin: 2px 0;
+    /* margin: 2px 0; */
+    margin: 0 0 4px 0;
 }
 
 .btn__field-action {
     width: 30%;
-    margin: 2px 0;
+    /* margin: 2px 0; */
     border-radius: 0;
 }
 
@@ -69,10 +70,10 @@
     position: absolute;
     display: none;
     z-index: 1000;
-    width: 437px;
-    padding: 8px;
+    width: 291px;
+    padding: 4px 8px;
     background: darkgray;
-    text-align: center;
+    text-align: left;
 }
 
 .edit__field {
@@ -100,5 +101,12 @@
     .custom__field {
         width: 437px;
     }
+
+    .input__field {
+        width: 437px;
+        padding: 8px 24px 8px 0;
+        background: darkgray;
+    }
+
 
 }
