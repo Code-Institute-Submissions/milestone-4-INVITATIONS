@@ -1,5 +1,5 @@
 let customLines = $('#custom-lines').val();
-let customScale = $(":root").css("--customizeScale");
+let customScale = parseInt($(":root").css("--customizeScale"));
 console.log({customScale});
 
 const customiseInvite = {
@@ -21,8 +21,8 @@ const customiseInvite = {
         fieldLink.id = `edit-${fieldDetails.name}`;
         fieldLink.title = `Edit '${customiseInvite.fieldDisplayName(fieldDetails.name)}'`;
         fieldLink.classList = 'edit__field custom__field';
-        fieldLinkStyle = `top: ${(fieldDetails.y_pos / 4)}px;`;
-        fieldLinkStyle += `height: ${((fieldDetails.raw_size / 4) * 1.5)}px;`;
+        fieldLinkStyle = `top: ${(fieldDetails.y_pos / customScale)}px;`;
+        fieldLinkStyle += `height: ${((fieldDetails.raw_size / customScale) * 1.5)}px;`;
         fieldLink.style = fieldLinkStyle;
         $('#design-preview').append(fieldLink);
 
@@ -32,7 +32,7 @@ const customiseInvite = {
         div.classList = `field__${fieldDetails.name} custom__field`;
         div.id = `show-${fieldDetails.name}`;
         let divStyle = `font-family: ${fieldDetails.font};`;
-        divStyle += `font-size: ${(fieldDetails.raw_size / 4)}px;`;
+        divStyle += `font-size: ${(fieldDetails.raw_size / customScale)}px;`;
         divStyle += `color: ${fieldDetails.color};`;
         divStyle += `-webkit-text-stroke: ${fieldDetails.stroke_width} ${fieldDetails.stroke_fill};`;
         div.style = divStyle;
@@ -48,10 +48,10 @@ const customiseInvite = {
     setFieldDivPosition:(fontSize, y_pos) => {
         // Set the divPosition based on the text y_pos, current font size,
         // the height of the invite and the height of the input div(121px)
-        let divPosition = ((y_pos / 4) + (fontSize * 1.5));
+        let divPosition = ((y_pos / customScale) + (fontSize * 1.5));
         inviteHeight = $('#design-preview').height();
         if ((divPosition + 121) > inviteHeight) {
-            divPosition = (y_pos / 4) - 121;
+            divPosition = (y_pos / customScale) - 121;
         }
         return divPosition;
     },
@@ -61,7 +61,7 @@ const customiseInvite = {
         let div = document.createElement('div');
         div.classList = 'input__field';
         div.id = 'fields-' + fieldDetails.name;
-        divPosition = customiseInvite.setFieldDivPosition((fieldDetails.raw_size / 4), fieldDetails.y_pos);
+        divPosition = customiseInvite.setFieldDivPosition((fieldDetails.raw_size / customScale), fieldDetails.y_pos);
         divStyle = 'top: ' + divPosition + 'px;';
         div.style = divStyle;
         $('#design-preview').append(div);
@@ -81,7 +81,7 @@ const customiseInvite = {
     setFieldInputValues:(fieldDetails) => {
         $('#' + fieldDetails.name + '-text-color').val(fieldDetails.color);
         $('#' + fieldDetails.name + '-text-font').val(fieldDetails.font);
-        resetSize = parseInt(fieldDetails.raw_size / 4);
+        resetSize = parseInt(fieldDetails.raw_size / customScale);
         $('#' + fieldDetails.name + '-text-size').val(resetSize);
         resetStrokeWidth = fieldDetails.stroke_width;
         $('#' + fieldDetails.name + '-stroke-width').val(resetStrokeWidth);
@@ -110,8 +110,8 @@ const customiseInvite = {
         divTemplate = divTemplate.replace(fontLine, fontLineSelected);
 
         // Set selected size within the template string
-        let sizeLine = `<option value="${(fieldDetails.raw_size / 4)}">${(fieldDetails.raw_size / 4)}</option>`;
-        let sizeLineSelected = `<option value="${(fieldDetails.raw_size / 4)}" selected>${(fieldDetails.raw_size / 4)}</option>`;
+        let sizeLine = `<option value="${(fieldDetails.raw_size / customScale)}">${(fieldDetails.raw_size / customScale)}</option>`;
+        let sizeLineSelected = `<option value="${(fieldDetails.raw_size / customScale)}" selected>${(fieldDetails.raw_size / customScale)}</option>`;
         divTemplate = divTemplate.replace(sizeLine, sizeLineSelected);
 
         // Add inputs template to the InputDiv
