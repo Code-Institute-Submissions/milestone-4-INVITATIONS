@@ -60,13 +60,11 @@
                         </div>
                         <hr>
                         <p class="product__descr">{{ product.description }}</p>
-                        {% if product.customizable %}
-                            <p>
-                                Custom IT
-                                {{ custom_lines }}
-                            </p>
-                        {% else %}
-                            <p>NOT custom</p>
+                        {% if product.customizable and custom_lines %}
+                            <button class="btn btn__default float-right">
+                                <i class="far fa-edit"></i>
+                                <span class="pl-1">PERSONALISE</span>
+                            </button>
                         {% endif %}
                     </div>
                     </form>
