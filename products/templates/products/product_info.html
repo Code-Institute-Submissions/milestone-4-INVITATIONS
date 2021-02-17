@@ -60,6 +60,14 @@
                         </div>
                         <hr>
                         <p class="product__descr">{{ product.description }}</p>
+                        {% if product.customizable %}
+                            <p>
+                                Custom IT
+                                {{ custom_lines }}
+                            </p>
+                        {% else %}
+                            <p>NOT custom</p>
+                        {% endif %}
                     </div>
                     </form>
                 </div>

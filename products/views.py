@@ -81,8 +81,17 @@ def product_info(request, product_id):
         return redirect('products')
 
     else:
-        context = {
-            'product': product,
-        }
+        if product.customizable:
+            custom_lines = product.customlines.all()
+            context = {
+                'product': product,
+                'custom_lines': custom_lines,
+            }
+
+        else:
+
+            context = {
+                'product': product,
+            }
 
         return render(request, 'products/product_info.html', context)
