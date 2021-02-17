@@ -47,12 +47,17 @@ const customiseInvite = {
 
     setFieldDivPosition:(fontSize, y_pos) => {
         // Set the divPosition based on the text y_pos, current font size,
-        // the height of the invite and the height of the input div(121px)
-        let divPosition = ((y_pos / customScale) + (fontSize * 1.5));
-        inviteHeight = $('#design-preview').height();
-        if ((divPosition + 121) > inviteHeight) {
-            divPosition = (y_pos / customScale) - 121;
+        // the height of the invite and the height of the input div(120px)
+        let defaultInputDivHeight = 120
+        let divPosition = 120;
+        if (customScale == 4) {
+            divPosition = ((y_pos / customScale) + (fontSize * 1.5));
+            inviteHeight = $('#design-preview').height();
+            if ((divPosition + defaultInputDivHeight) > inviteHeight) {
+                divPosition = (y_pos / customScale) - defaultInputDivHeight;
+            }
         }
+
         return divPosition;
     },
 
