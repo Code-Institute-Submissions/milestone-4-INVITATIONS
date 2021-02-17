@@ -1,5 +1,6 @@
 let customLines = $('#custom-lines').val();
 let customScale = $(":root").css("--customizeScale");
+console.log({customScale});
 
 const customiseInvite = {
     invite_fields: JSON.parse(customLines),

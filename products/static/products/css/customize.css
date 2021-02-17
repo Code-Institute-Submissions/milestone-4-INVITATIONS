@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Clicker+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Londrina+Solid&display=swap');
 
+:root {
+    --customizeScale:6;
+}
+
 .modal-body {
     background: #f0f0f0;
     background: #515151;
@@ -79,4 +83,13 @@
 .edit__field:focus,
 .edit__field:active {
     border: 1px dotted grey;
+}
+
+/* Small devices (tablets, 576px and up) */
+@media (min-width: 576px) {
+
+    :root {
+        --customizeScale:4;
+    }
+
 }
