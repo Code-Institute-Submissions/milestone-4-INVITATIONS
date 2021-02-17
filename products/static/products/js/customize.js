@@ -86,7 +86,7 @@ const customiseInvite = {
     setFieldInputValues:(fieldDetails) => {
         $('#' + fieldDetails.name + '-text-color').val(fieldDetails.color);
         $('#' + fieldDetails.name + '-text-font').val(fieldDetails.font);
-        resetSize = parseInt(fieldDetails.raw_size / customScale);
+        resetSize = parseInt(fieldDetails.raw_size);
         $('#' + fieldDetails.name + '-text-size').val(resetSize);
         resetStrokeWidth = fieldDetails.stroke_width;
         $('#' + fieldDetails.name + '-stroke-width').val(resetStrokeWidth);
@@ -115,8 +115,10 @@ const customiseInvite = {
         divTemplate = divTemplate.replace(fontLine, fontLineSelected);
 
         // Set selected size within the template string
-        let sizeLine = `<option value="${(fieldDetails.raw_size / customScale)}">${(fieldDetails.raw_size / customScale)}</option>`;
-        let sizeLineSelected = `<option value="${(fieldDetails.raw_size / customScale)}" selected>${(fieldDetails.raw_size / customScale)}</option>`;
+        fontOptionScaler = customScale;
+        if (customScale == 6) { fontOptionScaler = customScale / 1.5; }
+        let sizeLine = `<option value="${fieldDetails.raw_size}">${(fieldDetails.raw_size / fontOptionScaler)}</option>`;
+        let sizeLineSelected = `<option value="${fieldDetails.raw_size}" selected>${(fieldDetails.raw_size / fontOptionScaler)}</option>`;
         divTemplate = divTemplate.replace(sizeLine, sizeLineSelected);
 
         // Add inputs template to the InputDiv
@@ -142,7 +144,10 @@ const customiseInvite = {
         if (newText == '') { newText = ' '; }
         newColor = $('#' + fieldDetails.name + '-text-color').val();
         newFont = $('#' + fieldDetails.name + '-text-font').val();
-        newSize = $('#' + fieldDetails.name + '-text-size').val() + 'px';
+        newSize = `${$('#' + fieldDetails.name + '-text-size').val() / customScale}px`;
+        testSize = Math.ceil($('#' + fieldDetails.name + '-text-size').val() / customScale);
+        console.log({testSize});
+        console.log('Updating font size to: ', newSize);
         newStrokeWidth = $('#' + fieldDetails.name + '-stroke-width').val();
         newStrokeColor = $('#' + fieldDetails.name + '-stroke-color').val();
         newStroke = newStrokeWidth + ' ' + newStrokeColor;
@@ -152,8 +157,8 @@ const customiseInvite = {
         $('#show-' + fieldDetails.name).css('font-family', newFont);
         $('#show-' + fieldDetails.name).css('font-size', newSize);
 
-        // Increase the height of the link - scaleFactor not required here
-        newLinkHeight = (($('#' + fieldDetails.name + '-text-size').val() * 1.5) + 'px');
+        // Change the height of the dotted link box
+        newLinkHeight = `${($('#' + fieldDetails.name + '-text-size').val() * 1.5) / customScale}px`;
         $('#edit-' + fieldDetails.name).height(newLinkHeight);
 
         // Move the top position of the fieldDiv
