@@ -67,7 +67,7 @@
                 <!-- Product category tag, admin links -->
                 <div class="row">
                     <div class="col-12">
-                        {% if product.customizable and custom_lines %}
+                        {% if product.customizable and custom_lines and product.customize_image %}
                             <button class="btn btn__default mb-3 float-right">
                                 <i class="far fa-edit"></i>
                                 <span class="pl-1">PERSONALISE</span>
