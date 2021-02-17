@@ -16,7 +16,7 @@ class ProductAdmin(admin.ModelAdmin):
         'price',
         'featured',
         'date_created',
-        'raw_image',
+        'view_image',
     )
 
     ordering = ('date_created',)

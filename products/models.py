@@ -28,6 +28,7 @@ class Product(models.Model):
         auto_now_add=True, blank=True, null=True)
     raw_image = models.ImageField(blank=True)
     view_image = models.ImageField(blank=True)
+    customize_image = models.ImageField(blank=True)
 
     def __str__(self):
         return self.name
