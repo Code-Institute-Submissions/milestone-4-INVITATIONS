@@ -15,8 +15,8 @@
 }
 
 .preview__size {
-    height: 620px;
-    width: 437px;
+    height: 413px;
+    width: 291px;
 }
 
 .preview__overlay {
@@ -32,7 +32,7 @@
 
 .custom__field {
     position: absolute;
-    width: 437px;
+    width: 291px;
     text-align: center;
 }
 
@@ -90,6 +90,15 @@
 
     :root {
         --customizeScale:4;
+    }
+
+    .preview__size {
+        height: 620px;
+        width: 437px;
+    }
+
+    .custom__field {
+        width: 437px;
     }
 
 }
