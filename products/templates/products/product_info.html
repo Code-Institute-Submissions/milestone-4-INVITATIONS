@@ -62,6 +62,7 @@
                         <p class="product__descr">{{ product.description }}</p>
                     </div>
                 </div>
+                    <input type="hidden" name="custom-lines" id="custom-lines" value="{{ custom_lines }}">
                 </form>
                 <!-- Product category tag, admin links -->
                 <div class="row">
@@ -93,4 +94,8 @@
 {% block postloadjs %}
     {{ block.super }}
     {% include 'cart/includes/quantity_buttons_script.html' %}
+    <script type="text/javascript">
+        customLines = $('#custom-lines').val();
+        console.log({customLines});
+    </script>
 {% endblock %}

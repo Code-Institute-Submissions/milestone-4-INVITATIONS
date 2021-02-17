@@ -86,7 +86,9 @@ def product_info(request, product_id):
         }
 
         if product.customizable:
-            custom_lines = product.customlines.all()
+            custom_lines = list(product.customlines.all().values(
+                'name', 'text', 'y_pos', 'font',
+                'raw_size', 'color', 'stroke_fill', 'stroke_width'))
             context['custom_lines'] = custom_lines
 
         return render(request, 'products/product_info.html', context)
