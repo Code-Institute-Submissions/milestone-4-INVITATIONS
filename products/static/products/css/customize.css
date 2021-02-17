@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Clicker+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Solid&display=swap');
+
+.modal-body {
+    background: #f0f0f0;
+    background: #515151;
+}
+
+.modal-header .close {
+    padding: 1.5rem 1.5rem !important;
+}
+
+.preview__size {
+    height: 620px;
+    width: 437px;
+}
+
+.preview__overlay {
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+}
+
+#design-pause-overlay {
+    display: none;
+    z-index: 2000;
+}
+
+.custom__field {
+    position: absolute;
+    width: 437px;
+    text-align: center;
+}
+
+.custom__select {
+    padding: 0 5px;
+    height: 31px;
+}
+
+.field__margin {
+    margin: 2px 0;
+}
+
+.btn__field-action {
+    width: 30%;
+    margin: 2px 0;
+    border-radius: 0;
+}
+
+#btn-invite-edit, #btn-invite-reset {
+    position: absolute;
+    z-index: 3000;
+    bottom: 0;
+}
+
+#btn-invite-edit {
+    left: 0;
+}
+
+#btn-invite-reset {
+    right: 0;
+}
+
+.input__field {
+    position: absolute;
+    display: none;
+    z-index: 1000;
+    width: 437px;
+    padding: 8px;
+    background: darkgray;
+    text-align: center;
+}
+
+.edit__field {
+    border: 0;
+}
+
+.edit__field:hover,
+.edit__field:focus,
+.edit__field:active {
+    border: 1px dotted grey;
+}
