@@ -90,12 +90,20 @@
         </div>
     </div>
 </main>
+{% if product.customizable and custom_lines and product.customize_image %}
+    {{ product.customize_image.url|json_script:"customize-image" }}
+{% endif %}
+
 {% endblock %}
 {% block postloadjs %}
     {{ block.super }}
     {% include 'cart/includes/quantity_buttons_script.html' %}
-    <script type="text/javascript">
-        customLines = $('#custom-lines').val();
-        console.log({customLines});
-    </script>
+    {% if product.customizable and custom_lines and product.customize_image %}
+        <script type="text/javascript">
+            customLines = $('#custom-lines').val();
+            console.log({customLines});
+            customizeImageURL = $('#customize-image').text();
+            console.log({customizeImageURL});
+        </script>
+    {% endif %}
 {% endblock %}
