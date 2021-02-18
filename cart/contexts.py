@@ -15,6 +15,7 @@ def cart_contents(request):
 
     string_cart = str(request.session.get('cart', []))
     cart = json.loads(string_cart)
+    cart_contains_invite = False
 
     for item in cart:
         if isinstance(item['quantity'], int):
@@ -22,6 +23,9 @@ def cart_contents(request):
             line_total = item['quantity'] * product.price
             cart_total += line_total
             product_count += item['quantity']
+            if item['invite_data']:
+                cart_contains_invite = True
+
             cart_items.append({
                 'product_id': item['product_id'],
                 'quantity': item['quantity'],
@@ -45,6 +49,7 @@ def cart_contents(request):
             'cart_product_count': product_count,
             'cart_delivery': delivery,
             'cart_grand_total': grand_total,
+            'cart_contains_invite': cart_contains_invite,
         }
 
     return context
