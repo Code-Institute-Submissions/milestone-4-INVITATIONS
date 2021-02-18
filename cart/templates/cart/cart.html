@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+    {% if cart_contains_invite %}
+        <link rel="stylesheet" href="{% static 'products/css/customize.css' %}">
+    {% endif %}
+{% endblock %}
+
 {% block content %}
 <main class="container-fluid page__default">
     <div class="cart__container pt-5 pb-5">
@@ -47,9 +53,7 @@
                 <p>&nbsp;</p>
             </div>
         </div>
-        {% if cart_contains_invite %}
-           <p class="bg-primary">Further down include the customize modal and js</p>
-        {% endif %}
+        
         <!-- Cart contents -->
         <div class="row">
             <!-- Cart items -->
@@ -70,7 +74,7 @@
                                 {% endif %}
                                 {% if item.invite_data %}
                                     <div class="w-100 d-sm-none">
-                                        <a href="#" class="btn btn__default btn__smaller mb-0 w-100">PERSONALISE</a>
+                                        <a data-set-invite-img="{{ item.customize_image.url}}" data-set-invite-btn="{{ item.product_id }}" class="btn btn__default btn__smaller mb-0 w-100 js__invite-data-btn">PERSONALISE</a>
                                     </div>
                                 {% endif %}
                             </div>
@@ -109,7 +113,7 @@
                             </div>
                             {% if item.invite_data %}
                                 <div class="col-sm-5 d-none d-sm-block mt-2">
-                                    <a href="#" class="btn btn__default btn__smaller mb-0 w-100">PERSONALISE</a>
+                                    <a data-set-invite-img="{{ item.customize_image.url}}" data-set-invite-btn="{{ item.product_id }}" class="btn btn__default btn__smaller mb-0 w-100 js__invite-data-btn">PERSONALISE</a>
                                 </div>
                             {% endif %}
                         </div>
@@ -151,9 +155,34 @@
 
     </div>
 </main>
+{% if cart_contains_invite %}
+    {% include 'products/includes/customize_modal.html' %}
+    {{ product.customize_image.url|json_script:"customize-image" }}
+    <script type="text/javascript">
+        DIV_INPUT_TEMPLATE = `{% include "products/includes/div_inputs_template.html" %}`
+    </script>    
+{% endif %}
+
 {% endblock %}
 
 {% block postloadjs %}
     {{ block.super }}
     {% include 'cart/includes/quantity_buttons_script.html' %}
+    {% if cart_contains_invite %}
+        <script src="{% static 'products/js/customize.js' %}"></script>
+        <script type="text/javascript">
+            // let inviteFields = '';
+            // Set event listeners for personalise buttons in the cart display
+            $('.js__invite-data-btn').click(function(e){
+                DATA_RETURN_ID = `invite-data-${e.currentTarget.dataset.setInviteBtn}`;
+                inviteImage = e.currentTarget.dataset.setInviteImg;
+                $('#invite-customize-image').attr('src',e.currentTarget.dataset.setInviteImg);
+                customiseInvite.inviteFields = JSON.parse($(`#${DATA_RETURN_ID}`).val());
+                customiseInvite.setupInviteActionButtons();
+                customiseInvite.copyInviteFields();
+                customiseInvite.setupInviteFields();
+                $('#customize-modal').modal('show');
+            });
+        </script>     
+    {% endif %}
 {% endblock %}
