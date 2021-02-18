@@ -48,6 +48,7 @@ def view_checkout(request):
                 json_item['quantity'] = item['quantity']
                 json_item['name'] = item['name']
                 json_item['price'] = str(item['price'])
+                json_item['invite_data'] = item['invite_data']
                 json_cart.append(json_item)
 
             order.original_cart = json.dumps(json_cart)
@@ -63,6 +64,7 @@ def view_checkout(request):
                     order=order,
                     product=product,
                     quantity=Decimal(item['quantity']),
+                    invite_data=item['invite_data'],
                 )
                 order_line_item.save()
 
