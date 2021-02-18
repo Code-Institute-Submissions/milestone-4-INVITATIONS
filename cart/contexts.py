@@ -32,6 +32,7 @@ def cart_contents(request):
                 'name': product.name,
                 'price': product.price,
                 'image': product.view_image,
+                'customize_image': product.customize_image,
                 'line_total': line_total,
                 'invite_data': item['invite_data'],
             })
