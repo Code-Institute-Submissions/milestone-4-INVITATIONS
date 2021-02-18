@@ -1,6 +1,5 @@
 from django.shortcuts import get_object_or_404
 from django.conf import settings
-from decimal import Decimal
 
 from products.models import Product
 
@@ -15,7 +14,6 @@ def cart_contents(request):
     grand_total = 0
 
     string_cart = str(request.session.get('cart', []))
-    print('Context String cart: ', string_cart)
     cart = json.loads(string_cart)
 
     for item in cart:
@@ -33,7 +31,6 @@ def cart_contents(request):
                 'line_total': line_total,
                 'invite_data': item['invite_data'],
             })
-            print('Custom is: ', item['invite_data'])
 
     if cart_total < settings.FREE_DELIVERY_AMOUNT:
         delivery = settings.STANDARD_DELIVERY_CHARGE
