@@ -66,12 +66,12 @@
                         <p class="product__descr">{{ product.description }}</p>
                     </div>
                 </div>
-                    <input type="hidden" name="custom-invite-data" id="custom-invite-data" value="{{ custom_invite_data }}">
+                    <input type="hidden" name="invite-data-item-{{ product.id }}" id="invite-data-item-{{ product.id }}" value="{{ invite_data }}">
                 </form>
                 <!-- Product category tag, admin links -->
                 <div class="row">
                     <div class="col-12">
-                        {% if product.customizable and custom_invite_data and product.customize_image %}
+                        {% if product.customizable and invite_data and product.customize_image %}
                             <button type="button" class="btn btn__default mb-3 float-right" data-toggle="modal" data-target="#customize-modal">
                                 <i class="far fa-edit"></i>
                                 <span class="pl-1">PERSONALISE</span>
@@ -94,11 +94,12 @@
         </div>
     </div>
 </main>
-{% if product.customizable and custom_invite_data and product.customize_image %}
+{% if product.customizable and invite_data and product.customize_image %}
     {% include 'products/includes/customize_modal.html' %}
     {{ product.customize_image.url|json_script:"customize-image" }}
     <script type="text/javascript">
         DIV_INPUT_TEMPLATE = `{% include "products/includes/div_inputs_template.html" %}`
+        DATA_RETURN_ID = 'invite-data-item-{{ product.id }}';
     </script>    
 {% endif %}
 
@@ -106,7 +107,7 @@
 {% block postloadjs %}
     {{ block.super }}
     {% include 'cart/includes/quantity_buttons_script.html' %}
-    {% if product.customizable and custom_invite_data and product.customize_image %}
+    {% if product.customizable and invite_data and product.customize_image %}
         <script src="{% static 'products/js/customize.js' %}"></script>
     {% endif %}
 {% endblock %}

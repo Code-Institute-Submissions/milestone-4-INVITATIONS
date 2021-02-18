@@ -1,4 +1,6 @@
-let customLines = $('#custom-invite-data').val();
+console.log({DATA_RETURN_ID});
+
+let customLines = $(`#${DATA_RETURN_ID}`).val();
 let customScale = parseInt($(":root").css("--customizeScale"));
 console.log({customScale});
 
@@ -208,7 +210,7 @@ const customiseInvite = {
 
         $('#btn-customize-done').click(function(){
             // Completed customization pass the data back into the form field
-            $('#custom-invite-data').val(JSON.stringify(customiseInvite.customized_fields));
+            $(`#${DATA_RETURN_ID}`).val(JSON.stringify(customiseInvite.customized_fields));
             $("#customize-modal").modal('hide');
         });
 

@@ -87,9 +87,9 @@ def product_info(request, product_id):
         }
 
         if product.customizable:
-            custom_invite_data = list(product.customlines.all().values(
+            invite_data = list(product.customlines.all().values(
                 'name', 'text', 'y_pos', 'font',
                 'raw_size', 'color', 'stroke_fill', 'stroke_width'))
-            context['custom_invite_data'] = json.dumps(custom_invite_data)
+            context['invite_data'] = json.dumps(invite_data)
 
         return render(request, 'products/product_info.html', context)

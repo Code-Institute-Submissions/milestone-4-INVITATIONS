@@ -23,7 +23,6 @@ def add_to_cart(request, product_id):
         if quantity < 100:
             string_cart = str(request.session.get('cart', []))
             cart = json.loads(string_cart)
-            custom_invite_data = request.POST.get('custom-invite-data')
             try:
                 product = Product.objects.get(pk=product_id)
             except (Product.DoesNotExist):
@@ -32,6 +31,7 @@ def add_to_cart(request, product_id):
                                found. Please retry.',
                                extra_tags='shopping cart')
             else:
+                invite_data = request.POST.get(f'invite-data-item-{product_id}')
                 item_already_in_cart = False
                 for item in cart:
                     if item['product_id'] == product_id:
@@ -46,7 +46,7 @@ def add_to_cart(request, product_id):
                     new_item = {
                         'product_id': product_id,
                         'quantity': quantity,
-                        'custom_data': custom_invite_data,
+                        'invite_data': invite_data,
                     }
                     cart.append(new_item)
                     messages.success(request,
@@ -115,8 +115,8 @@ def update_cart_qty(request):
         for item, value in data_it:
             product_id = item.split('-')[-1]
             item_quantity = int(value)
-            custom_field = next(data_it)
-            custom_data = custom_field[1]
+            invite_data_field = next(data_it)
+            invite_data = invite_data_field[1]
 
             if item_quantity > 0:
                 if item_quantity > 99:
@@ -129,7 +129,7 @@ def update_cart_qty(request):
                 new_item = {
                         'product_id': product_id,
                         'quantity': item_quantity,
-                        'custom_data': custom_data,
+                        'invite_data': invite_data,
                     }
                 cart.append(new_item)
 

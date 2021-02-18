@@ -31,9 +31,9 @@ def cart_contents(request):
                 'price': product.price,
                 'image': product.view_image,
                 'line_total': line_total,
-                'custom_invite_data': item['custom_data'],
+                'invite_data': item['invite_data'],
             })
-            print('Custom is: ', item['custom_data'])
+            print('Custom is: ', item['invite_data'])
 
     if cart_total < settings.FREE_DELIVERY_AMOUNT:
         delivery = settings.STANDARD_DELIVERY_CHARGE
