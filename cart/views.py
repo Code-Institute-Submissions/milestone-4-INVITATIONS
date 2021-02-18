@@ -31,7 +31,7 @@ def add_to_cart(request, product_id):
                                found. Please retry.',
                                extra_tags='shopping cart')
             else:
-                invite_data = request.POST.get(f'invite-data-item-{product_id}')
+                invite_data = request.POST.get(f'invite-data-{product_id}')
                 item_already_in_cart = False
                 for item in cart:
                     if item['product_id'] == product_id:
