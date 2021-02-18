@@ -66,13 +66,14 @@
                         <p class="product__descr">{{ product.description }}</p>
                     </div>
                 </div>
-                    <input type="hidden" name="invite-data-item-{{ product.id }}" id="invite-data-item-{{ product.id }}" value="{{ invite_data }}">
+                    <input type="hidden" name="invite-data-{{ product.id }}" id="invite-data-{{ product.id }}" value="{{ invite_data }}">
                 </form>
                 <!-- Product category tag, admin links -->
                 <div class="row">
                     <div class="col-12">
                         {% if product.customizable and invite_data and product.customize_image %}
-                            <button type="button" class="btn btn__default mb-3 float-right" data-toggle="modal" data-target="#customize-modal">
+                            <!-- <button type="button" class="btn btn__default mb-3 float-right js__invite-data-btn" data-toggle="modal" data-target="#customize-modal"> -->
+                            <button data-set-invite-btn="{{ product.id }}" type="button" class="btn btn__default mb-3 float-right js__invite-data-btn">
                                 <i class="far fa-edit"></i>
                                 <span class="pl-1">PERSONALISE</span>
                             </button>
@@ -99,7 +100,7 @@
     {{ product.customize_image.url|json_script:"customize-image" }}
     <script type="text/javascript">
         DIV_INPUT_TEMPLATE = `{% include "products/includes/div_inputs_template.html" %}`
-        DATA_RETURN_ID = 'invite-data-item-{{ product.id }}';
+        // ZDATA_RETURN_ID = 'invite-data-item-{{ product.id }}';
     </script>    
 {% endif %}
 
@@ -107,7 +108,17 @@
 {% block postloadjs %}
     {{ block.super }}
     {% include 'cart/includes/quantity_buttons_script.html' %}
-    {% if product.customizable and invite_data and product.customize_image %}
         <script src="{% static 'products/js/customize.js' %}"></script>
-    {% endif %}
+        <script type="text/javascript">
+            // let inviteFields = '';
+            // Set event listener for personalize button in product display
+            $('.js__invite-data-btn').click(function(e){
+                DATA_RETURN_ID = `invite-data-${e.currentTarget.dataset.setInviteBtn}`;
+                customiseInvite.inviteFields = JSON.parse($(`#${DATA_RETURN_ID}`).val());
+                customiseInvite.setupInviteActionButtons();
+                customiseInvite.copyInviteFields();
+                customiseInvite.setupInviteFields();
+                $('#customize-modal').modal('show');
+            });
+        </script>     
 {% endblock %}
