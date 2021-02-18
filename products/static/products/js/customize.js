@@ -193,7 +193,7 @@ const customiseInvite = {
     },
 
     setupInviteFields:() => {
-        customiseInvite.invite_fields.map(inviteField => {
+        customiseInvite.invite_fields.forEach(inviteField => {
             customiseInvite.addFieldDiv(inviteField);
             customiseInvite.addInputDiv(inviteField);
             customiseInvite.addFieldInputs(inviteField);
