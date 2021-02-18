@@ -1,19 +1,17 @@
-console.log({DATA_RETURN_ID});
-
-let customLines = $(`#${DATA_RETURN_ID}`).val();
-let customScale = parseInt($(":root").css("--customizeScale"));
-console.log({customScale});
+// let customLines = $(`#${DATA_RETURN_ID}`).val();
+// let inviteFields = JSON.parse($(`#${DATA_RETURN_ID}`).val());
 
 const customiseInvite = {
-    invite_fields: JSON.parse(customLines),
+    inviteFields: '',
+    customScale: parseInt($(":root").css("--customizeScale")),
     divTemplateRaw: DIV_INPUT_TEMPLATE,
     customized_fields: [],
 
     hideFieldDetailDivs:(divNotToHide) => {
         // Hide all other field detail divs incase they were not closed.
-        for (i in customiseInvite.invite_fields) {
-            if (customiseInvite.invite_fields[i].name != divNotToHide) {
-                $('#fields-' + customiseInvite.invite_fields[i].name).hide();
+        for (i in customiseInvite.inviteFields) {
+            if (customiseInvite.inviteFields[i].name != divNotToHide) {
+                $('#fields-' + customiseInvite.inviteFields[i].name).hide();
             }
         }
     },
@@ -24,8 +22,8 @@ const customiseInvite = {
         fieldLink.id = `edit-${fieldDetails.name}`;
         fieldLink.title = `Edit '${customiseInvite.fieldDisplayName(fieldDetails.name)}'`;
         fieldLink.classList = 'edit__field custom__field';
-        fieldLinkStyle = `top: ${(fieldDetails.y_pos / customScale)}px;`;
-        fieldLinkStyle += `height: ${((fieldDetails.raw_size / customScale) * 1.5)}px;`;
+        fieldLinkStyle = `top: ${(fieldDetails.y_pos / customiseInvite.customScale)}px;`;
+        fieldLinkStyle += `height: ${((fieldDetails.raw_size / customiseInvite.customScale) * 1.5)}px;`;
         fieldLink.style = fieldLinkStyle;
         $('#design-preview').append(fieldLink);
 
@@ -35,7 +33,7 @@ const customiseInvite = {
         div.classList = `field__${fieldDetails.name} custom__field`;
         div.id = `show-${fieldDetails.name}`;
         let divStyle = `font-family: ${fieldDetails.font};`;
-        divStyle += `font-size: ${(fieldDetails.raw_size / customScale)}px;`;
+        divStyle += `font-size: ${(fieldDetails.raw_size / customiseInvite.customScale)}px;`;
         divStyle += `color: ${fieldDetails.color};`;
         divStyle += `-webkit-text-stroke: ${fieldDetails.stroke_width} ${fieldDetails.stroke_fill};`;
         div.style = divStyle;
@@ -53,11 +51,11 @@ const customiseInvite = {
         // the height of the invite and the height of the input div(120px)
         let defaultInputDivHeight = 120
         let divPosition = 120;
-        if (customScale == 4) {
-            divPosition = ((y_pos / customScale) + (fontSize * 1.5));
+        if (customiseInvite.customScale == 4) {
+            divPosition = ((y_pos / customiseInvite.customScale) + (fontSize * 1.5));
             inviteHeight = $('#design-preview').height();
             if ((divPosition + defaultInputDivHeight) > inviteHeight) {
-                divPosition = (y_pos / customScale) - defaultInputDivHeight;
+                divPosition = (y_pos / customiseInvite.customScale) - defaultInputDivHeight;
             }
         }
 
@@ -69,7 +67,7 @@ const customiseInvite = {
         let div = document.createElement('div');
         div.classList = 'input__field';
         div.id = 'fields-' + fieldDetails.name;
-        divPosition = customiseInvite.setFieldDivPosition((fieldDetails.raw_size / customScale), fieldDetails.y_pos);
+        divPosition = customiseInvite.setFieldDivPosition((fieldDetails.raw_size / customiseInvite.customScale), fieldDetails.y_pos);
         divStyle = 'top: ' + divPosition + 'px;';
         div.style = divStyle;
         $('#design-preview').append(div);
@@ -118,8 +116,8 @@ const customiseInvite = {
         divTemplate = divTemplate.replace(fontLine, fontLineSelected);
 
         // Set selected size within the template string
-        fontOptionScaler = customScale;
-        if (customScale == 6) { fontOptionScaler = customScale / 1.5; }
+        fontOptionScaler = customiseInvite.customScale;
+        if (customiseInvite.customScale == 6) { fontOptionScaler = customiseInvite.customScale / 1.5; }
         let sizeLine = `<option value="${fieldDetails.raw_size}">${(fieldDetails.raw_size / fontOptionScaler)}</option>`;
         let sizeLineSelected = `<option value="${fieldDetails.raw_size}" selected>${(fieldDetails.raw_size / fontOptionScaler)}</option>`;
         divTemplate = divTemplate.replace(sizeLine, sizeLineSelected);
@@ -148,8 +146,8 @@ const customiseInvite = {
         newColor = $('#' + fieldDetails.name + '-text-color').val();
         newFont = $('#' + fieldDetails.name + '-text-font').val();
         newRawSize = $('#' + fieldDetails.name + '-text-size').val()
-        newSize = `${newRawSize / customScale}px`;
-        testSize = Math.ceil($('#' + fieldDetails.name + '-text-size').val() / customScale);
+        newSize = `${newRawSize / customiseInvite.customScale}px`;
+        testSize = Math.ceil($('#' + fieldDetails.name + '-text-size').val() / customiseInvite.customScale);
         console.log({testSize});
         console.log('Updating font size to: ', newSize);
         newStrokeWidth = $('#' + fieldDetails.name + '-stroke-width').val();
@@ -162,7 +160,7 @@ const customiseInvite = {
         $('#show-' + fieldDetails.name).css('font-size', newSize);
 
         // Change the height of the dotted link box
-        newLinkHeight = `${($('#' + fieldDetails.name + '-text-size').val() * 1.5) / customScale}px`;
+        newLinkHeight = `${($('#' + fieldDetails.name + '-text-size').val() * 1.5) / customiseInvite.customScale}px`;
         $('#edit-' + fieldDetails.name).height(newLinkHeight);
 
         // Move the top position of the fieldDiv
@@ -202,7 +200,7 @@ const customiseInvite = {
 
         $('#btn-invite-reset').click(function(){
             // Reset all field values back to their defaults apart from text
-            customiseInvite.invite_fields.map(inviteField => {
+            customiseInvite.inviteFields.map(inviteField => {
                 customiseInvite.setFieldInputValues(inviteField);
                 customiseInvite.updateFieldDiv(inviteField);
             });
@@ -217,7 +215,7 @@ const customiseInvite = {
     },
 
     setupInviteFields:() => {
-        customiseInvite.invite_fields.forEach(inviteField => {
+        customiseInvite.inviteFields.forEach(inviteField => {
             customiseInvite.addFieldDiv(inviteField);
             customiseInvite.addInputDiv(inviteField);
             customiseInvite.addFieldInputs(inviteField);
@@ -225,11 +223,11 @@ const customiseInvite = {
     },
 
     copyInviteFields:() => {
-        customiseInvite.customized_fields = customiseInvite.invite_fields;
+        customiseInvite.customized_fields = customiseInvite.inviteFields;
     }
 
 }
 
-customiseInvite.setupInviteActionButtons();
-customiseInvite.copyInviteFields();
-customiseInvite.setupInviteFields();
+// customiseInvite.setupInviteActionButtons();
+// customiseInvite.copyInviteFields();
+// customiseInvite.setupInviteFields();
