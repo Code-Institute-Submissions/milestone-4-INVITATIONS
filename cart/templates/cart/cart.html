@@ -65,6 +65,11 @@
                                         <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ item.name }}">
                                     </a>
                                 {% endif %}
+                                {% if item.invite_data %}
+                                    <div class="w-100 d-sm-none">
+                                        <a href="#" class="btn btn__default btn__smaller mb-0 w-100">PERSONALISE</a>
+                                    </div>
+                                {% endif %}
                             </div>
                             <div class="col-12 col-sm-3">
                                 <p class="mt-2 mt-sm-0">{{ item.name }}</p>
@@ -99,6 +104,11 @@
                                     £{{ item.line_total }}
                                 </p>
                             </div>
+                            {% if item.invite_data %}
+                                <div class="col-sm-5 d-none d-sm-block mt-2">
+                                    <a href="#" class="btn btn__default btn__smaller mb-0 w-100">PERSONALISE</a>
+                                </div>
+                            {% endif %}
                         </div>
                         <hr>
                     {% empty %}
