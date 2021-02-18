@@ -18,8 +18,6 @@ def cart_contents(request):
     print('Context String cart: ', string_cart)
     cart = json.loads(string_cart)
 
-    # cart = request.session.get('cart', [])
-
     for item in cart:
         if isinstance(item['quantity'], int):
             product = get_object_or_404(Product, pk=item['product_id'])
@@ -37,31 +35,12 @@ def cart_contents(request):
             })
             print('Custom is: ', item['custom_data'])
 
-    # for product_id, item_quantity in cart.items():
-    #     if isinstance(item_quantity, int):
-    #         product = get_object_or_404(Product, pk=product_id)
-    #         line_total = item_quantity * product.price
-    #         cart_total += line_total
-    #         product_count += item_quantity
-    #         cart_items.append({
-    #             'product_id': product_id,
-    #             'quantity': item_quantity,
-    #             'name': product.name,
-    #             'price': product.price,
-    #             'image': product.view_image,
-    #             'line_total': line_total,
-    #             'custom_invite_data': 'empty',
-    #         })
-            # print('Custom is: ', custom)
-
     if cart_total < settings.FREE_DELIVERY_AMOUNT:
         delivery = settings.STANDARD_DELIVERY_CHARGE
     else:
         delivery = 0
 
     grand_total = (delivery + cart_total)
-
-    # cart_items.reverse()
 
     context = {
             'cart_items': cart_items,

@@ -56,29 +56,6 @@ def add_to_cart(request, product_id):
                                      extra_tags='added to shopping cart')
 
                 request.session['cart'] = json.dumps(cart)
-                print('Cart type: ', type(cart))
-                print('Cart data: ', cart)
-                print('JSON Cart dump: ', json.dumps(cart))
-
-                # if product_id in list(cart.keys()):
-                #     cart[product_id] += quantity
-                #     messages.success(request,
-                #                      f'{product.name} quantity has \
-                #                      been updated to {cart[product_id]}.',
-                #                      extra_tags='updated shopping cart')
-                #     request.session['cart'] = cart
-
-                # else:
-                #     add_to_cart = {product_id: quantity, 'zustom': 'boom'}
-                #     cart = {**add_to_cart, **cart}
-                #     messages.success(request,
-                #                      f'(x{quantity}) {product.name}\
-                #                      {" has" if quantity == 1 else " have"} \
-                #                      been added to your shopping cart.',
-                #                      extra_tags='added to shopping cart')
-                #     request.session['cart'] = cart
-                #     print('Cart on ADD: ', cart)
-                #     print('Cart Type is: ', type(cart))
 
         else:
             messages.error(request,
@@ -103,9 +80,7 @@ def remove_item(request, product_id):
         int(product_id)
         product = Product.objects.get(pk=product_id)
         string_cart = str(request.session.get('cart', []))
-        print('Remove String cart: ', string_cart)
         cart = json.loads(string_cart)
-        # cart = request.session.get('cart', {})
         for i, item in enumerate(cart):
             if item['product_id'] == product_id:
                 del cart[i]
@@ -116,10 +91,6 @@ def remove_item(request, product_id):
                        extra_tags='shopping cart')
     else:
         request.session['cart'] = json.dumps(cart)
-        print('Cart type: ', type(cart))
-        print('Cart data: ', cart)
-        print('JSON Cart dump: ', json.dumps(cart))
-        # request.session['cart'] = cart
         messages.success(request,
                          f'{product.name} \
                          has been removed from your shopping cart.',
@@ -135,10 +106,6 @@ def update_cart_qty(request):
     """
     form_data = list(request.POST.items())
     form_data.pop(0)
-    # form_data = request.POST.items()
-    # print('start-----------------------------------')
-    # print('FORM is:', form_data)
-    # print('form type: ', type(form_data))
     cart = []
     quantities_changed = False
     error_msg = ''
@@ -158,9 +125,7 @@ def update_cart_qty(request):
                                 above 99. Please enter quantities less than \
                                 100 or contact our sales team to discuss \
                                 large orders.'
-                # print(f'Product id is: {product_id} with qty of {value} and custom text of {custom_data}')
 
-                print('Custom passed?: ', custom_data)
                 new_item = {
                         'product_id': product_id,
                         'quantity': item_quantity,
@@ -175,12 +140,7 @@ def update_cart_qty(request):
     # else here to say cart format incorrect - please refresh the cart page and retry
 
     if quantities_changed:
-        # here
         request.session['cart'] = json.dumps(cart)
-        print('Cart type: ', type(cart))
-        print('Cart data: ', cart)
-        print('JSON Cart dump: ', json.dumps(cart))
-
         messages.success(request,
                          f'Shopping cart quantities have been \
                          updated. {error_msg}',
