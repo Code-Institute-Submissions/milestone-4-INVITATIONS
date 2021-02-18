@@ -206,6 +206,12 @@ const customiseInvite = {
             });
         });
 
+        $('#btn-customize-done').click(function(){
+            // Completed customization pass the data back into the form field
+            $('#custom-lines').val(JSON.stringify(customiseInvite.customized_fields));
+            $("#customize-modal").modal('hide');
+        });
+
     },
 
     setupInviteFields:() => {
