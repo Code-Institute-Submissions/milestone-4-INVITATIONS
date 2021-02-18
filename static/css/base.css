@@ -70,6 +70,11 @@ hr.border__dashed {
 
 }
 
+.btn__smaller {
+    padding: 2px 4px !important;
+    border-width: 3px !important;
+}
+
 .btn__shop {
     padding: 0.5em 1.5em;
     font-size: 1.25rem;
