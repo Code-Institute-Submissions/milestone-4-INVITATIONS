@@ -3,6 +3,8 @@ from django.contrib import messages
 
 from products.models import Product
 
+import json
+
 
 def view_cart(request):
     """ A view to show the shopping cart """
@@ -19,7 +21,9 @@ def add_to_cart(request, product_id):
         quantity = int(request.POST.get(f'qty-item-{product_id}'))
         original_path = request.POST.get('original_path')
         if quantity < 100:
-            cart = request.session.get('cart', {})
+            string_cart = str(request.session.get('cart', []))
+            print('String cart: ', string_cart)
+            cart = json.loads(string_cart)
             try:
                 product = Product.objects.get(pk=product_id)
             except (Product.DoesNotExist):
@@ -28,23 +32,53 @@ def add_to_cart(request, product_id):
                                found. Please retry.',
                                extra_tags='shopping cart')
             else:
-                if product_id in list(cart.keys()):
-                    cart[product_id] += quantity
-                    messages.success(request,
-                                     f'{product.name} quantity has \
-                                     been updated to {cart[product_id]}.',
-                                     extra_tags='updated shopping cart')
-                    request.session['cart'] = cart
+                item_already_in_cart = False
+                for item in cart:
+                    if item['product_id'] == product_id:
+                        item['quantity'] += quantity
+                        messages.success(request,
+                                         f'{product.name} quantity has been \
+                                         updated to {item["quantity"]}.',
+                                         extra_tags='updated shopping cart')
+                        item_already_in_cart = True
 
-                else:
-                    add_to_cart = {product_id: quantity}
-                    cart = {**add_to_cart, **cart}
+                if not item_already_in_cart:
+                    new_item = {
+                        'product_id': product_id,
+                        'quantity': quantity,
+                        'custom_data': 'EMPTY',
+                    }
+                    cart.append(new_item)
                     messages.success(request,
                                      f'(x{quantity}) {product.name}\
                                      {" has" if quantity == 1 else " have"} \
                                      been added to your shopping cart.',
                                      extra_tags='added to shopping cart')
-                    request.session['cart'] = cart
+
+                request.session['cart'] = json.dumps(cart)
+                print('Cart type: ', type(cart))
+                print('Cart data: ', cart)
+                print('JSON Cart dump: ', json.dumps(cart))
+
+                # if product_id in list(cart.keys()):
+                #     cart[product_id] += quantity
+                #     messages.success(request,
+                #                      f'{product.name} quantity has \
+                #                      been updated to {cart[product_id]}.',
+                #                      extra_tags='updated shopping cart')
+                #     request.session['cart'] = cart
+
+                # else:
+                #     add_to_cart = {product_id: quantity, 'zustom': 'boom'}
+                #     cart = {**add_to_cart, **cart}
+                #     messages.success(request,
+                #                      f'(x{quantity}) {product.name}\
+                #                      {" has" if quantity == 1 else " have"} \
+                #                      been added to your shopping cart.',
+                #                      extra_tags='added to shopping cart')
+                #     request.session['cart'] = cart
+                #     print('Cart on ADD: ', cart)
+                #     print('Cart Type is: ', type(cart))
 
         else:
             messages.error(request,
@@ -63,20 +97,29 @@ def add_to_cart(request, product_id):
 
 def remove_item(request, product_id):
     """ A view to remove an item from the shopping cart
-        if the product exists in the cart
+        if the product exists in the cart and the database
     """
     try:
         int(product_id)
         product = Product.objects.get(pk=product_id)
-        cart = request.session.get('cart', {})
-        cart.pop(product_id)
+        string_cart = str(request.session.get('cart', []))
+        print('Remove String cart: ', string_cart)
+        cart = json.loads(string_cart)
+        # cart = request.session.get('cart', {})
+        for i, item in enumerate(cart):
+            if item['product_id'] == product_id:
+                del cart[i]
     except (Product.DoesNotExist, ValueError, KeyError):
         messages.error(request,
                        f'Product code [{product_id}] has not been \
                        found in your cart.',
                        extra_tags='shopping cart')
     else:
-        request.session['cart'] = cart
+        request.session['cart'] = json.dumps(cart)
+        print('Cart type: ', type(cart))
+        print('Cart data: ', cart)
+        print('JSON Cart dump: ', json.dumps(cart))
+        # request.session['cart'] = cart
         messages.success(request,
                          f'{product.name} \
                          has been removed from your shopping cart.',
@@ -91,13 +134,23 @@ def update_cart_qty(request):
         Delete from cart if the qty was set to 0
     """
     form_data = list(request.POST.items())
-    cart = {}
+    form_data.pop(0)
+    # form_data = request.POST.items()
+    # print('start-----------------------------------')
+    # print('FORM is:', form_data)
+    # print('form type: ', type(form_data))
+    cart = []
     quantities_changed = False
     error_msg = ''
 
-    for product_id_element, item_quantity in form_data:
-        if product_id_element[0:3] == 'qty':
-            item_quantity = int(item_quantity)
+    data_it = iter(form_data)
+    if (len(form_data) % 2 == 0):
+        for item, value in data_it:
+            product_id = item.split('-')[-1]
+            item_quantity = int(value)
+            custom_field = next(data_it)
+            custom_data = custom_field[1]
+
             if item_quantity > 0:
                 if item_quantity > 99:
                     item_quantity = 1
@@ -105,15 +158,29 @@ def update_cart_qty(request):
                                 above 99. Please enter quantities less than \
                                 100 or contact our sales team to discuss \
                                 large orders.'
-                product_id = product_id_element.split('-')[-1]
-                cart[product_id] = item_quantity
+                # print(f'Product id is: {product_id} with qty of {value} and custom text of {custom_data}')
+
+                print('Custom passed?: ', custom_data)
+                new_item = {
+                        'product_id': product_id,
+                        'quantity': item_quantity,
+                        'custom_data': custom_data,
+                    }
+                cart.append(new_item)
+
                 quantities_changed = True
 
             if item_quantity == 0:
                 quantities_changed = True
+    # else here to say cart format incorrect - please refresh the cart page and retry
 
     if quantities_changed:
-        request.session['cart'] = cart
+        # here
+        request.session['cart'] = json.dumps(cart)
+        print('Cart type: ', type(cart))
+        print('Cart data: ', cart)
+        print('JSON Cart dump: ', json.dumps(cart))
+
         messages.success(request,
                          f'Shopping cart quantities have been \
                          updated. {error_msg}',

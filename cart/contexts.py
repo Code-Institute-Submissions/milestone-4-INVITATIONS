@@ -4,6 +4,8 @@ from decimal import Decimal
 
 from products.models import Product
 
+import json
+
 
 def cart_contents(request):
 
@@ -12,22 +14,45 @@ def cart_contents(request):
     product_count = 0
     grand_total = 0
 
-    cart = request.session.get('cart', {})
+    string_cart = str(request.session.get('cart', []))
+    print('Context String cart: ', string_cart)
+    cart = json.loads(string_cart)
 
-    for product_id, item_quantity in cart.items():
-        if isinstance(item_quantity, int):
-            product = get_object_or_404(Product, pk=product_id)
-            line_total = item_quantity * product.price
+    # cart = request.session.get('cart', [])
+
+    for item in cart:
+        if isinstance(item['quantity'], int):
+            product = get_object_or_404(Product, pk=item['product_id'])
+            line_total = item['quantity'] * product.price
             cart_total += line_total
-            product_count += item_quantity
+            product_count += item['quantity']
             cart_items.append({
-                'product_id': product_id,
-                'quantity': item_quantity,
+                'product_id': item['product_id'],
+                'quantity': item['quantity'],
                 'name': product.name,
                 'price': product.price,
                 'image': product.view_image,
                 'line_total': line_total,
+                'custom_invite_data': item['custom_data'],
             })
+            print('Custom is: ', item['custom_data'])
+
+    # for product_id, item_quantity in cart.items():
+    #     if isinstance(item_quantity, int):
+    #         product = get_object_or_404(Product, pk=product_id)
+    #         line_total = item_quantity * product.price
+    #         cart_total += line_total
+    #         product_count += item_quantity
+    #         cart_items.append({
+    #             'product_id': product_id,
+    #             'quantity': item_quantity,
+    #             'name': product.name,
+    #             'price': product.price,
+    #             'image': product.view_image,
+    #             'line_total': line_total,
+    #             'custom_invite_data': 'empty',
+    #         })
+            # print('Custom is: ', custom)
 
     if cart_total < settings.FREE_DELIVERY_AMOUNT:
         delivery = settings.STANDARD_DELIVERY_CHARGE
