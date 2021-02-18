@@ -1,4 +1,4 @@
-let customLines = $('#custom-lines').val();
+let customLines = $('#custom-invite-data').val();
 let customScale = parseInt($(":root").css("--customizeScale"));
 console.log({customScale});
 
