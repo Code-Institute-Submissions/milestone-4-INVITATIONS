@@ -22,8 +22,8 @@ def add_to_cart(request, product_id):
         original_path = request.POST.get('original_path')
         if quantity < 100:
             string_cart = str(request.session.get('cart', []))
-            print('String cart: ', string_cart)
             cart = json.loads(string_cart)
+            custom_invite_data = request.POST.get('custom-invite-data')
             try:
                 product = Product.objects.get(pk=product_id)
             except (Product.DoesNotExist):
@@ -46,7 +46,7 @@ def add_to_cart(request, product_id):
                     new_item = {
                         'product_id': product_id,
                         'quantity': quantity,
-                        'custom_data': 'EMPTY',
+                        'custom_data': custom_invite_data,
                     }
                     cart.append(new_item)
                     messages.success(request,
