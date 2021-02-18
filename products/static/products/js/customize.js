@@ -5,6 +5,7 @@ console.log({customScale});
 const customiseInvite = {
     invite_fields: JSON.parse(customLines),
     divTemplateRaw: DIV_INPUT_TEMPLATE,
+    customized_fields: [],
 
     hideFieldDetailDivs:(divNotToHide) => {
         // Hide all other field detail divs incase they were not closed.
@@ -144,7 +145,8 @@ const customiseInvite = {
         if (newText == '') { newText = ' '; }
         newColor = $('#' + fieldDetails.name + '-text-color').val();
         newFont = $('#' + fieldDetails.name + '-text-font').val();
-        newSize = `${$('#' + fieldDetails.name + '-text-size').val() / customScale}px`;
+        newRawSize = $('#' + fieldDetails.name + '-text-size').val()
+        newSize = `${newRawSize / customScale}px`;
         testSize = Math.ceil($('#' + fieldDetails.name + '-text-size').val() / customScale);
         console.log({testSize});
         console.log('Updating font size to: ', newSize);
@@ -165,6 +167,20 @@ const customiseInvite = {
         divPosition = customiseInvite.setFieldDivPosition(parseInt(newSize), fieldDetails.y_pos);
         let newTop = divPosition + 'px';
         $('#fields-' + fieldDetails.name).css('top', newTop);
+
+        // Update customized fields
+        newFieldDetails = {
+            'name': fieldDetails.name,
+            'text': newText,
+            'y_pos': fieldDetails.y_pos,
+            'font': newFont,
+            'raw_size': newRawSize,
+            'color': newColor,
+            'stroke_fill': newStrokeColor,
+            'stroke_width': newStrokeWidth,
+        }
+        replaceInviteLine = customiseInvite.customized_fields.findIndex((field) => field.name === fieldDetails.name);
+        customiseInvite.customized_fields[replaceInviteLine] = newFieldDetails;
 
     },
 
@@ -198,9 +214,14 @@ const customiseInvite = {
             customiseInvite.addInputDiv(inviteField);
             customiseInvite.addFieldInputs(inviteField);
         });
+    },
+
+    copyInviteFields:() => {
+        customiseInvite.customized_fields = customiseInvite.invite_fields;
     }
 
 }
 
 customiseInvite.setupInviteActionButtons();
+customiseInvite.copyInviteFields();
 customiseInvite.setupInviteFields();
