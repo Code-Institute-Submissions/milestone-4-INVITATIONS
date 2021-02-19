@@ -6,11 +6,6 @@
     --customizeScale:6;
 }
 
-.modal-body {
-    background: #f0f0f0;
-    background: #515151;
-}
-
 .modal-header .close {
     padding: 1.5rem 1.5rem !important;
 }
