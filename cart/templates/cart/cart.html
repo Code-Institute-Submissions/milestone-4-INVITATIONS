@@ -91,13 +91,13 @@
                                     <span class="d-sm-none"><strong>Qty: </strong></span>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <button class="btn btn-light rounded-0 p-0 qty__btn" type="button" id="btn-minus-item-{{ item.product_id }}">
+                                                <button class="btn btn-light rounded-0 p-0 qty__btn js__item-btn" type="button" id="btn-minus-item-{{ item.product_id }}">
                                                     <i class="fas fa-minus icon"></i>
                                                 </button>
                                             </div>
-                                            <input class="form-control form-control-sm text-center" type="number" min="0" max="99" value="{{ item.quantity }}" name="qty-item-{{ item.product_id }}" id="qty-item-{{ item.product_id }}">
+                                            <input class="form-control form-control-sm text-center js__cart-qty" type="number" min="0" max="99" value="{{ item.quantity }}" name="qty-item-{{ item.product_id }}" id="qty-item-{{ item.product_id }}">
                                             <div class="input-group-append">
-                                                <button class="btn btn-light rounded-0 p-0 qty__btn" type="button" id="btn-plus-item-{{ item.product_id }}">
+                                                <button class="btn btn-light rounded-0 p-0 qty__btn js__item-btn" type="button" id="btn-plus-item-{{ item.product_id }}">
                                                     <i class="fas fa-plus icon"></i>
                                                 </button>
                                             </div>
@@ -117,7 +117,7 @@
                                 </div>
                             {% endif %}
                         </div>
-                        <hr class="mb-1">
+                        <hr>
                     {% empty %}
                         <div class="row">
                             <div class="col-12 col-sm-6 mb-2">
@@ -129,7 +129,9 @@
                     {% if cart_items %}
                         <div class="row">
                             <div class="col-12">
-                                <p class="mb-0 float-right text-danger">Click below to apply your changes</p>
+                                <p id="js__cart-update-btn" class="mb-0 d-none float-right text-danger">
+                                    Click below to apply your changes
+                                </p>
                             </div>
                         </div>
                         <div class="row">
@@ -175,6 +177,14 @@
     {% if cart_contains_invite %}
         <script src="{% static 'products/js/customize.js' %}"></script>
         <script type="text/javascript">
+            // Set event listeners for cart quantity changes to show cart update reminder
+            $('.js__cart-qty').change(function(e){
+                $('#js__cart-update-btn').removeClass('d-none');
+            });
+            $('.js__item-btn').click(function(e){
+                $('#js__cart-update-btn').removeClass('d-none');
+            });
+
             // Set event listeners for personalise buttons in the cart display
             $('.js__invite-data-btn').click(function(e){
                 itemClicked = e.currentTarget.dataset.setInviteBtn;
