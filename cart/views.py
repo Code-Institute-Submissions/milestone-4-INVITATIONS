@@ -142,9 +142,9 @@ def update_cart_qty(request):
     if quantities_changed:
         request.session['cart'] = json.dumps(cart)
         messages.success(request,
-                         f'Shopping cart quantities have been \
+                         f'Your shopping cart has been \
                          updated. {error_msg}',
-                         extra_tags='shopping cart quantities')
+                         extra_tags='shopping cart')
     else:
         messages.success(request,
                          'Quantity error, please double-check your \
