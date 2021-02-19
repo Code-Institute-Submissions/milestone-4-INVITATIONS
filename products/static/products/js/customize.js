@@ -208,6 +208,8 @@ const customiseInvite = {
             $("#customize-modal").modal('hide');
             if (customiseInvite.originPage === 'cart') {
                 $('#form-update-cart').submit();
+            } else {
+                $('#js__product-warning').removeClass('d-none');
             }
         });
 
