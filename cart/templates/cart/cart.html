@@ -87,21 +87,24 @@
                                     £{{ item.price }}
                                 </p>
                             </div>
+                            <!-- Cart item quantity -->
                             <div class="col-7 col-sm-3 text-right">
                                     <span class="d-sm-none"><strong>Qty: </strong></span>
+                                        {% with item.customizable as custom %}
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <button class="btn btn-light rounded-0 p-0 qty__btn js__item-btn" type="button" id="btn-minus-item-{{ item.product_id }}">
+                                                <button class="btn btn-light rounded-0 p-0 qty__btn js__item-btn" {% if custom %}disabled{% endif %} type="button" id="btn-minus-item-{{ item.product_id }}">
                                                     <i class="fas fa-minus icon"></i>
                                                 </button>
                                             </div>
-                                            <input class="form-control form-control-sm text-center js__cart-qty" type="number" min="0" max="99" value="{{ item.quantity }}" name="qty-item-{{ item.product_id }}" id="qty-item-{{ item.product_id }}">
+                                            <input class="form-control form-control-sm text-center js__cart-qty" {% if custom %}readonly{% endif %} type="number" min="0" max="99" value="{{ item.quantity }}" name="qty-item-{{ item.product_id }}" id="qty-item-{{ item.product_id }}">
                                             <div class="input-group-append">
-                                                <button class="btn btn-light rounded-0 p-0 qty__btn js__item-btn" type="button" id="btn-plus-item-{{ item.product_id }}">
+                                                <button class="btn btn-light rounded-0 p-0 qty__btn js__item-btn" {% if custom %}disabled{% endif %} type="button" id="btn-plus-item-{{ item.product_id }}">
                                                     <i class="fas fa-plus icon"></i>
                                                 </button>
                                             </div>
                                         </div>
+                                        {% endwith %}
                                     <a class="float-right" href="{% url 'remove_item' item.product_id %}"><small>Remove Item</small></a>
                             </div>
                             <input type="hidden" value="{{ item.invite_data }}" name="invite-data-{{ item.product_id }}" id="invite-data-{{ item.product_id }}">

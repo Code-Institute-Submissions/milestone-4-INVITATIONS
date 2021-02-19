@@ -126,30 +126,46 @@ def update_cart_qty(request):
     if (len(form_data) % 2 == 0):
         for item, value in data_it:
             product_id = item.split('-')[-1]
-            item_quantity = int(value)
-            invite_data_field = next(data_it)
-            invite_data = invite_data_field[1]
+            try:
+                product = Product.objects.get(pk=int(product_id))
+            except (Product.DoesNotExist):
+                messages.error(request,
+                               f'Product code [{product_id}] has not been \
+                               found. Please retry.',
+                               extra_tags='shopping cart')
+                return render(request, 'cart/cart.html')
 
-            if item_quantity > 0:
-                if item_quantity > 99:
+            else:
+                if product.customizable:
                     item_quantity = 1
-                    error_msg = 'However, one or more product quantities were set \
-                                above 99. Please enter quantities less than \
-                                100 or contact our sales team to discuss \
-                                large orders.'
+                else:
+                    item_quantity = int(value)
 
-                new_item = {
-                        'product_id': product_id,
-                        'quantity': item_quantity,
-                        'invite_data': invite_data,
-                    }
-                cart.append(new_item)
+                invite_data_field = next(data_it)
+                invite_data = invite_data_field[1]
 
-                quantities_changed = True
+                if item_quantity > 0:
+                    if item_quantity > 99:
+                        item_quantity = 1
+                        error_msg = 'However, one or more product quantities were set \
+                                    above 99. Please enter quantities less than \
+                                    100 or contact our sales team to discuss \
+                                    large orders.'
 
-            if item_quantity == 0:
-                quantities_changed = True
-    # else here to say cart format incorrect - please refresh the cart page and retry
+                    new_item = {
+                            'product_id': product_id,
+                            'quantity': item_quantity,
+                            'invite_data': invite_data,
+                        }
+                    cart.append(new_item)
+
+                    quantities_changed = True
+
+                if item_quantity == 0:
+                    quantities_changed = True
+
+    # else here to say cart format incorrect - 
+    # please refresh the cart page and retry
 
     if quantities_changed:
         request.session['cart'] = json.dumps(cart)
@@ -161,6 +177,6 @@ def update_cart_qty(request):
         messages.success(request,
                          'Quantity error, please double-check your \
                          quantities and click [Update Cart].',
-                         extra_tags='shopping cart quantities')
+                         extra_tags='shopping cart')
 
     return render(request, 'cart/cart.html')
