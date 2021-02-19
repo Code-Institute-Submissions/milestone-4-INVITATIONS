@@ -195,7 +195,7 @@ const customiseInvite = {
 
         $('#btn-invite-reset').click(function(){
             // Reset all field values back to their defaults apart from text
-            customiseInvite.inviteFields.map(inviteField => {
+            customiseInvite.inviteFields.forEach(inviteField => {
                 customiseInvite.setFieldInputValues(inviteField);
                 customiseInvite.updateFieldDiv(inviteField);
             });
@@ -218,11 +218,7 @@ const customiseInvite = {
     },
 
     copyInviteFields:() => {
-        customiseInvite.customized_fields = customiseInvite.inviteFields;
+        customiseInvite.customized_fields = [...customiseInvite.inviteFields];
     }
 
 }
-
-// customiseInvite.setupInviteActionButtons();
-// customiseInvite.copyInviteFields();
-// customiseInvite.setupInviteFields();
