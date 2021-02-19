@@ -35,12 +35,24 @@ def add_to_cart(request, product_id):
                 item_already_in_cart = False
                 for item in cart:
                     if item['product_id'] == product_id:
-                        item['quantity'] += quantity
-                        messages.success(request,
-                                         f'{product.name} quantity has been \
-                                         updated to {item["quantity"]}.',
-                                         extra_tags='updated shopping cart')
-                        item_already_in_cart = True
+                        if product.customizable:
+                            item['quantity'] = 1
+                            messages.success(request,
+                                             f'{product.name} is already in \
+                                             your shopping cart. Please note \
+                                             invites have a fixed quantity of \
+                                             1, as you can print them yourself\
+                                              as many times as required.',
+                                             extra_tags='shopping cart')
+                            return redirect(original_path)
+
+                        else:
+                            item['quantity'] += quantity
+                            messages.success(request,
+                                             f'{product.name} quantity has been \
+                                             updated to {item["quantity"]}.',
+                                             extra_tags='shopping cart')
+                            item_already_in_cart = True
 
                 if not item_already_in_cart:
                     new_item = {
