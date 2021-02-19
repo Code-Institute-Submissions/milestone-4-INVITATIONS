@@ -56,11 +56,16 @@
                         <div class="row">
                             <div class="col-md-12 text-right">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn__default">
-                                        <i class="fas fa-shopping-cart"></i>
-                                        <span class="pl-1">ADD TO CART</span>
-                                    </button>
-                                    <!-- <input type="submit" class="btn__default" value="Add to Cart"> -->
+                                    {% if exists_in_cart and product.customizable %}
+                                        <a href="{% url 'view_cart' %}" class="btn btn__default mb-3 float-right">
+                                            Already in your shopping cart
+                                        </a>
+                                    {% else %}
+                                        <button type="submit" class="btn btn__default">
+                                            <i class="fas fa-shopping-cart"></i>
+                                            <span class="pl-1">ADD TO CART</span>
+                                        </button>
+                                    {%endif %}
                                     <input type="hidden" name="original_path" value="{{ request.path }}">
                             </div>
                         </div>
@@ -76,12 +81,13 @@
                 <!-- Product category tag, admin links -->
                 <div class="row">
                     <div class="col-12">
-                        {% if product.customizable and invite_data and product.customize_image %}
-                            <!-- <button type="button" class="btn btn__default mb-3 float-right js__invite-data-btn" data-toggle="modal" data-target="#customize-modal"> -->
-                            <button data-set-invite-btn="{{ product.id }}" type="button" class="btn btn__default mb-3 float-right js__invite-data-btn">
-                                <i class="far fa-edit"></i>
-                                <span class="pl-1">PERSONALISE</span>
-                            </button>
+                        {% if not exists_in_cart %}
+                            {% if product.customizable and invite_data and product.customize_image %}
+                                <button data-set-invite-btn="{{ product.id }}" type="button" class="btn btn__default mb-3 float-right js__invite-data-btn">
+                                    <i class="far fa-edit"></i>
+                                    <span class="pl-1">PERSONALISE</span>
+                                </button>
+                            {% endif %}
                         {% endif %}
                     </div>
                     <div class="col-12">
