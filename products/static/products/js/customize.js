@@ -3,6 +3,7 @@ const customiseInvite = {
     customScale: parseInt($(":root").css("--customizeScale")),
     divTemplateRaw: DIV_INPUT_TEMPLATE,
     customized_fields: [],
+    originPage: 'product',
 
     hideFieldDetailDivs:(divNotToHide) => {
         // Hide all other field detail divs incase they were not closed.
@@ -182,7 +183,7 @@ const customiseInvite = {
     setupInviteActionButtons:() => {
         // Setup event listeners for invite action buttons
         $('#btn-invite-edit').click(function(){
-            // Toggle the overlay which prevents invite edits and also the button icon
+            // Toggle the overlay which prevents invite edits and toggle the button icon
             $('#design-pause-overlay').toggle();
             if ($('#btn-invite-edit').html().includes('fa-ban')) {
                 $('#btn-invite-edit').html('<i class="fas fa-edit"></i>');
@@ -205,6 +206,9 @@ const customiseInvite = {
             // Completed customization pass the data back into the form field
             $(`#${DATA_RETURN_ID}`).val(JSON.stringify(customiseInvite.customized_fields));
             $("#customize-modal").modal('hide');
+            if (customiseInvite.originPage === 'cart') {
+                $('#form-update-cart').submit();
+            }
         });
 
     },
