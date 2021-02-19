@@ -1,6 +1,3 @@
-// let customLines = $(`#${DATA_RETURN_ID}`).val();
-// let inviteFields = JSON.parse($(`#${DATA_RETURN_ID}`).val());
-
 const customiseInvite = {
     inviteFields: '',
     customScale: parseInt($(":root").css("--customizeScale")),
@@ -148,8 +145,6 @@ const customiseInvite = {
         newRawSize = $('#' + fieldDetails.name + '-text-size').val()
         newSize = `${newRawSize / customiseInvite.customScale}px`;
         testSize = Math.ceil($('#' + fieldDetails.name + '-text-size').val() / customiseInvite.customScale);
-        console.log({testSize});
-        console.log('Updating font size to: ', newSize);
         newStrokeWidth = $('#' + fieldDetails.name + '-stroke-width').val();
         newStrokeColor = $('#' + fieldDetails.name + '-stroke-color').val();
         newStroke = newStrokeWidth + ' ' + newStrokeColor;
