@@ -178,6 +178,7 @@
                 inviteImage = e.currentTarget.dataset.setInviteImg;
                 $('#invite-customize-image').attr('src',e.currentTarget.dataset.setInviteImg);
                 customiseInvite.inviteFields = JSON.parse($(`#${DATA_RETURN_ID}`).val());
+                $('#design-preview').empty();
                 customiseInvite.setupInviteActionButtons();
                 customiseInvite.copyInviteFields();
                 customiseInvite.setupInviteFields();
