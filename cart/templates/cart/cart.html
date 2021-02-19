@@ -117,7 +117,7 @@
                                 </div>
                             {% endif %}
                         </div>
-                        <hr>
+                        <hr class="mb-1">
                     {% empty %}
                         <div class="row">
                             <div class="col-12 col-sm-6 mb-2">
@@ -127,6 +127,11 @@
                     {% endfor %}
                     <!-- Update shopping cart -->
                     {% if cart_items %}
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="mb-0 float-right text-danger">Click below to apply your changes</p>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-12">
                                 <a class="btn__default float-left" href="{% url 'products' %}">
