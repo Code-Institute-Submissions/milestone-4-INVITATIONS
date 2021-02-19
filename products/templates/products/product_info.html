@@ -115,6 +115,7 @@
             $('.js__invite-data-btn').click(function(e){
                 DATA_RETURN_ID = `invite-data-${e.currentTarget.dataset.setInviteBtn}`;
                 customiseInvite.inviteFields = JSON.parse($(`#${DATA_RETURN_ID}`).val());
+                $("#design-preview").children().filter(':not(.btn)').remove();
                 customiseInvite.setupInviteActionButtons();
                 customiseInvite.copyInviteFields();
                 customiseInvite.setupInviteFields();
