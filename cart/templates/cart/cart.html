@@ -79,7 +79,7 @@
                                 {% endif %}
                             </div>
                             <div class="col-12 col-sm-3">
-                                <p class="mt-2 mt-sm-0">{{ item.name }}</p>
+                                <p id="invite-title-{{ item.product_id }}" class="mt-2 mt-sm-0">{{ item.name }}</p>
                             </div>
                             <div class="col-5 col-sm-2 text-sm-right">
                                 <p>
@@ -174,7 +174,10 @@
             // let inviteFields = '';
             // Set event listeners for personalise buttons in the cart display
             $('.js__invite-data-btn').click(function(e){
-                DATA_RETURN_ID = `invite-data-${e.currentTarget.dataset.setInviteBtn}`;
+                itemClicked = e.currentTarget.dataset.setInviteBtn;
+                DATA_RETURN_ID = `invite-data-${itemClicked}`;
+                inviteModalTitle = $(`#invite-title-${itemClicked}`).text();
+                $('#customize-modal-title').text(inviteModalTitle);
                 inviteImage = e.currentTarget.dataset.setInviteImg;
                 $('#invite-customize-image').attr('src',e.currentTarget.dataset.setInviteImg);
                 customiseInvite.inviteFields = JSON.parse($(`#${DATA_RETURN_ID}`).val());
