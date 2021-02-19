@@ -96,7 +96,7 @@
     </div>
 </main>
 {% if product.customizable and invite_data and product.customize_image %}
-    {% include 'products/includes/customize_modal.html' %}
+    {% include 'products/includes/customize_modal.html' with modaltitle=product.name %}
     {{ product.customize_image.url|json_script:"customize-image" }}
     <script type="text/javascript">
         DIV_INPUT_TEMPLATE = `{% include "products/includes/div_inputs_template.html" %}`
