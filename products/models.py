@@ -36,9 +36,9 @@ class Product(models.Model):
 
 class CustomDetailLine(models.Model):
     FONT_CHOICES = [
-        ("'Arial', sans-serif", "'Arial', sans-serif"),
         ("'Clicker Script', cursive", "'Clicker Script', cursive"),
         ("'Londrina Solid', cursive", "'Londrina Solid', cursive"),
+        ("'Audiowide', cursive", "'Audiowide', cursive"),
     ]
 
     FONT_SIZE_CHOICES = [
