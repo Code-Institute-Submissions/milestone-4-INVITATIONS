@@ -3,6 +3,7 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from django.core.mail import send_mail
+from .models import Order
 
 import stripe
 
@@ -10,15 +11,33 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 stripe_endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
 
 
-def send_email_confirmation(request, event_type, stripe_pid, billing_details):
-    print(f'Send email of order: {stripe_pid} to {billing_details}')
-    send_mail(f'Thank you for your order {stripe_pid}',
-              'Message body here',
-              settings.DEFAULT_FROM_EMAIL,
-              ['test@test.com'])
+def get_order_details(request, stripe_pid):
+    try:
+        order = Order.objects.get(stripe_pid=stripe_pid)
+    except Order.DoesNotExist:
+        order = False
 
-    return HttpResponse(content=f'Webhook OK:{event_type}, customer emailed',
-                        status=200)
+    return order
+
+
+def send_email_confirmation(request, event_type, stripe_pid, billing_details):
+    # print(f'Send email of order: {stripe_pid} to {billing_details}')
+    order = get_order_details(request, stripe_pid)
+    # order = True
+    if order:
+        print(f'Order name-: {order.full_name} with email of: {order.email}')
+        send_mail(f'Thank you for your order {stripe_pid}',
+                  'Message body here',
+                  settings.DEFAULT_FROM_EMAIL,
+                  [order.email])
+
+        return HttpResponse(
+            content=f'Webhook OK:{event_type}, customer emailed',
+            status=200)
+    else:
+        return HttpResponse(
+            content=f'Webhook OK:{event_type}, order NOT found',
+            status=200)
 
 
 @require_POST
