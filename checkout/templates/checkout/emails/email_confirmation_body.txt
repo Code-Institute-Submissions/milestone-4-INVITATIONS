@@ -7,7 +7,6 @@ Order Date: {{ order.order_date|date:"jS M Y @ g:ia" }}
 
 Items ordered:
 {{ ordered_items }}
-
 Order Total: £{{ order.order_total }}
 Delivery: £{{ order.delivery_cost }}
 Grand Total: £{{ order.grand_total }}
@@ -21,4 +20,4 @@ If you have any issues please contact us at {{ sales_email }}.
 
 Thank you
 
-Invitations
+-INVITATIONS-
