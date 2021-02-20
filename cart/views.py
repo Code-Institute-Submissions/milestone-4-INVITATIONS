@@ -164,9 +164,6 @@ def update_cart_qty(request):
                 if item_quantity == 0:
                     quantities_changed = True
 
-    # else here to say cart format incorrect - 
-    # please refresh the cart page and retry
-
     if quantities_changed:
         request.session['cart'] = json.dumps(cart)
         messages.success(request,
