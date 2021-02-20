@@ -1,3 +1,4 @@
+// Object and methods to handle the customizing of an invite
 const customiseInvite = {
     inviteFields: '',
     customScale: parseInt($(":root").css("--customizeScale")),
@@ -15,7 +16,9 @@ const customiseInvite = {
     },
 
     addFieldDiv:(fieldDetails) => {
-        // Create field link and field div
+        // Create all the elements required for the custom field 
+
+        // Field link and field div
         let fieldLink = document.createElement('a');
         fieldLink.id = `edit-${fieldDetails.name}`;
         fieldLink.title = `Edit '${customiseInvite.fieldDisplayName(fieldDetails.name)}'`;
@@ -25,7 +28,7 @@ const customiseInvite = {
         fieldLink.style = fieldLinkStyle;
         $('#design-preview').append(fieldLink);
 
-        // Create div to show field contents on invite;
+        // Div to show field contents on invite;
         let div = document.createElement('div');
         div.innerHTML = fieldDetails.text;
         div.classList = `field__${fieldDetails.name} custom__field`;
@@ -45,8 +48,8 @@ const customiseInvite = {
     },
 
     setFieldDivPosition:(fontSize, y_pos) => {
-        // Set the divPosition based on the text y_pos, current font size,
-        // the height of the invite and the height of the input div(120px)
+        // Set the field divPosition based on text y_pos, current font size,
+        // height of the invite, height of the input div(120px) and customScale
         let defaultInputDivHeight = 120
         let divPosition = 120;
         if (customiseInvite.customScale == 4) {
@@ -73,8 +76,6 @@ const customiseInvite = {
 
     fieldDisplayName:(fieldName) => {
         // Create field display name by replacing dash or underscore with a space
-        // let str = fieldName.replace(/-|_/g, ' ').toLowerCase().substr(0, 11);
-        // let words = str.split(' ');
         let words = fieldName.replace(/-|_/g, ' ').toLowerCase().substr(0, 11).split(' ');;
         let fieldTitle = words.map(word => {
             return word[0].toUpperCase() + word.substring(1);
@@ -83,6 +84,7 @@ const customiseInvite = {
     },
 
     setFieldInputValues:(fieldDetails) => {
+        // Set the selected field form values
         $('#' + fieldDetails.name + '-text-color').val(fieldDetails.color);
         $('#' + fieldDetails.name + '-text-font').val(fieldDetails.font);
         resetSize = parseInt(fieldDetails.raw_size);
@@ -123,7 +125,7 @@ const customiseInvite = {
         // Add inputs template to the InputDiv
         $('#fields-' + fieldDetails.name).append(divTemplate);
 
-        // Create event-listener for the field divs buttons
+        // Create event-listeners for the field divs buttons
         $('#btn-apply-' + fieldDetails.name).click(function(){
             customiseInvite.updateFieldDiv(fieldDetails);
         });
@@ -164,7 +166,7 @@ const customiseInvite = {
         let newTop = divPosition + 'px';
         $('#fields-' + fieldDetails.name).css('top', newTop);
 
-        // Update customized fields
+        // Update customized fields array
         newFieldDetails = {
             'name': fieldDetails.name,
             'text': newText,
@@ -195,7 +197,7 @@ const customiseInvite = {
         });
 
         $('#btn-invite-reset').click(function(){
-            // Reset all field values back to their defaults apart from text
+            // Reset all field values back to their previous values, apart from text
             customiseInvite.inviteFields.forEach(inviteField => {
                 customiseInvite.setFieldInputValues(inviteField);
                 customiseInvite.updateFieldDiv(inviteField);
