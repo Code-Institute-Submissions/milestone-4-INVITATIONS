@@ -7,6 +7,7 @@ import json
 
 
 def cart_contents(request):
+    """ Store cart contents information for access by all templates """
 
     cart_items = []
     cart_total = 0

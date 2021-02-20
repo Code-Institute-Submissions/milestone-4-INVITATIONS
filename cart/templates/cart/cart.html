@@ -9,7 +9,7 @@
 
 {% block content %}
 <main class="container-fluid page__default">
-    <div class="cart__container pt-5 pb-5">
+    <section class="cart__container pt-5 pb-5">
         <!-- Page header -->
         <div class="row">
             <div class="col-12">
@@ -56,12 +56,13 @@
         
         <!-- Cart contents -->
         <div class="row">
-            <!-- Cart items -->
             <div class="col-12 col-xl-8">
                 <form id="form-update-cart" method="POST" action="{% url 'update_cart_qty' %}">
                     {% csrf_token %}
+                    <!-- Cart items -->
                     {% for item in cart_items %}
                         <div class="row">
+                            <!-- Item image -->
                             <div class="col-12 col-sm-2">
                                 {% if item.image %}
                                     <a href="{% url 'product_info' item.product_id %}">
@@ -78,9 +79,11 @@
                                     </div>
                                 {% endif %}
                             </div>
+                            <!-- Item name -->
                             <div class="col-12 col-sm-3">
                                 <p id="invite-title-{{ item.product_id }}" class="mt-2 mt-sm-0">{{ item.name }}</p>
                             </div>
+                            <!-- Item price -->
                             <div class="col-5 col-sm-2 text-sm-right">
                                 <p>
                                     <span class="d-sm-none"><strong>Price:<br></strong></span>
@@ -163,7 +166,7 @@
 
         </div>
 
-    </div>
+    </section>
 </main>
 {% if cart_contains_invite %}
     {% include 'products/includes/customize_modal.html' %}
