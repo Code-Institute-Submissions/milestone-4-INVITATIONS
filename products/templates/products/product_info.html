@@ -7,7 +7,7 @@
 
 {% block content %}
 <main class="container-fluid page__default">
-    <div class="product__container pt-5 pb-5">
+    <section class="product__container pt-5 pb-5">
         <!-- Product -->
         <div class="row">
             <!-- Product image -->
@@ -54,6 +54,7 @@
                             </div>
                         </div>
                         <div class="row">
+                            <!-- Add to cart -->
                             <div class="col-md-12 text-right">
                                     {% csrf_token %}
                                     {% if exists_in_cart and product.customizable %}
@@ -109,14 +110,13 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </main>
 {% if product.customizable and invite_data and product.customize_image %}
     {% include 'products/includes/customize_modal.html' with modaltitle=product.name %}
     {{ product.customize_image.url|json_script:"customize-image" }}
     <script type="text/javascript">
         DIV_INPUT_TEMPLATE = `{% include "products/includes/div_inputs_template.html" %}`
-        // ZDATA_RETURN_ID = 'invite-data-item-{{ product.id }}';
     </script>    
 {% endif %}
 
@@ -124,18 +124,17 @@
 {% block postloadjs %}
     {{ block.super }}
     {% include 'cart/includes/quantity_buttons_script.html' %}
-        <script src="{% static 'products/js/customize.js' %}"></script>
-        <script type="text/javascript">
-            // let inviteFields = '';
-            // Set event listener for personalize button in product display
-            $('.js__invite-data-btn').click(function(e){
-                DATA_RETURN_ID = `invite-data-${e.currentTarget.dataset.setInviteBtn}`;
-                customiseInvite.inviteFields = JSON.parse($(`#${DATA_RETURN_ID}`).val());
-                $("#design-preview").children().filter(':not(.btn)').remove();
-                customiseInvite.setupInviteActionButtons();
-                customiseInvite.copyInviteFields();
-                customiseInvite.setupInviteFields();
-                $('#customize-modal').modal('show');
-            });
-        </script>     
+    <script src="{% static 'products/js/customize.js' %}"></script>
+    <script type="text/javascript">
+        // Set event listener for personalize button in product display
+        $('.js__invite-data-btn').click(function(e){
+            DATA_RETURN_ID = `invite-data-${e.currentTarget.dataset.setInviteBtn}`;
+            customiseInvite.inviteFields = JSON.parse($(`#${DATA_RETURN_ID}`).val());
+            $("#design-preview").children().filter(':not(.btn)').remove();
+            customiseInvite.setupInviteActionButtons();
+            customiseInvite.copyInviteFields();
+            customiseInvite.setupInviteFields();
+            $('#customize-modal').modal('show');
+        });
+    </script>     
 {% endblock %}

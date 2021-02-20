@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.db.models import Q
 from django.contrib import messages
-from django.template.defaulttags import register
 
 from .models import Product, Category
 from cart.contexts import cart_contents
@@ -9,7 +8,8 @@ from cart.contexts import cart_contents
 import json
 
 
-def get_item(the_list, key):
+def check_product_in(the_list, key):
+    """ Function to check if a product exists in a list """
     for item in the_list:
         if item['product_id'] == str(key):
             return True
@@ -97,7 +97,7 @@ def product_info(request, product_id):
 
         current_shopping_cart = cart_contents(request)
         original_cart = current_shopping_cart['cart_items']
-        if get_item(original_cart, product_id):
+        if check_product_in(original_cart, product_id):
             context['exists_in_cart'] = True
 
         if product.customizable:
