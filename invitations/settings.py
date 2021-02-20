@@ -182,3 +182,6 @@ STANDARD_DELIVERY_CHARGE = 10
 # Stripe
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
 STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET', '')
+
+# Email
+DEFAULT_FROM_EMAIL = 'sales@devtog-invitations.com'
