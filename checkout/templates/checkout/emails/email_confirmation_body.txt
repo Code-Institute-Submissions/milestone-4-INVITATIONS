@@ -1,0 +1,21 @@
+Hi {{ order.full_name }}!
+
+Thank you for your order from -INVITATIONS-, please find below your order confirmation:
+
+Order No. : {{ order.pk|stringformat:"010d" }}
+Order Date: {{ order.order_date|date:"jS M Y @ g:ia" }}
+
+Order Total: £{{ order.order_total }}
+Delivery: £{{ order.delivery_cost }}
+Grand Total: £{{ order.grand_total }}
+
+Your order will be shipped to:
+{{ shipping_address }}
+
+The telephone number we have for you is: {{ order.phone_number }}.
+
+If you have any issues please contact us at {{ sales_email }}.
+
+Thank you
+
+Invitations

@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.template.loader import render_to_string
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
@@ -20,14 +21,36 @@ def get_order_details(request, stripe_pid):
     return order
 
 
+def format_shipping_address(order):
+    shipping_address = f'{order.street_address1.title()}' + '\r\n'
+    if order.street_address2:
+        shipping_address += f'{order.street_address2.title()}' + '\r\n'
+    shipping_address += f'{order.town_or_city.title()}' + '\r\n'
+    if order.postcode:
+        shipping_address += f'{order.postcode.upper()}' + '\r\n'
+    shipping_address += f'{order.country}'
+    return shipping_address
+
+
 def send_email_confirmation(request, event_type, stripe_pid, billing_details):
     # print(f'Send email of order: {stripe_pid} to {billing_details}')
     order = get_order_details(request, stripe_pid)
-    # order = True
+    order_data = {
+        'order_number': f'{order.pk:010}',
+        'order_date': f'{order.order_date}'
+    }
+
+    context = {
+        'order': order,
+        'shipping_address': format_shipping_address(order),
+        'sales_email': settings.DEFAULT_FROM_EMAIL,
+    }
+    email_body = render_to_string(
+        'checkout/emails/email_confirmation_body.txt',
+        context)
     if order:
-        print(f'Order name-: {order.full_name} with email of: {order.email}')
-        send_mail(f'Thank you for your order {stripe_pid}',
-                  'Message body here',
+        send_mail(f'-INVITATIONS- confirmation for order: {order.pk:010}',
+                  email_body,
                   settings.DEFAULT_FROM_EMAIL,
                   [order.email])
 
