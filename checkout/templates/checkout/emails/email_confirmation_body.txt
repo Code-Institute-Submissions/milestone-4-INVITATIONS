@@ -5,6 +5,9 @@ Thank you for your order from -INVITATIONS-, please find below your order confir
 Order No. : {{ order.pk|stringformat:"010d" }}
 Order Date: {{ order.order_date|date:"jS M Y @ g:ia" }}
 
+Items ordered:
+{{ ordered_items }}
+
 Order Total: £{{ order.order_total }}
 Delivery: £{{ order.delivery_cost }}
 Grand Total: £{{ order.grand_total }}

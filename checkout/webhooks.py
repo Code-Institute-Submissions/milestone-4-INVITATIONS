@@ -4,7 +4,7 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from django.core.mail import send_mail
-from .models import Order
+from .models import Order, OrderLineItem
 
 import stripe
 
@@ -29,20 +29,35 @@ def format_shipping_address(order):
     if order.postcode:
         shipping_address += f'{order.postcode.upper()}' + '\r\n'
     shipping_address += f'{order.country}'
+
     return shipping_address
 
 
+def format_order_items(order):
+    print(f'Order items: {list(order.lineitems.all())}')
+    ordered_items = list(order.lineitems.all())
+    item_list = ''
+    for item in ordered_items:
+        item_list += f'x{str(item.quantity).ljust(3)}  {item.product.name} '
+        item_list += f'@ £{item.product.price} ea.' + '\r\n'
+        if item.product.customizable:
+            item_list += '      '
+            item_list += '(your customized invite will be emailed shortly)'
+            item_list += '\r\n'
+
+    return item_list
+
+
 def send_email_confirmation(request, event_type, stripe_pid, billing_details):
-    # print(f'Send email of order: {stripe_pid} to {billing_details}')
     order = get_order_details(request, stripe_pid)
     order_data = {
         'order_number': f'{order.pk:010}',
         'order_date': f'{order.order_date}'
     }
-
     context = {
         'order': order,
         'shipping_address': format_shipping_address(order),
+        'ordered_items': format_order_items(order),
         'sales_email': settings.DEFAULT_FROM_EMAIL,
     }
     email_body = render_to_string(
@@ -69,7 +84,6 @@ def webhook_view(request):
     payload = request.body
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
     event = None
-
     try:
         event = stripe.Webhook.construct_event(
             payload, sig_header, stripe_endpoint_secret
@@ -89,13 +103,9 @@ def webhook_view(request):
         return send_email_confirmation(request, event.type,
                                        payment_id, billing_details)
     elif event.type == 'payment_intent.payment_failed':
-        payment_intent = event.data.object  # contains a stripe.PaymentMethod
-        # handle_payment_intent_failed(payment_intent)
+        payment_intent = event.data.object
         print('Payment failed:---', payment_intent)
         return HttpResponse(status=200)
-    # ... handle other event types
     else:
         print(f'Unhandled event type {event.type}')
         return HttpResponse(status=200)
-
-    # return HttpResponse(status=200)
