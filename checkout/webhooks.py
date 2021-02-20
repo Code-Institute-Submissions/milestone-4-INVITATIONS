@@ -61,9 +61,18 @@ def check_invites_required(order):
                'product_id': item.product.pk,
                'name': item.product.name,
                'invite_data': item.invite_data,
+               'order_number': order.pk,
+               'user_id': order.user.pk,
             }
             invites.append(invite)
     return invites
+
+
+def generate_invite(invite):
+    print(f'Need to generate invite for {invite["product_id"]} - {invite["name"]}')
+    print(f'Invite is from order {invite["order_number"]} by user {invite["user_id"]}')
+    url_to_send = 'path to invite'
+    return url_to_send
 
 
 def send_email_confirmation(request, event_type, stripe_pid, billing_details):
@@ -85,7 +94,13 @@ def send_email_confirmation(request, event_type, stripe_pid, billing_details):
                   [order.email])
 
         invites_to_send = check_invites_required(order)
-        print(f'Invites to send: {invites_to_send}')
+        if invites_to_send:
+            for invite in invites_to_send:
+                url_to_send = generate_invite(invite)
+                print(f'URL to send is: {url_to_send}')
+
+        else:
+            print('No invites to send.')
 
         response_content = f'Webhook OK:{event_type}, customer emailed'
 
