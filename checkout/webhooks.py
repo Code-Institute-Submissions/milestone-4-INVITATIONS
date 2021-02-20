@@ -51,6 +51,21 @@ def format_order_items(order):
     return item_list
 
 
+def check_invites_required(order):
+    """ Check if any invite downloads required """
+    ordered_items = list(order.lineitems.all())
+    invites = []
+    for item in ordered_items:
+        if item.product.customizable:
+            invite = {
+               'product_id': item.product.pk,
+               'name': item.product.name,
+               'invite_data': item.invite_data,
+            }
+            invites.append(invite)
+    return invites
+
+
 def send_email_confirmation(request, event_type, stripe_pid, billing_details):
     """ Send an email confirmation to the customer """
     order = get_order_details(request, stripe_pid)
@@ -68,6 +83,9 @@ def send_email_confirmation(request, event_type, stripe_pid, billing_details):
                   email_body,
                   settings.DEFAULT_FROM_EMAIL,
                   [order.email])
+
+        invites_to_send = check_invites_required(order)
+        print(f'Invites to send: {invites_to_send}')
 
         response_content = f'Webhook OK:{event_type}, customer emailed'
 
