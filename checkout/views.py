@@ -13,6 +13,7 @@ from cart.contexts import cart_contents
 import json
 
 import stripe
+from .webhooks import webhook_view
 from django.http import JsonResponse
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
