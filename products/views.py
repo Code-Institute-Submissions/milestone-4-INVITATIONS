@@ -73,7 +73,7 @@ def products(request):
         'main_title': main_title,
         'search_text': search_text,
         'categories': categories,
-        'opts': Product.AdminOpts(),
+        'opts': Product.ProductAdminOpts(),
     }
 
     return render(request, 'products/products.html', context)
@@ -94,6 +94,7 @@ def product_info(request, product_id):
     else:
         context = {
                 'product': product,
+                'opts': Product.ProductAdminOpts(),
         }
 
         current_shopping_cart = cart_contents(request)
