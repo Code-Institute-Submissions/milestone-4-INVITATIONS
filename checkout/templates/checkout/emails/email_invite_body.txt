@@ -1,6 +1,6 @@
-Hi {{ order.full_name }}!
+Hi {{ name }}!
 
-Thank you for your order from -INVITATIONS-, please find below link(s) to your customised invites:
+Thank you for your order from -INVITATIONS-, please find below links to your customised invites:
 
 Order No. : {{ order_number|stringformat:"010d" }}
 Order Date: {{ order_date|date:"jS M Y @ g:ia" }}
