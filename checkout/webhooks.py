@@ -82,10 +82,8 @@ def generate_invite(invite):
     filename = 'cInv' + secrets.token_urlsafe(32) + str(invite["order_number"])
     print(f'Filename part is: {filename}')
 
-    site_path = 'https://8000-f4dbf2d0-a1ce-4574-8d26-c31113ec3be0.ws-eu03.gitpod.io'
-
     # Prepare raw image
-    image_url = site_path + invite['raw_image_url']
+    image_url = settings.BASE_URL + invite['raw_image_url']
     print(f'Raw image URL: {image_url}')
     response = requests.get(image_url, stream=True)
     im = Image.open(response.raw)
@@ -119,7 +117,7 @@ def generate_invite(invite):
     im_pdf = img.convert('RGB')
     im_pdf.save(save_path + '.pdf', resolution=300)
 
-    url_to_send = site_path + settings.MEDIA_URL + filename
+    url_to_send = settings.BASE_URL + settings.MEDIA_URL + filename
     return url_to_send
 
 

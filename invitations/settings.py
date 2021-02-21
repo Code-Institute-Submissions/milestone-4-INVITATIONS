@@ -185,3 +185,5 @@ STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET', '')
 
 # Email
 DEFAULT_FROM_EMAIL = 'sales@devtog-invitations.com'
+BASE_URL = 'https://8000-f4dbf2d0-a1ce-4574-8d26-c31113ec3be0.ws-eu03.gitpod.io'
+
