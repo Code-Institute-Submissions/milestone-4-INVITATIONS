@@ -131,10 +131,15 @@ def send_email_confirmation(request, event_type, stripe_pid, billing_details):
 
         invites_to_send = check_invites_required(order)
         if invites_to_send:
+            invite_items = ''
             for invite in invites_to_send:
+                invite_items += invite['name'] + '\r\n'
                 url_to_send = generate_invite(invite)
-                print(f'URL to send is: {url_to_send}.png')
-                print(f'URL to send is: {url_to_send}.pdf')
+                invite_items += f'   PDF download link: {url_to_send}.pdf' + '\r\n'
+                invite_items += f'   PNG download link: {url_to_send}.png' + '\r\n'
+                invite_items += '\r\n'
+
+            print(f'Invite items: {invite_items}')
 
         else:
             print('No invites to send.')
