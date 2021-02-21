@@ -1,0 +1,15 @@
+Hi {{ order.full_name }}!
+
+Thank you for your order from -INVITATIONS-, please find below lnink(s) to your customised invites:
+
+Order No. : {{ order.pk|stringformat:"010d" }}
+Order Date: {{ order.order_date|date:"jS M Y @ g:ia" }}
+
+Invite items ordered:
+{{ invite_download_items }}
+
+If you have any issues please contact us at {{ sales_email }}.
+
+Thank you
+
+-INVITATIONS-
