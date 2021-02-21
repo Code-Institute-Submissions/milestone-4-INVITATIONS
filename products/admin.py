@@ -13,6 +13,8 @@ class ProductReviewsAdminInline(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
     inlines = (CustomDetailLineAdminInline, ProductReviewsAdminInline)
 
+    readonly_fields = ('average_rating',)
+
     list_display = (
         'pk',
         'name',
