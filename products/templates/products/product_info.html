@@ -12,7 +12,7 @@
         <!-- Product -->
         <div class="row">
             <!-- Product image -->
-            <div class="col-12 col-md-6 offset-lg-2 col-lg-4 pr-0">
+            <div class="col-12 col-md-6 offset-lg-1 col-lg-5 pr-0">
                 {% if product.view_image %}
                     <img class="card-img-top img-fluid" src="{{ product.view_image.url }}" alt="{{ product.name }}">
                 {% else %}
@@ -25,17 +25,24 @@
                 {% endif %}
             </div>
             <!-- Product details -->
-            <div class="col-12 col-md-6 col-lg-4 d-flex flex-column justify-content-between">
-                <!-- Product name, price, qty and description -->
+            <div class="col-12 col-md-6 col-lg-5 d-flex flex-column justify-content-between">
+                <!-- Product name, category, price, qty and description -->
                 <form class="form" action="{% url 'add_to_cart' product.id %}" method="POST">
                 <div class="row">
                     <div class="col-12">
-                        <h5 class="product__title">{{ product.name }}</h5>
+                        <h5 class="mb-1">{{ product.name }}</h5>
+                        {% if product.category %}
+                            <p class="mb-2">
+                                <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}" alt="Category: {{ product.category.display_name }}" title="Category: {{ product.category.display_name }}">
+                                    <i class="fas fa-tag mr-1"></i>{{ product.category.display_name }}
+                                </a>
+                            </p>
+                        {% endif %}
+                        <!-- Quantity to add -->
                         <div class="row">
                             <div class="col-6 col-sm-8 col-md-6 col-xl-7">
                                 <p class="product__price mt-0 mb-0">£{{ product.price }}</p>
                             </div>
-                            <!-- Quantity to add to the cart -->
                             <div class="col-6 col-sm-4 col-md-6 col-xl-5">
                                 {% with product.customizable as custom %}
                                 <div class="input-group">
@@ -54,8 +61,8 @@
                                 {% endwith %}
                             </div>
                         </div>
+                        <!-- Add to cart -->
                         <div class="row">
-                            <!-- Add to cart -->
                             <div class="col-md-12 text-right">
                                     {% csrf_token %}
                                     {% if exists_in_cart and product.customizable %}
@@ -85,7 +92,7 @@
                 </div>
                     <input type="hidden" name="invite-data-{{ product.id }}" id="invite-data-{{ product.id }}" value="{{ invite_data }}">
                 </form>
-                <!-- Product category tag, admin links -->
+                <!-- Personalise, reviews, admin edit button -->
                 <div class="row">
                     <div class="col-12">
                         {% if not exists_in_cart %}
@@ -98,14 +105,21 @@
                         {% endif %}
                     </div>
                     <div class="col-12">
-                        {% if product.category %}
-                            <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}" alt="Category: {{ product.category.display_name }}" title="Category: {{ product.category.display_name }}">
-                                <i class="fas fa-tag mr-1"></i>{{ product.category.display_name }}
-                            </a>
-                        {% endif %}
-                        {% if request.user.is_superuser %}
-                                <a href="{% url opts|admin_urlname:'change' product.id %}" class="btn btn-danger product__admin-btn" role="button" >EDIT</a>
-                        {% endif %}
+                        <div>
+                            <span class="small">
+                                {% if product.average_rating > 0 %}
+                                    Reviews:  
+                                    {% autoescape off %}
+                                    {{ rating_html }}
+                                    {% endautoescape %}
+                                {% else %}
+                                No reviews yet
+                                {% endif %}
+                            </span>
+                            {% if request.user.is_superuser %}
+                                    <a href="{% url opts|admin_urlname:'change' product.id %}" class="btn btn-danger product__admin-btn" role="button" >EDIT</a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
