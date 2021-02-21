@@ -41,16 +41,16 @@ def format_shipping_address(order):
 
 
 def format_order_items(order):
-    """ Get and format the order lines for display """
+    """ Get and format the order lines for email display """
     ordered_items = list(order.lineitems.all())
     item_list = ''
     for item in ordered_items:
         item_list += f'x{str(item.quantity).ljust(3)}  {item.product.name} '
         item_list += f'@ £{item.product.price} ea.' + '\r\n'
         if item.product.customizable:
-            item_list += '      '
-            item_list += '(your customized invite will be emailed shortly)'
-            item_list += '\r\n'
+            item_list += ('      ' +
+                          '(your customized invite will be emailed shortly)' +
+                          '\r\n')
         item_list += '\r\n'
 
     return item_list
@@ -83,7 +83,7 @@ def generate_invite(invite):
     response = requests.get(image_url, stream=True)
     im = Image.open(response.raw)
     img = im.convert("RGBA")
-    image_width, image_height = img.size
+    image_size = img.size
     draw = ImageDraw.Draw(img)
 
     # Apply customised fields
@@ -94,8 +94,8 @@ def generate_invite(invite):
         font_ttf_name = part['font'][1:pos].replace(' ', '') + '.ttf'
         font_ttf_path = font_root + font_ttf_name
         font = ImageFont.truetype(font_ttf_path, int(part['raw_size']))
-        part_width, part_height = font.getsize(part['text'])
-        x_pos = (image_width - part_width) / 2
+        part_size = font.getsize(part['text'])
+        x_pos = (image_size[0] - part_size[0]) / 2
         stroke_width = int(part['stroke_width'].replace('px', ''))
         draw.text((x_pos, part['y_pos']), part['text'], part['color'],
                   font=font, stroke_width=stroke_width,
@@ -111,8 +111,10 @@ def generate_invite(invite):
     return url_to_send
 
 
-def send_email_confirmation(request, event_type, stripe_pid, billing_details):
-    """ Send an email confirmation to the customer """
+def send_customer_emails(request, event_type, stripe_pid, billing_details):
+    """ Send an email order confirmation to the customer and
+        if they have ordered any invites generate the image
+        and email download links """
     order = get_order_details(request, stripe_pid)
     if order:
         context = {
@@ -136,8 +138,8 @@ def send_email_confirmation(request, event_type, stripe_pid, billing_details):
                 invite_list += invite['name'] + '\r\n'
                 invite_url = generate_invite(invite)
                 invite_list += (f'   PDF download link: {invite_url}.pdf' +
-                                '\r\n')
-                invite_list += (f'   PNG download link: {invite_url}.png' +
+                                '\r\n' +
+                                f'   PNG download link: {invite_url}.png' +
                                 '\r\n\r\n')
 
             context = {
@@ -177,19 +179,19 @@ def webhook_view(request):
         event = stripe.Webhook.construct_event(
             payload, sig_header, stripe_endpoint_secret
         )
-    except ValueError as e:
+    except ValueError:
         # Invalid payload
         return HttpResponse(status=400)
-    except stripe.error.SignatureVerificationError as e:
+    except stripe.error.SignatureVerificationError:
         # Invalid signature
         return HttpResponse(status=400)
 
-    # Handle the stripe event
+    # Handle the stripe events
     if event.type == 'payment_intent.succeeded':
         payment_intent = event.data.object
         payment_id = payment_intent.id
         billing_details = payment_intent.charges.data[0].billing_details
-        return send_email_confirmation(request, event.type,
+        return send_customer_emails(request, event.type,
                                        payment_id, billing_details)
 
     elif event.type == 'payment_intent.payment_failed':
