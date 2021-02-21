@@ -263,7 +263,7 @@ hr.border__dashed {
 
 /* Products */
 .product__container {
-    width: 85%;
+    width: 90%;
     margin: 0 auto;
 }
 
@@ -402,6 +402,25 @@ hr.border__dashed {
 .checkout__container {
     width: 85%;
     margin: 0 auto;
+}
+
+/* Reviews */
+.fa-stack {
+    font-size: 10px;
+}
+
+i {
+    vertical-align: middle;
+}
+
+.rating__star {
+    font-size: 20px;
+    color: gold;
+}
+
+.rating__none {
+    font-size: 20px;
+    color: #e9e9e9;
 }
 
 /* Footer */
