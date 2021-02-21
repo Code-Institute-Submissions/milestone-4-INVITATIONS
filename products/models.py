@@ -39,25 +39,14 @@ class Product(models.Model):
     def update_average_rating(self):
         """
         When a review is added calculate the average rating
+        Then average rating is round to the nearest .5
         """
-        # review_sum = self.reviews.aggregate(total=Sum('rating'))
-        # print('Result = ', review_sum)
-        # review_count = self.reviews.aggregate(total=Count('rating'))
-        # print('Count = ', review_count)
-        # self.average_rating = review_sum / review_count
-        # print('Average = ', self.average_rating)
         result = self.reviews.aggregate(average=Avg('rating'))
-        
-        average_rating = round(result['average'], 1)
-        print('Average from DB: ', average_rating)
-        average_to_point_five = round(average_rating * 2) / 2
-        print('Average to point five: ', average_to_point_five)
-
+        average_rating = round((round(result['average'], 1)) * 2) / 2
         self.average_rating = average_rating
-        print('Average Rating: ', self.average_rating)
 
-        # if self.average_rating is not None:
-        self.save()
+        if self.average_rating is not None:
+            self.save()
 
     def __str__(self):
         return self.name
