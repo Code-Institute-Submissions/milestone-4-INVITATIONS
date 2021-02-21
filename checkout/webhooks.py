@@ -124,25 +124,37 @@ def send_email_confirmation(request, event_type, stripe_pid, billing_details):
         email_body = render_to_string(
             'checkout/emails/email_confirmation_body.txt',
             context)
-        send_mail(f'-INVITATIONS- confirmation for order: {order.pk:010}',
+        send_mail(f'-INVITATIONS- Your confirmation for order: {order.pk:010}',
                   email_body,
                   settings.DEFAULT_FROM_EMAIL,
                   [order.email])
 
         invites_to_send = check_invites_required(order)
         if invites_to_send:
-            invite_items = ''
+            invite_list = ''
             for invite in invites_to_send:
-                invite_items += invite['name'] + '\r\n'
-                url_to_send = generate_invite(invite)
-                invite_items += f'   PDF download link: {url_to_send}.pdf' + '\r\n'
-                invite_items += f'   PNG download link: {url_to_send}.png' + '\r\n'
-                invite_items += '\r\n'
+                invite_list += invite['name'] + '\r\n'
+                invite_url = generate_invite(invite)
+                invite_list += f'   PDF download \
+                               link: {invite_url}.pdf' + '\r\n'
+                invite_list += f'   PNG download \
+                               link: {invite_url}.png' + '\r\n'
+                invite_list += '\r\n'
 
-            print(f'Invite items: {invite_items}')
-
-        else:
-            print('No invites to send.')
+            context = {
+                'order_number': order.pk,
+                'order_date': order.order_date,
+                'invite_link_list': invite_list,
+                'sales_email': settings.DEFAULT_FROM_EMAIL,
+            }
+            email_body = render_to_string(
+                'checkout/emails/email_invite_body.txt',
+                context)
+            send_mail(f'-INVITATIONS- Your invite download \
+                      links for order: {order.pk:010}',
+                      email_body,
+                      settings.DEFAULT_FROM_EMAIL,
+                      [order.email])
 
         response_content = f'Webhook OK:{event_type}, customer emailed'
 
