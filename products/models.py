@@ -1,6 +1,9 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from colorfield.fields import ColorField
+from django.db.models import Avg, Sum, Count
+
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -29,6 +32,24 @@ class Product(models.Model):
     raw_image = models.ImageField(blank=True)
     view_image = models.ImageField(blank=True)
     customize_image = models.ImageField(blank=True)
+    average_rating = models.DecimalField(max_digits=2, decimal_places=1,
+                                         default=0.0)
+
+    def update_average_rating(self):
+        """
+        When a review is added calculate the average rating
+        """
+        # review_sum = self.reviews.aggregate(total=Sum('rating'))
+        # print('Result = ', review_sum)
+        # review_count = self.reviews.aggregate(total=Count('rating'))
+        # print('Count = ', review_count)
+        # self.average_rating = review_sum / review_count
+        # print('Average = ', self.average_rating)
+        self.average_rating = self.reviews.aggregate(Avg('rating'))
+        print('Average Rating: ', self.average_rating)
+
+        if self.average_rating is not None:
+            self.save()
 
     def __str__(self):
         return self.name
@@ -82,3 +103,19 @@ class CustomDetailLine(models.Model):
 
     def __str__(self):
         return f'{self.name} for product {self.product.name}'
+
+
+class ProductReviews(models.Model):
+    product = models.ForeignKey(Product, null=False,
+                                blank=False, on_delete=models.CASCADE,
+                                related_name='reviews')
+    user = models.ForeignKey(User, null=False,
+                             blank=False, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=60, null=False, blank=False)
+    rating = models.IntegerField(validators=[MaxValueValidator(5),
+                                             MinValueValidator(1)],
+                                 null=False, blank=False,
+                                 default=5)
+
+    def __str__(self):
+        return f'{self.rating} for product {self.product.name}'
