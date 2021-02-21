@@ -1,13 +1,17 @@
 from django.contrib import admin
-from .models import Product, CustomDetailLine, Category
+from .models import Product, CustomDetailLine, Category, ProductReviews
 
 
 class CustomDetailLineAdminInline(admin.TabularInline):
     model = CustomDetailLine
 
 
+class ProductReviewsAdminInline(admin.TabularInline):
+    model = ProductReviews
+
+
 class ProductAdmin(admin.ModelAdmin):
-    inlines = (CustomDetailLineAdminInline,)
+    inlines = (CustomDetailLineAdminInline, ProductReviewsAdminInline)
 
     list_display = (
         'pk',
