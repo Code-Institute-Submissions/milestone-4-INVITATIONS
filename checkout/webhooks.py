@@ -76,15 +76,10 @@ def check_invites_required(order):
 
 def generate_invite(invite):
     """ Generate the invite design image files """
-    print(f'Need to generate invite for {invite["product_id"]} - {invite["name"]}')
-    print(f'Invite is from order {invite["order_number"]} by user {invite["user_id"]}')
-
     filename = 'cInv' + secrets.token_urlsafe(32) + str(invite["order_number"])
-    print(f'Filename part is: {filename}')
 
     # Prepare raw image
     image_url = settings.BASE_URL + invite['raw_image_url']
-    print(f'Raw image URL: {image_url}')
     response = requests.get(image_url, stream=True)
     im = Image.open(response.raw)
     img = im.convert("RGBA")
@@ -93,18 +88,14 @@ def generate_invite(invite):
 
     # Apply customised fields
     font_root = settings.MEDIA_ROOT + '/' + 'fonts/'
-    print(f'Invite DATA: {invite["invite_data"]}')
     invite_structure = json.loads(invite['invite_data'])
-    print(f'Invite STRUCTURE: {invite_structure}')
     for part in invite_structure:
-        print(f'Putting {part["name"]} of {part["text"]} at {part["y_pos"]}')
         pos = part['font'].index("'", 2)
-        font_ttf_path = font_root + part['font'][1:pos].replace(' ', '') + '.ttf'
-        print(f'Font path: {font_ttf_path}')
+        font_ttf_name = part['font'][1:pos].replace(' ', '') + '.ttf'
+        font_ttf_path = font_root + font_ttf_name
         font = ImageFont.truetype(font_ttf_path, int(part['raw_size']))
         part_width, part_height = font.getsize(part['text'])
         x_pos = (image_width - part_width) / 2
-        print(f'{part["name"]} has Width of: {part_width}')
         stroke_width = int(part['stroke_width'].replace('px', ''))
         draw.text((x_pos, part['y_pos']), part['text'], part['color'],
                   font=font, stroke_width=stroke_width,
@@ -112,7 +103,6 @@ def generate_invite(invite):
 
     # Save the invite as PNG and PDF
     save_path = settings.MEDIA_ROOT + '/' + filename
-    print(f'Save path: {save_path}. PNG or PDF')
     img.save(save_path + '.png', resolution=300)
     im_pdf = img.convert('RGB')
     im_pdf.save(save_path + '.pdf', resolution=300)
