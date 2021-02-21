@@ -4,6 +4,11 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from django.core.mail import send_mail
+from PIL import Image, ImageFont, ImageDraw
+
+import secrets
+import requests
+import json
 
 from .models import Order
 
@@ -61,6 +66,7 @@ def check_invites_required(order):
                'product_id': item.product.pk,
                'name': item.product.name,
                'invite_data': item.invite_data,
+               'raw_image_url': item.product.raw_image.url,
                'order_number': order.pk,
                'user_id': order.user.pk,
             }
@@ -69,9 +75,51 @@ def check_invites_required(order):
 
 
 def generate_invite(invite):
+    """ Generate the invite design image files """
     print(f'Need to generate invite for {invite["product_id"]} - {invite["name"]}')
     print(f'Invite is from order {invite["order_number"]} by user {invite["user_id"]}')
-    url_to_send = 'path to invite'
+
+    filename = 'cInv' + secrets.token_urlsafe(32) + str(invite["order_number"])
+    print(f'Filename part is: {filename}')
+
+    site_path = 'https://8000-f4dbf2d0-a1ce-4574-8d26-c31113ec3be0.ws-eu03.gitpod.io'
+
+    # Prepare raw image
+    image_url = site_path + invite['raw_image_url']
+    print(f'Raw image URL: {image_url}')
+    response = requests.get(image_url, stream=True)
+    im = Image.open(response.raw)
+    img = im.convert("RGBA")
+    image_width, image_height = img.size
+    draw = ImageDraw.Draw(img)
+
+    # Apply customised fields
+    font_root = settings.MEDIA_ROOT + '/' + 'fonts/'
+    print(f'Invite DATA: {invite["invite_data"]}')
+    invite_structure = json.loads(invite['invite_data'])
+    print(f'Invite STRUCTURE: {invite_structure}')
+    for part in invite_structure:
+        print(f'Putting {part["name"]} of {part["text"]} at {part["y_pos"]}')
+        pos = part['font'].index("'", 2)
+        font_ttf_path = font_root + part['font'][1:pos].replace(' ', '') + '.ttf'
+        print(f'Font path: {font_ttf_path}')
+        font = ImageFont.truetype(font_ttf_path, int(part['raw_size']))
+        part_width, part_height = font.getsize(part['text'])
+        x_pos = (image_width - part_width) / 2
+        print(f'{part["name"]} has Width of: {part_width}')
+        stroke_width = int(part['stroke_width'].replace('px', ''))
+        draw.text((x_pos, part['y_pos']), part['text'], part['color'],
+                  font=font, stroke_width=stroke_width,
+                  stroke_fill=part['stroke_fill'])
+
+    # Save the invite as PNG and PDF
+    save_path = settings.MEDIA_ROOT + '/' + filename
+    print(f'Save path: {save_path}. PNG or PDF')
+    img.save(save_path + '.png', resolution=300)
+    im_pdf = img.convert('RGB')
+    im_pdf.save(save_path + '.pdf', resolution=300)
+
+    url_to_send = site_path + settings.MEDIA_URL + filename
     return url_to_send
 
 
@@ -97,7 +145,8 @@ def send_email_confirmation(request, event_type, stripe_pid, billing_details):
         if invites_to_send:
             for invite in invites_to_send:
                 url_to_send = generate_invite(invite)
-                print(f'URL to send is: {url_to_send}')
+                print(f'URL to send is: {url_to_send}.png')
+                print(f'URL to send is: {url_to_send}.pdf')
 
         else:
             print('No invites to send.')
