@@ -17,7 +17,7 @@
 
 .preview__overlay {
     position: absolute;
-    top: 0;
+    top: -4px;
     overflow: hidden;
 }
 
