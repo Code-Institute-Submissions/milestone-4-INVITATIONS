@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from colorfield.fields import ColorField
+
 from django.db.models import Avg, Sum, Count
 
 from django.contrib.auth.models import User
@@ -45,11 +46,18 @@ class Product(models.Model):
         # print('Count = ', review_count)
         # self.average_rating = review_sum / review_count
         # print('Average = ', self.average_rating)
-        self.average_rating = self.reviews.aggregate(Avg('rating'))
+        result = self.reviews.aggregate(average=Avg('rating'))
+        
+        average_rating = round(result['average'], 1)
+        print('Average from DB: ', average_rating)
+        average_to_point_five = round(average_rating * 2) / 2
+        print('Average to point five: ', average_to_point_five)
+
+        self.average_rating = average_rating
         print('Average Rating: ', self.average_rating)
 
-        if self.average_rating is not None:
-            self.save()
+        # if self.average_rating is not None:
+        self.save()
 
     def __str__(self):
         return self.name
@@ -106,6 +114,9 @@ class CustomDetailLine(models.Model):
 
 
 class ProductReviews(models.Model):
+    class Meta:
+        verbose_name_plural = 'Reviews'
+
     product = models.ForeignKey(Product, null=False,
                                 blank=False, on_delete=models.CASCADE,
                                 related_name='reviews')
@@ -116,6 +127,8 @@ class ProductReviews(models.Model):
                                              MinValueValidator(1)],
                                  null=False, blank=False,
                                  default=5)
+    date_created = models.DateTimeField(auto_now_add=True,
+                                        blank=True, null=True)
 
     def __str__(self):
         return f'{self.rating} for product {self.product.name}'
