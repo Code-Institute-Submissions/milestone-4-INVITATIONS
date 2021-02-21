@@ -135,14 +135,14 @@ def send_email_confirmation(request, event_type, stripe_pid, billing_details):
             for invite in invites_to_send:
                 invite_list += invite['name'] + '\r\n'
                 invite_url = generate_invite(invite)
-                invite_list += f'   PDF download \
-                               link: {invite_url}.pdf' + '\r\n'
-                invite_list += f'   PNG download \
-                               link: {invite_url}.png' + '\r\n'
-                invite_list += '\r\n'
+                invite_list += (f'   PDF download link: {invite_url}.pdf' +
+                                '\r\n')
+                invite_list += (f'   PNG download link: {invite_url}.png' +
+                                '\r\n\r\n')
 
             context = {
                 'order_number': order.pk,
+                'name': order.full_name,
                 'order_date': order.order_date,
                 'invite_link_list': invite_list,
                 'sales_email': settings.DEFAULT_FROM_EMAIL,
@@ -150,8 +150,8 @@ def send_email_confirmation(request, event_type, stripe_pid, billing_details):
             email_body = render_to_string(
                 'checkout/emails/email_invite_body.txt',
                 context)
-            send_mail(f'-INVITATIONS- Your invite download \
-                      links for order: {order.pk:010}',
+            send_mail('-INVITATIONS- Your invite download ' +
+                      f'links for order: {order.pk:010}',
                       email_body,
                       settings.DEFAULT_FROM_EMAIL,
                       [order.email])
