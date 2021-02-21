@@ -73,6 +73,7 @@ def products(request):
         'main_title': main_title,
         'search_text': search_text,
         'categories': categories,
+        'opts': Product.AdminOpts(),
     }
 
     return render(request, 'products/products.html', context)

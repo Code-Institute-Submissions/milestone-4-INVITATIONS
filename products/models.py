@@ -48,6 +48,11 @@ class Product(models.Model):
         if self.average_rating is not None:
             self.save()
 
+    class ProductAdminOpts:
+        """ Settings to help reversing admin URLs in templates """
+        app_label = 'products'
+        model_name = 'product'
+
     def __str__(self):
         return self.name
 
