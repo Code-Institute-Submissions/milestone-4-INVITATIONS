@@ -6,7 +6,7 @@ Order No. : {{ order_number|stringformat:"010d" }}
 Order Date: {{ order_date|date:"jS M Y @ g:ia" }}
 
 Invite items ordered:
-{{ invite_download_items }}
+{{ invite_link_list }}
 
 If you have any issues please contact us at {{ sales_email }}.
 
