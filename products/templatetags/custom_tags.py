@@ -1,8 +1,10 @@
 from django import template
+from products.views import create_review_stars
+
 
 register = template.Library()
 
 
 @register.filter(name='ratingstars')
 def ratingstars(value):
-    return 'Hello World!'
+    return create_review_stars(value)
