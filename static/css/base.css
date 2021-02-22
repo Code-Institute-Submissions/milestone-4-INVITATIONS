@@ -406,7 +406,7 @@ hr.border__dashed {
 
 /* Reviews */
 .fa-stack {
-    font-size: 10px;
+    font-size: 8px;
 }
 
 i {
@@ -414,12 +414,12 @@ i {
 }
 
 .rating__star {
-    font-size: 20px;
+    font-size: 16px;
     color: gold;
 }
 
 .rating__none {
-    font-size: 20px;
+    font-size: 16px;
     color: #e9e9e9;
 }
 
