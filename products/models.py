@@ -116,7 +116,7 @@ class ProductReviews(models.Model):
                                 related_name='reviews')
     user = models.ForeignKey(User, null=False,
                              blank=False, on_delete=models.CASCADE)
-    comment = models.CharField(max_length=60, null=False, blank=False)
+    comment = models.CharField(max_length=254, null=False, blank=False)
     rating = models.IntegerField(validators=[MaxValueValidator(5),
                                              MinValueValidator(1)],
                                  null=False, blank=False,
