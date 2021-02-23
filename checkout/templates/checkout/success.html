@@ -125,6 +125,11 @@
                                     {{ item.product.name|truncatechars:80 }}...
                                 </a>
                             </p>
+                            {% if order_history %}
+                                <p>
+                                    <a class="btn__default btn__smaller" href="#">Review this product {{ item.product.pk }}</a>
+                                </p>
+                            {% endif %}
                         </div>
                         <div class="col-12 col-sm-4 text-sm-right">
                             <p class="mb-0 mb-sm-1">Qty: {{ item.quantity }} @ £{{ item.product.price|floatformat:2 }} ea.</p>
