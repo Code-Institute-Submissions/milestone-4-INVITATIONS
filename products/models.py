@@ -62,6 +62,12 @@ class CustomDetailLine(models.Model):
         ("'Clicker Script', cursive", "'Clicker Script', cursive"),
         ("'Londrina Solid', cursive", "'Londrina Solid', cursive"),
         ("'Audiowide', cursive", "'Audiowide', cursive"),
+        ("'Playball', cursive", "'Playball', cursive"),
+        ("'Sedgwick Ave', cursive", "'Sedgwick Ave', cursive"),
+        ("'Press Start 2P', cursive", "'Press Start 2P', cursive"),
+        ("'Bangers', cursive", "'Bangers', cursive"),
+        ("'Righteous', cursive", "'Righteous', cursive"),
+        ("'Roboto Condensed', sans-serif", "'Roboto Condensed', sans-serif"),
     ]
 
     FONT_SIZE_CHOICES = [
