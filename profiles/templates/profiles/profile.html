@@ -59,28 +59,31 @@
                 <h2 class="page__subtitle pt-4 pt-lg-2">User Details</h2>
                 {% crispy form %}
             </div>
+            <div class="col-12">
+                <hr class="border__dashed">
+            </div>
             <!-- My product reviews -->
             <div class="col-12 col-lg-8 pr-lg-4">
                 <h2 class="page__subtitle pt-3 pt-lg-2">My Product Reviews</h2>
-                <div class="row mt-1">
-                    <div class="col-7">
+                <div class="row no-gutters mt-1">
+                    <div class="col-7 col-lg-8">
                         <p class="mb-1 small text-muted">Product</p>
                     </div>
-                    <div class="col-5 pl-0">
-                        <p class="mb-1 small text-muted">Reviewed on</p>
+                    <div class="col-5 col-lg-4 pl-0">
+                        <p id="reviewed-on" class="mb-1 ml-2 small text-muted">Reviewed on</p>
                     </div>
                 </div>            
                 <hr class="mt-1 mb-1">
                 <!-- Review lines -->
-                <div class="profile__list">
+                <div id="review-list" class="profile__list">
                     {% for review in product_reviews %}
                         <div data-set-review-line="{{ review.product.pk }}" class="row no-gutters profile__order-line p-1 mt-1">
-                            <div class="col-7">
+                            <div class="col-7 col-lg-8">
                                 <p class="mb-0">{{ review.product.name }}</p>
                             </div>
-                            <div class="col-5 p-0">
+                            <div class="col-5 col-lg-4 p-0">
                                 <p class="mb-0 ml-2">
-                                    {{ review.date_created|date:"jS M Y" }}&nbsp;
+                                    <span>{{ review.date_created|date:"jS M Y" }}</span>
                                     <span class="small">({{ review.date_created|date:"g:ia"|cut:"." }})</span>
                                 </p>
                             </div>
