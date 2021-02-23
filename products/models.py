@@ -68,6 +68,9 @@ class CustomDetailLine(models.Model):
         ("'Bangers', cursive", "'Bangers', cursive"),
         ("'Righteous', cursive", "'Righteous', cursive"),
         ("'Roboto Condensed', sans-serif", "'Roboto Condensed', sans-serif"),
+        ("'Waiting for the Sunrise', cursive",
+            "'Waiting for the Sunrise', cursive"),
+        ("'Courgette', cursive", "'Courgette', cursive"),
     ]
 
     FONT_SIZE_CHOICES = [
