@@ -43,6 +43,10 @@ hr.border__dashed {
     background: rgb(221, 221, 221);
 }
 
+.cursor__pointer {
+    cursor: pointer;
+}
+
 /* from Bulma: to create a reliable square container for icons */
 .icon {
     display: inline-flex !important;
