@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="container-fluid page__default">
+    <div class="checkout__container pt-5 pb-5">
+        <!-- Page header -->
+        <div class="row">
+            <div class="col-12">
+                <h1 class="mb-0 page__title">Add a Review</h1>
+                <hr class="mt-1">
+            </div>
+        </div>
+        <div class="row">
+            <!-- Add a review -->
+            <div class="col-12">
+                <h2 class="page__subtitle pt-4 pt-lg-2">User Details</h2>
+                {% crispy form %}
+            </div>            
+        </div>
+    </div>
+</main>
+{% endblock %}
