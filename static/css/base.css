@@ -32,7 +32,7 @@ body {
 }
 
 .border__bottom {
-    border-bottom: 1px dashed lightgrey;
+    border-bottom: 1px dashed rgb(0, 0, 0, 0.1) 0, 0.1);
 }
 
 hr.border__dashed {
@@ -508,7 +508,7 @@ footer h4 {
     }
 
     .border__left {
-        border-left: 1px dashed lightgrey;
+        border-left: 1px dashed rgb(0, 0, 0, 0.1);
     }
 
 }
