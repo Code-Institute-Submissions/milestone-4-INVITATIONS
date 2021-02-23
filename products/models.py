@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from colorfield.fields import ColorField
 
-from django.db.models import Avg, Sum, Count
+from django.db.models import Avg
 
 from django.contrib.auth.models import User
 
@@ -115,6 +115,7 @@ class ProductReviews(models.Model):
         (4, '4'),
         (5, '5'),
     ]
+
     class Meta:
         verbose_name_plural = 'Reviews'
 
