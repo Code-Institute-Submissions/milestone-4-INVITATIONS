@@ -174,14 +174,28 @@
         });
 
         // Set event listener to hide or show customer product reviews
+        // With offset calculation code from: Santiago Angel on stackoverflow.com
+        // https://stackoverflow.com/questions/18150090/jquery-scroll-element-to-the-middle-of-the-screen-instead-of-to-the-top-with-a
         $('.js__product-reviews').click(function(e){
             let showingReviews = $('#product-reviews').hasClass('d-none')
             if (showingReviews) {
-                $('html, body').animate({scrollTop: 400}, 500);
+                $('#product-reviews').toggleClass('d-none');
+                let windowHeight = $(window).height();
+                let reviewsHeight = $('#product-reviews').height();
+                let reviewsOffset = $('#product-reviews').offset().top;
+                let offset;
+                if (reviewsHeight < windowHeight) {
+                    offset = reviewsOffset - ((windowHeight / 2) - (reviewsHeight / 2));
+                }
+                else {
+                    offset = reviewsOffset;
+                }
+                $('html, body').animate({scrollTop: offset}, 500);
             } else {
                 $('html, body').animate({scrollTop: 0}, 0);
+                $('#product-reviews').toggleClass('d-none');
             }
-            $('#product-reviews').toggleClass('d-none');
+            
         });
     </script>     
 {% endblock %}
