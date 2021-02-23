@@ -81,11 +81,6 @@
                         <p class="mb-1">£{{ order.grand_total|floatformat:2 }}</p>
                     </div>
                 </div>                    
-                <!-- <p class="mb-1">Payment Ref:<span class="float-right">{{ order.stripe_pid }}</span></p> -->
-                <!-- <p class="mb-1">Order Date:<span class="float-right">{{ order.order_date|date:"jS M Y @ g:ia" }}</span></p> -->
-                <!-- <p class="mb-1">Order Total:<span class="float-right">£{{ order.order_total|floatformat:2 }}</span></p> -->
-                <!-- <p class="mb-1">Delivery Cost:<span class="float-right">£{{ order.delivery_cost|floatformat:2 }}</span></p> -->
-                <!-- <p class="mb-1">Grand Total:<span class="float-right">£{{ order.grand_total|floatformat:2 }}</span></p> -->
             </div>
             <!-- Your delivery address -->
             <div class="col-12 col-lg-5 border__left pl-lg-3">
@@ -127,7 +122,7 @@
                             </p>
                             {% if order_history %}
                                 <p>
-                                    <a class="btn__default btn__smaller" href="#">Review this product {{ item.product.pk }}</a>
+                                    <a class="btn__default btn__smaller" href="{% url 'add_review' item.product.pk item.order.pk %}">Review this product {{ item.product.pk }} order: {{ item.order.pk }}</a>
                                 </p>
                             {% endif %}
                         </div>
