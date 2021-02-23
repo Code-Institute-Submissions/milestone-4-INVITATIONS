@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load admin_urls %}
+{% load custom_tags %}
 {% load static %}
 
 {% block extra_css %}
@@ -106,7 +107,7 @@
                     </div>
                     <div class="col-12">
                         <div>
-                            <span class="small">
+                            <span class="small cursor__pointer js__product-reviews" title="Customer reviews">
                                 {% if product.average_rating > 0 %}
                                     Reviews:  
                                     {% autoescape off %}
@@ -124,6 +125,27 @@
                 </div>
             </div>
         </div>
+        <!-- Product reviews -->
+        <div id="product-reviews" class="row d-none">
+            <div class="col-12 offset-lg-1 col-lg-10 pr-0">
+                <hr>
+                <h5 class="mb-1">Customer Reviews: <span class="small">({{ product.reviews.all|length }})</span></h5>
+                <!-- <p class="pt-3">Customer Reviews:</p> -->
+                {% for review in product.reviews.all %}
+                    <p class="mb-1">
+                        <span class="pr-1">
+                            {% autoescape off %}
+                            {{ review.rating|ratingstars }}
+                            {% endautoescape %}
+                        </span>
+                        <span class="small">{{ review.user.first_name }}</span>
+                    </p>
+                    <p>{{ review.comment }}</p>
+                {% endfor %}
+                <p class="small text-muted cursor__pointer js__product-reviews">Hide reviews</p>
+            </div>
+        </div>
+
     </section>
 </main>
 {% if product.customizable and invite_data and product.customize_image %}
@@ -144,11 +166,22 @@
         $('.js__invite-data-btn').click(function(e){
             DATA_RETURN_ID = `invite-data-${e.currentTarget.dataset.setInviteBtn}`;
             customiseInvite.inviteFields = JSON.parse($(`#${DATA_RETURN_ID}`).val());
-            $("#design-preview").children().filter(':not(.btn)').remove();
+            $('#design-preview').children().filter(':not(.btn)').remove();
             customiseInvite.setupInviteActionButtons();
             customiseInvite.copyInviteFields();
             customiseInvite.setupInviteFields();
             $('#customize-modal').modal('show');
+        });
+
+        // Set event listener to hide or show customer product reviews
+        $('.js__product-reviews').click(function(e){
+            let showingReviews = $('#product-reviews').hasClass('d-none')
+            if (showingReviews) {
+                $('html, body').animate({scrollTop: 400}, 500);
+            } else {
+                $('html, body').animate({scrollTop: 0}, 0);
+            }
+            $('#product-reviews').toggleClass('d-none');
         });
     </script>     
 {% endblock %}
