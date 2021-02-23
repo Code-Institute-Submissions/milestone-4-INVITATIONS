@@ -108,6 +108,13 @@ class CustomDetailLine(models.Model):
 
 
 class ProductReviews(models.Model):
+    RATING_CHOICES = [
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+    ]
     class Meta:
         verbose_name_plural = 'Reviews'
 
@@ -118,10 +125,7 @@ class ProductReviews(models.Model):
                              blank=False, on_delete=models.CASCADE,
                              related_name='user_reviews')
     comment = models.CharField(max_length=254, null=False, blank=False)
-    rating = models.IntegerField(validators=[MaxValueValidator(5),
-                                             MinValueValidator(1)],
-                                 null=False, blank=False,
-                                 default=5)
+    rating = models.IntegerField(choices=RATING_CHOICES, default=5,)
     date_created = models.DateTimeField(auto_now_add=True,
                                         blank=True, null=True)
 
