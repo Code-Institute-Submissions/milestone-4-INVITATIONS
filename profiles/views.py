@@ -32,9 +32,11 @@ def user_profile(request):
             form = ProfileForm(instance=profile)
 
         order_history = profile.order_history.all()
+        product_reviews = profile.user_reviews.all()
         context = {
             'form': form,
             'order_history': order_history,
+            'product_reviews': product_reviews,
         }
 
         return render(request, 'profiles/profile.html', context)
