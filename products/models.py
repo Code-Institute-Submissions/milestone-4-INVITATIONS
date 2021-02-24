@@ -42,7 +42,13 @@ class Product(models.Model):
         Then average rating is round to the nearest .5
         """
         result = self.reviews.aggregate(average=Avg('rating'))
-        average_rating = round((round(result['average'], 1)) * 2) / 2
+
+        if result['average'] is None:
+            print('Avg is none!')
+            average_rating = 0.0
+        else:
+            average_rating = round((round(result['average'], 1)) * 2) / 2
+
         self.average_rating = average_rating
 
         if self.average_rating is not None:
