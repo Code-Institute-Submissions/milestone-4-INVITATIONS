@@ -417,6 +417,10 @@ hr.border__dashed {
     font-size: 8px;
 }
 
+.review__product-name {
+    font-size: 1.2em;
+}
+
 i {
     vertical-align: middle;
 }
@@ -496,6 +500,10 @@ footer h4 {
 
     .cart__container {
         width: 85%;
+    }
+
+    .review__product-name {
+        font-size: 1.6em;
     }
 
 }

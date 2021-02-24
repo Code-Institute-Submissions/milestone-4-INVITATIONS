@@ -18,9 +18,9 @@ class ReviewForm(forms.ModelForm):
         self.helper.form_show_labels = False
         self.helper.form_action = '/reviews/add'
         self.helper.layout = Layout(
-            HTML('<p class="small text-muted mb-1">Your Review</p>'),
             Field('comment', placeholder='Review comment',
-                  css_class="rounded-0"),
+                  rows='2', css_class="rounded-0"),
+            HTML('<p class="mt-2 mb-0">Product/Service rating</p>'),
             Field('rating', placeholder='Set rating',
                   css_class="rounded-0"),
             HTML('<button id="user-submit" '

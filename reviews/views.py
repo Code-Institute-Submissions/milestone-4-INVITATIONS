@@ -45,7 +45,12 @@ def add_review(request, product_id, order_id):
         form = ReviewForm()
 
     form.helper.form_action += f'/{product_id}/{order_id}/'
+
+    product = Product.objects.get(pk=product_id)
+
     context = {
         'form': form,
+        'product_name': product.name,
+        'product_image': product.view_image,
     }
     return render(request, 'reviews/add_review.html', context)

@@ -12,16 +12,24 @@
         <!-- Page header -->
         <div class="row">
             <div class="col-12">
-                <h1 class="mb-0 page__title">Add a Review</h1>
-                <hr class="mt-1">
+                <h1 class="page__title mb-4">Product Review</h1>
+                <hr class="mt-1 mb-3">
             </div>
         </div>
+        <!-- Add a review -->
         <div class="row">
-            <!-- Add a review -->
-            <div class="col-12">
-                <h2 class="page__subtitle pt-4 pt-lg-2">User Details</h2>
+            <div class="col-12 col-md-6 offset-lg-1 col-lg-5">
+                {% if product_image %}
+                    <img class="card-img-top img-fluid" src="{{ product_image.url }}" alt="{{ product_image.name }}">
+                {% else %}
+                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ product_image.name }}">
+                {% endif %}
+            </div>        
+            <div class="col-12 col-md-6 col-lg-5">
+                <p class="text-muted mt-2 mb-1">Please review your purchase of:</p>
+                <h2 class="review__product-name mb-3">{{ product_name }}</h2>
                 {% crispy form %}
-            </div>            
+            </div>
         </div>
     </div>
 </main>
