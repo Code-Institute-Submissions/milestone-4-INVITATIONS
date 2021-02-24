@@ -134,7 +134,7 @@ class ProductReviews(models.Model):
     user = models.ForeignKey(User, null=False,
                              blank=False, on_delete=models.CASCADE,
                              related_name='user_reviews')
-    comment = models.CharField(max_length=254, null=False, blank=False)
+    comment = models.TextField(max_length=250, null=False, blank=False)
     rating = models.IntegerField(choices=RATING_CHOICES, default=5,)
     date_created = models.DateTimeField(auto_now_add=True,
                                         blank=True, null=True)
