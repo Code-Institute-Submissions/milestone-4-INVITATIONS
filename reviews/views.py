@@ -72,16 +72,11 @@ def edit_review(request, review_id):
             'user': request.user.id,
         }
 
-        form = ReviewForm(form_data)
+        form = ReviewForm(form_data, instance=review)
 
         if form.is_valid():
             print('Form was valid')
-            do_update = ProductReviews.objects.filter(
-                id=int(review_id)).update(
-                    comment=request.POST['comment'],
-                    rating=int(request.POST['rating']))
-            print('Update: ', do_update)
-            # form.save()
+            form.save()
             messages.success(request, 'Your review has been successfully \
                              updated',
                              extra_tags='reviews')
