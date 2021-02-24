@@ -77,7 +77,7 @@
                 <!-- Review lines -->
                 <div id="review-list" class="profile__list">
                     {% for review in product_reviews %}
-                        <div data-set-review-line="{{ review.product.pk }}" class="row no-gutters profile__order-line p-1 mt-1">
+                        <div data-set-review-line="{{ review.pk }}" class="row no-gutters profile__review-line p-1 mt-1">
                             <div class="col-7 col-lg-8">
                                 <p class="mb-0">{{ review.product.name }}</p>
                             </div>
@@ -109,6 +109,12 @@
         $('.profile__order-line').click(function (e) {
             orderNumber = e.currentTarget.dataset.setOrderLine;
             window.location.href = `/checkout/history/${orderNumber}`;
+        });
+
+        // Add click event listeners for product review lines
+        $('.profile__review-line').click(function (e) {
+            reviewId = e.currentTarget.dataset.setReviewLine;
+            window.location.href = `/reviews/edit/${reviewId}`;
         });
 
     </script>

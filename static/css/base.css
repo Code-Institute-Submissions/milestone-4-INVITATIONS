@@ -164,14 +164,14 @@ hr.border__dashed {
 }
 
 /* Profile */
-.profile__order-line {
+.profile__order-line, .profile__review-line {
     background-color: transparent !important;
     cursor: pointer;
     text-decoration: none;
-
 }
 
-.profile__order-line:hover {
+.profile__order-line:hover,
+ .profile__review-line:hover {
     color: green;
     background-color: #fff !important;
 }
