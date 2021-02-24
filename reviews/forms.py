@@ -1,7 +1,7 @@
 from django import forms
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, HTML, Field, Submit
+from crispy_forms.layout import Layout, Row, Column, HTML, Field, Submit
 
 from products.models import ProductReviews
 
@@ -21,15 +21,19 @@ class ReviewForm(forms.ModelForm):
         self.helper.layout = Layout(
             Field('comment', placeholder='Review comment',
                   rows='4', css_class="rounded-0"),
-            HTML('<p class="mt-2 mb-0">Product/Service rating</p>'),
-            Field('rating', placeholder='Set rating',
-                  css_class="rounded-0"),
-            HTML('<button id="user-submit" '
-                 'class="btn__default mt-4 float-right">'
-                 '<i class="far fa-file-alt" aria-hidden="true"></i>'
-                 '<span class="pl-1">'),
-            HTML('Add Review' if self.is_add else
-                 'Update Review</button></span>'),
+            HTML('<p class="mt-2 mb-0">Product rating</p>'),
+            Row(
+                Column(Field('rating', placeholder='Set rating',
+                             css_class="rounded-0"),
+                       css_class='form-group col-sm-5 mb-0'),
+                Column(HTML('<button id="user-submit" '
+                            'class="btn__default mt-4 mt0-sm float-right">'
+                            '<i class="far fa-file-alt" aria-hidden="true">'
+                            '</i><span class="pl-1">'),
+                       HTML('Add Review' if self.is_add else
+                            'Update Review</button></span>'),
+                       css_class='form-group col-sm-7 mb-0'),
+                css_class='form-row'),
         )
 
         self.fields['comment'].widget.attrs['autofocus'] = True
