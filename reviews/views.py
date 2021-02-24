@@ -64,6 +64,13 @@ def edit_review(request, review_id):
     product = Product.objects.get(pk=review.product.pk)
 
     if request.POST:
+        try:
+            delete_or_not = int(request.POST['delete-review'])
+            print(f'Delete checkbox is set to: {delete_or_not}')
+        except KeyError:
+            print('Delete box NOT checked')
+            delete_or_not = 0
+
         form_data = {
             'pk': review_id,
             'comment': request.POST['comment'],
@@ -76,11 +83,19 @@ def edit_review(request, review_id):
 
         if form.is_valid():
             print('Form was valid')
-            form.save()
-            messages.success(request, 'Your review has been successfully \
-                             updated',
-                             extra_tags='reviews')
-            return redirect('user_profile')
+
+            if delete_or_not == 1:
+                print('Delete box IS checked')
+                review.delete()
+                messages.success(request, 'Your review has been deleted',
+                                 extra_tags='reviews')
+                return redirect('user_profile')
+            else:
+                form.save()
+                messages.success(request, 'Your review has been successfully \
+                                 updated',
+                                 extra_tags='reviews')
+                return redirect('user_profile')
 
         else:
             print('Form FAILED')
