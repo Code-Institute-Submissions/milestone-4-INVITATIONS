@@ -1,14 +1,12 @@
 /* Custom payment flow logic is from:
  * https://stripe.com/docs/payments/integration-builder
+ * I have left the variable declarations as var, as that is how it came from Stripe
  */ 
 
     // A reference to Stripe.js initialized with your real test publishable API key.
     var stripe = Stripe("pk_test_51I94JSGCTK7uumSDLZ5aH00plz6tDGrlJgDLvut5RBKPFwbdHoGOQcttdS4DFhKemJOukLbDUsnIahNbXoqpOTZQ00Nc1A8S6l");
 
     var form = document.getElementById("id-orderform");
-    // The items the customer wants to buy
-
-    // stripeCartItems = JSON.parse(document.getElementById('stripe-cart-items').textContent);
     
     // Disable the button until we have Stripe set up on the page
     document.querySelector("button").disabled = true;
@@ -17,7 +15,6 @@
     headers: {
         "Content-Type": "application/json"
     },
-    // body: JSON.stringify(purchase)
     })
     .then(function(result) {
         if (result.status != 200) {
