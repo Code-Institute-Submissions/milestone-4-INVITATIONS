@@ -7,8 +7,9 @@
         * ie.  btn-minus-item-21  and  qty-item-21
         */
     $('.qty__btn').click(function(e){
-        buttonClicked = e.currentTarget.id;
-        whichQtyButton = buttonClicked.split('-');
+        const buttonClicked = e.currentTarget.id;
+        const whichQtyButton = buttonClicked.split('-');
+        let currentQty;
 
         if (whichQtyButton[1] == 'plus') {
             currentQty = parseInt($('#qty-item-' + whichQtyButton[3]).val());
