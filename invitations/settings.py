@@ -177,7 +177,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Delivery values
-FREE_DELIVERY_AMOUNT = 15
+FREE_DELIVERY_AMOUNT = 20
 STANDARD_DELIVERY_CHARGE = 10
 
 # Stripe
