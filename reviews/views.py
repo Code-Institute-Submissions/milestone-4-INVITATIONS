@@ -39,7 +39,7 @@ def add_review(request, product_id, order_id):
             messages.success(request, 'Your review has been successfully \
                              added',
                              extra_tags='reviews')
-            return redirect('home')
+            return redirect(f'/checkout/history/{order_id}/')
 
         else:
             messages.error(request, 'Review submission failed,  please \
