@@ -1,12 +1,13 @@
 from django import forms
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, HTML, Field, Submit
+from crispy_forms.layout import Layout, Row, Column, HTML, Field
 
 from products.models import ProductReviews
 
 
 class ReviewForm(forms.ModelForm):
+    """ Crispy form for Product reviews """
 
     def __init__(self, *args, **kwargs):
         self.is_add = kwargs.pop("is_add", False)
@@ -38,14 +39,15 @@ class ReviewForm(forms.ModelForm):
             Row(
                 Column(Field('rating', placeholder='Set rating',
                              css_class="rounded-0"),
-                       css_class='form-group col-sm-5 mb-0'),
+                       css_class='form-group col-5 mb-0'),
                 Column(HTML('<button id="user-submit" '
-                            'class="btn__default mt-4 mt-sm-0 float-right">'
-                            '<i class="far fa-file-alt" aria-hidden="true">'
+                            'class="btn__default mt-0 float-right">'
+                            '<i class="far fa-file-alt d-none d-sm-inline" '
+                            'aria-hidden="true">'
                             '</i><span class="pl-1">'),
                        HTML('Add Review' if self.is_add else
                             'Update Review</button></span>'),
-                       css_class='form-group col-sm-7 mb-0'),
+                       css_class='form-group col-7 mb-0'),
                 css_class='form-row'),
         )
 
