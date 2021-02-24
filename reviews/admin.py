@@ -3,8 +3,9 @@ from products.models import ProductReviews
 
 
 class ProductReviewAdmin(admin.ModelAdmin):
-
+    """ Reviews layout for django admin """
     list_display = (
+        'pk',
         'date_created',
         'user',
         'rating',
@@ -12,7 +13,7 @@ class ProductReviewAdmin(admin.ModelAdmin):
         'comment',
     )
 
-    ordering = ('date_created',)
+    ordering = ('-date_created',)
 
 
 admin.site.register(ProductReviews, ProductReviewAdmin)
