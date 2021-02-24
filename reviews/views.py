@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 
 from .forms import ReviewForm
 from products.models import Product, ProductReviews
+from checkout.models import Order, OrderLineItem
 
 from django.contrib import messages
 
@@ -15,6 +16,23 @@ def reviews(request):
 def add_review(request, product_id, order_id):
     """ A view to add a new review """
     print('Reviewing product: ', product_id)
+
+    try:
+        order_lines = OrderLineItem.objects.get(order=int(order_id),
+                                                product=int(product_id))
+    except OrderLineItem.DoesNotExist:
+        messages.error(request, 'Cannot locate order containing that product.',
+                       extra_tags='reviews')
+        return redirect('user_profile')
+
+    print('Order: ', order_lines)
+    ordered_by = order_lines.order
+    # print('User', ordered_by.first_name)
+
+    if request.user != ordered_by.user:
+        messages.error(request, 'Order not found in your order history with that product line.',
+                         extra_tags='reviews')
+        return redirect('user_profile')
 
     if request.POST:
         form_data = {
@@ -41,7 +59,6 @@ def add_review(request, product_id, order_id):
                            extra_tags='reviews')
 
     else:
-        # form = ReviewForm(initial={'product': product_id})
         form = ReviewForm(is_add=True)
 
     form.helper.form_action += f'add/{product_id}/{order_id}/'
@@ -57,10 +74,21 @@ def add_review(request, product_id, order_id):
 
 
 def edit_review(request, review_id):
-    """ A view to edit an existing review """
+    """ A view to edit/delete reviews reviews """
     print('Editing review: ', review_id)
 
-    review = ProductReviews.objects.get(pk=int(review_id))
+    try:
+        review = ProductReviews.objects.get(pk=int(review_id))
+    except ProductReviews.DoesNotExist:
+        messages.error(request, 'Review has not been found.',
+                         extra_tags='reviews')
+        return redirect('user_profile')
+
+    if request.user != review.user:
+        messages.error(request, 'Review not found in your profile',
+                         extra_tags='reviews')
+        return redirect('user_profile')
+
     product = Product.objects.get(pk=review.product.pk)
 
     if request.POST:
