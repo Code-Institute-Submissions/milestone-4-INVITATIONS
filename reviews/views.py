@@ -7,12 +7,10 @@ from checkout.models import Order, OrderLineItem
 from django.contrib import messages
 
 
-def reviews(request):
-    """ A view add a new review """
+# def reviews(request):
+#     """ A view add a new review """
 
-    return render(request, 'reviews/reviews.html')
-
-
+#     return render(request, 'reviews/reviews.html')
 def add_review(request, product_id, order_id):
     """ A view to add a new review """
     print('Reviewing product: ', product_id)
@@ -70,7 +68,7 @@ def add_review(request, product_id, order_id):
         'product_name': product.name,
         'product_image': product.view_image,
     }
-    return render(request, 'reviews/add_review.html', context)
+    return render(request, 'reviews/review.html', context)
 
 
 def edit_review(request, review_id):
@@ -146,4 +144,4 @@ def edit_review(request, review_id):
         'product_name': product.name,
         'product_image': product.view_image,
     }
-    return render(request, 'reviews/add_review.html', context)
+    return render(request, 'reviews/review.html', context)
