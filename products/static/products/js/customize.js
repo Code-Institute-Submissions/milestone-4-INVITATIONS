@@ -20,6 +20,7 @@ const customiseInvite = {
 
         // Field link and field div
         let fieldLink = document.createElement('a');
+        fieldDetails.name = fieldDetails.name.replace(' ', '');
         fieldLink.id = `edit-${fieldDetails.name}`;
         fieldLink.title = `Edit '${customiseInvite.fieldDisplayName(fieldDetails.name)}'`;
         fieldLink.classList = 'edit__field custom__field';
@@ -65,6 +66,7 @@ const customiseInvite = {
 
     addInputDiv:(fieldDetails) => {
         // Create div to hold all user input fields
+        fieldDetails.name = fieldDetails.name.replace(' ', '');
         let div = document.createElement('div');
         div.classList = 'input__field';
         div.id = 'fields-' + fieldDetails.name;
@@ -76,7 +78,7 @@ const customiseInvite = {
 
     fieldDisplayName:(fieldName) => {
         // Create field display name by replacing dash or underscore with a space
-        let words = fieldName.replace(/-|_/g, ' ').toLowerCase().substr(0, 11).split(' ');;
+        let words = fieldName.replace(' ', '').replace(/-|_/g, ' ').toLowerCase().substr(0, 11).split(' ');;
         let fieldTitle = words.map(word => {
             return word[0].toUpperCase() + word.substring(1);
         }).join(' ');
@@ -85,6 +87,7 @@ const customiseInvite = {
 
     setFieldInputValues:(fieldDetails) => {
         // Set the selected field form values
+        fieldDetails.name = fieldDetails.name.replace(' ', '');
         $('#' + fieldDetails.name + '-text-color').val(fieldDetails.color);
         $('#' + fieldDetails.name + '-text-font').val(fieldDetails.font);
         resetSize = parseInt(fieldDetails.raw_size);
@@ -97,6 +100,7 @@ const customiseInvite = {
     addFieldInputs:(fieldDetails) => {
         // Load in template string to create all inputs and swap in current values
         let divTemplate = customiseInvite.divTemplateRaw;
+        fieldDetails.name = fieldDetails.name.replace(' ', '');
         divTemplate = divTemplate.replace(/{-invite-field-}/g, fieldDetails.name);
         divTemplate = divTemplate.replace(/{-field-name-}/g, customiseInvite.fieldDisplayName(fieldDetails.name));
         divTemplate = divTemplate.replace(/{-textContent-}/, fieldDetails.text);
@@ -140,6 +144,7 @@ const customiseInvite = {
 
     updateFieldDiv:(fieldDetails) => {
         // Update the div contents and styles to reflect the changes applied
+        fieldDetails.name = fieldDetails.name.replace(' ', '');
         $('#fields-' + fieldDetails.name).hide();
         newText = $('#' + fieldDetails.name + '-text-content').val();
         if (newText == '') { newText = ' '; }
