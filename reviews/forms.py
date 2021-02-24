@@ -12,7 +12,7 @@ class ReviewForm(forms.ModelForm):
         self.is_add = kwargs.pop("is_add", False)
         super(ReviewForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_id = 'id-userform'
+        self.helper.form_id = 'id-reviewform'
         self.helper.form_class = 'form__default'
         self.helper.field_class = 'pb-0 mb-0'
         self.helper.form_method = 'post'
@@ -22,13 +22,13 @@ class ReviewForm(forms.ModelForm):
             Field('comment', placeholder='Review comment',
                   rows='4', css_class="rounded-0"),
             Row(
-                Column(HTML(' ' if self.is_add else '<div class="\
-                            custom-control custom-checkbox float-right">\
-                            <input type="checkbox" id="delete-review" class\
-                            ="review__checkbox custom-control-input" name="\
-                            delete-review" value="1"><label class="\
-                            review__checkbox custom-control-label" for="\
-                            delete-review">Delete review</label></div>'),
+                Column(HTML(' ' if self.is_add else '<div class="'
+                            'custom-control custom-checkbox float-right">'
+                            '<input type="checkbox" id="delete-review" class'
+                            '="review__checkbox custom-control-input" name="'
+                            'delete-review" value="1"><label class="'
+                            'review__checkbox custom-control-label" for="'
+                            'delete-review">Delete review</label></div>'),
                        css_class='form-group col-12 mb-0'),
                 css_class='form-row mt-2'),
             Row(
