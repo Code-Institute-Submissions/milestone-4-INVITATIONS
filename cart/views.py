@@ -147,10 +147,10 @@ def update_cart_qty(request):
                 if item_quantity > 0:
                     if item_quantity > 99:
                         item_quantity = 1
-                        error_msg = 'However, one or more product quantities were set \
-                                    above 99. Please enter quantities less than \
-                                    100 or contact our sales team to discuss \
-                                    large orders.'
+                        error_msg = 'However, one or more product quantities \
+                                    were above 99. Please enter quantities \
+                                    less than 100 or contact our sales team \
+                                    to discuss large orders.'
 
                     new_item = {
                             'product_id': product_id,
@@ -171,9 +171,9 @@ def update_cart_qty(request):
                          updated. {error_msg}',
                          extra_tags='shopping cart')
     else:
-        messages.success(request,
-                         'Quantity error, please double-check your \
-                         quantities and click [Update Cart].',
-                         extra_tags='shopping cart')
+        messages.error(request,
+                       'Quantity error, please double-check your \
+                       quantities and click [Update Cart].',
+                       extra_tags='shopping cart')
 
     return render(request, 'cart/cart.html')
