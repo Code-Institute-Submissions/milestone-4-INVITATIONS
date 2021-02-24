@@ -21,13 +21,26 @@ class ReviewForm(forms.ModelForm):
         self.helper.layout = Layout(
             Field('comment', placeholder='Review comment',
                   rows='4', css_class="rounded-0"),
-            HTML('<p class="mt-2 mb-0">Product rating</p>'),
+            Row(
+                Column(HTML(' ' if self.is_add else '<div class="\
+                            custom-control custom-checkbox float-right">\
+                            <input type="checkbox" id="delete-review" class\
+                            ="review__checkbox custom-control-input" name="\
+                            delete-review" value="1"><label class="\
+                            review__checkbox custom-control-label" for="\
+                            delete-review">Delete review</label></div>'),
+                       css_class='form-group col-12 mb-0'),
+                css_class='form-row mt-2'),
+            Row(
+                Column(HTML('<p class="mb-0">Review rating</p>'),
+                       css_class='form-group col-12 mb-0'),
+                css_class='form-row'),
             Row(
                 Column(Field('rating', placeholder='Set rating',
                              css_class="rounded-0"),
                        css_class='form-group col-sm-5 mb-0'),
                 Column(HTML('<button id="user-submit" '
-                            'class="btn__default mt-4 mt0-sm float-right">'
+                            'class="btn__default mt-4 mt-sm-0 float-right">'
                             '<i class="far fa-file-alt" aria-hidden="true">'
                             '</i><span class="pl-1">'),
                        HTML('Add Review' if self.is_add else
