@@ -17,6 +17,7 @@ def cart_contents(request):
     string_cart = str(request.session.get('cart', []))
     cart = json.loads(string_cart)
     cart_contains_invite = False
+    invites_in_cart = 0
 
     for item in cart:
         if isinstance(item['quantity'], int):
@@ -26,6 +27,7 @@ def cart_contents(request):
             product_count += item['quantity']
             if item['invite_data']:
                 cart_contains_invite = True
+                invites_in_cart += 1
 
             cart_items.append({
                 'product_id': item['product_id'],
@@ -40,7 +42,10 @@ def cart_contents(request):
             })
 
     if cart_total < settings.FREE_DELIVERY_AMOUNT:
-        delivery = settings.STANDARD_DELIVERY_CHARGE
+        if invites_in_cart == len(cart):
+            delivery = 0
+        else:
+            delivery = settings.STANDARD_DELIVERY_CHARGE
     else:
         delivery = 0
 
