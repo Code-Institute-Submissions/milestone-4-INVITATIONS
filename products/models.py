@@ -95,14 +95,14 @@ class CustomDetailLine(models.Model):
     product = models.ForeignKey(Product, null=False,
                                 blank=False, on_delete=models.CASCADE,
                                 related_name='customlines')
-    name = models.CharField(max_length=12, null=False, blank=False)
+    name = models.CharField(max_length=11, null=False, blank=False)
     text = models.CharField(max_length=60, null=False, blank=False)
     y_pos = models.IntegerField(validators=[MaxValueValidator(2320),
                                             MinValueValidator(25)],
                                 null=False, blank=False)
     font = models.CharField(max_length=60,
                             choices=FONT_CHOICES,
-                            default="'Clicker Script', cursive",)
+                            default="'Bangers', cursive",)
     raw_size = models.CharField(max_length=3,
                                 choices=FONT_SIZE_CHOICES,
                                 default='160',)
