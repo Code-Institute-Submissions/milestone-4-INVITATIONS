@@ -30,6 +30,7 @@ def get_order_details(request, stripe_pid):
 
 def format_shipping_address(order):
     """ Format the shipping address so it displays neatly """
+
     shipping_address = f'{order.street_address1.title()}' + '\r\n'
     if order.street_address2:
         shipping_address += f'{order.street_address2.title()}' + '\r\n'
@@ -42,6 +43,7 @@ def format_shipping_address(order):
 
 def format_order_items(order):
     """ Get and format the order lines for email display """
+
     ordered_items = list(order.lineitems.all())
     item_list = ''
     for item in ordered_items:
@@ -57,7 +59,8 @@ def format_order_items(order):
 
 
 def check_invites_required(order):
-    """ Check if any invite downloads required """
+    """ Check order items and return any invites for download links """
+
     ordered_items = list(order.lineitems.all())
     invites = []
     for item in ordered_items:
@@ -75,7 +78,8 @@ def check_invites_required(order):
 
 
 def generate_invite(invite):
-    """ Generate the invite design image files """
+    """ Generate the customers invite design image and return url """
+
     filename = 'cInv' + secrets.token_urlsafe(32) + str(invite["order_number"])
 
     # Prepare raw image
@@ -96,7 +100,7 @@ def generate_invite(invite):
         font = ImageFont.truetype(font_ttf_path, int(part['raw_size']))
         part_size = font.getsize(part['text'])
         x_pos = (image_size[0] - part_size[0]) / 2
-        stroke_width = int(part['stroke_width'].replace('px', ''))
+        stroke_width = int(part['stroke_width'].replace('px', '')) * 2
         draw.text((x_pos, part['y_pos']), part['text'], part['color'],
                   font=font, stroke_width=stroke_width,
                   stroke_fill=part['stroke_fill'])
@@ -114,7 +118,8 @@ def generate_invite(invite):
 def send_customer_emails(request, event_type, stripe_pid, billing_details):
     """ Send an email order confirmation to the customer and
         if they have ordered any invites generate the image
-        and email download links """
+        and email the download links
+    """
     order = get_order_details(request, stripe_pid)
     if order:
         context = {
@@ -172,6 +177,7 @@ def send_customer_emails(request, event_type, stripe_pid, billing_details):
 @csrf_exempt
 def webhook_view(request):
     """ Function to listen and process the Stripe webhooks """
+
     payload = request.body
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
     event = None
@@ -192,7 +198,7 @@ def webhook_view(request):
         payment_id = payment_intent.id
         billing_details = payment_intent.charges.data[0].billing_details
         return send_customer_emails(request, event.type,
-                                       payment_id, billing_details)
+                                    payment_id, billing_details)
 
     elif event.type == 'payment_intent.payment_failed':
         payment_intent = event.data.object
