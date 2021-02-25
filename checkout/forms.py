@@ -59,21 +59,23 @@ class OrderForm(forms.ModelForm):
             HTML('<button id="order-submit" '
                  'class="btn__default mt-2 float-right">'
                  '<span class="hidden" id="spinner">'
-                 '<i class="fas fa-spinner fa-spin"></i>  '
+                 '<i class="fas fa-spinner fa-spin pr-2"></i>  '
                  'Processing Payment</span>'
-                 '<span class="" id="button-text">'
+                 '<span id="button-text">'
                  '<i class="far fa-credit-card pr-2" aria-hidden="true"></i>'
-                 'Pay Now</button></span>'),
+                 'Pay Now</span></button>'),
         )
 
         self.fields['full_name'].widget.attrs['autofocus'] = True
 
         for field in self.fields:
-            if self.fields[field].required:
-                placeholder = f'{placeholder_text[field]} *'
-            else:
-                placeholder = placeholder_text[field]
-            self.fields[field].widget.attrs['placeholder'] = placeholder
+            if field != 'country':
+                if self.fields[field].required:
+                    placeholder = f'{placeholder_text[field]} *'
+                else:
+                    placeholder = placeholder_text[field]
+                self.fields[field].widget.attrs['placeholder'] = placeholder
+
             self.fields[field].label = False
 
     class Meta:
