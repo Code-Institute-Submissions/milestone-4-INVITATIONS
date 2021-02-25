@@ -205,7 +205,6 @@ if 'USE_AWS' in os.environ:
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 
 
-
 # Delivery values
 FREE_DELIVERY_AMOUNT = 20
 STANDARD_DELIVERY_CHARGE = 10
