@@ -71,7 +71,7 @@
                                             Already in your shopping cart
                                         </a>
                                     {% else %}
-                                        <button type="submit" class="btn btn__default">
+                                        <button type="submit" class="btn btn__default" title="Add product to the shopping cart">
                                             <i class="fas fa-shopping-cart"></i>
                                             <span class="pl-1">ADD TO CART</span>
                                         </button>
@@ -98,7 +98,7 @@
                     <div class="col-12">
                         {% if not exists_in_cart %}
                             {% if product.customizable and invite_data and product.customize_image %}
-                                <button data-set-invite-btn="{{ product.id }}" type="button" class="btn btn__default mb-3 float-right js__invite-data-btn">
+                                <button data-set-invite-btn="{{ product.id }}" type="button" class="btn btn__default mb-3 float-right js__invite-data-btn" title="Personalise this invite">
                                     <i class="far fa-edit"></i>
                                     <span class="pl-1">PERSONALISE</span>
                                 </button>
@@ -107,7 +107,7 @@
                     </div>
                     <div class="col-12">
                         <div>
-                            <span class="small cursor__pointer js__product-reviews" title="Customer reviews">
+                            <span class="small cursor__pointer js__product-reviews" title="View customer reviews">
                                 {% if product.average_rating > 0 %}
                                     Reviews:  
                                     {% autoescape off %}
