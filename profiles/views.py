@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-from checkout.models import Order
 from django.contrib.auth.models import User
 from .forms import ProfileForm
 
 
 def user_profile(request):
-    """ Show users profile """
+    """ Show users profile, order history and reviews made """
+
     try:
         profile = User.objects.get(username=request.user)
     except User.DoesNotExist:
