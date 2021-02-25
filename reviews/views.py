@@ -8,6 +8,7 @@ from checkout.models import OrderLineItem
 
 def add_review(request, product_id, order_id):
     """ A view to add a new review """
+
     try:
         order_lines = OrderLineItem.objects.get(order=int(order_id),
                                                 product=int(product_id))
@@ -36,8 +37,9 @@ def add_review(request, product_id, order_id):
 
         if form.is_valid():
             form.save()
-            messages.success(request, 'Your review has been successfully \
-                             added',
+            messages.success(request, f'Your review of \
+                             "{order_lines.product.name}" has been \
+                             successfully added.',
                              extra_tags='reviews')
             return redirect(f'/checkout/history/{order_id}/')
 
@@ -61,7 +63,8 @@ def add_review(request, product_id, order_id):
 
 
 def edit_review(request, review_id):
-    """ A view to edit/delete reviews reviews """
+    """ A view to edit/delete reviews """
+
     try:
         review = ProductReviews.objects.get(pk=int(review_id))
     except ProductReviews.DoesNotExist:
@@ -96,13 +99,14 @@ def edit_review(request, review_id):
 
             if delete_or_not == 1:
                 review.delete()
-                messages.success(request, 'Your review has been deleted',
+                messages.success(request, f'Your review for "{product.name}" \
+                                 has been deleted',
                                  extra_tags='reviews')
                 return redirect('user_profile')
             else:
                 form.save()
-                messages.success(request, 'Your review has been successfully \
-                                 updated',
+                messages.success(request, f'Your review for "{product.name}"\
+                                  has been updated',
                                  extra_tags='reviews')
                 return redirect('user_profile')
 
