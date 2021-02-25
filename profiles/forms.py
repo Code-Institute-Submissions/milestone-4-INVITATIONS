@@ -2,10 +2,11 @@ from django import forms
 from django.contrib.auth.models import User
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, HTML, Field
+from crispy_forms.layout import Layout, HTML, Field
 
 
 class ProfileForm(forms.ModelForm):
+    """ Form layout for user profile changes """
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
@@ -25,9 +26,9 @@ class ProfileForm(forms.ModelForm):
             Field('email', placeholder='Last name',
                   css_class="rounded-0"),
             HTML('<button id="user-submit" '
-                 'class="btn__default mt-2 float-right">'
-                 '<i class="fas fa-user-alt" aria-hidden="true"></i>'
-                 '&nbsp;&nbsp;Update</button></span>'),
+                 'class="btn__default mt-2 float-right" title="Update '
+                 'profile details"><i class="fas fa-user-alt pr-2" '
+                 'aria-hidden="true"></i>Update</button></span>'),
         )
 
         self.fields['first_name'].widget.attrs['autofocus'] = True
