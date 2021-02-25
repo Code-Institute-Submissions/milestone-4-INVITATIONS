@@ -3,6 +3,8 @@ from .models import Faq
 
 
 class FaqAdmin(admin.ModelAdmin):
+    """ Admin layout details for faqs """
+
     list_display = (
         'question',
         'answer',

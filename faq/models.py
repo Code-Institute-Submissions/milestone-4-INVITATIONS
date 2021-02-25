@@ -3,6 +3,10 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Faq(models.Model):
+    """ Model for site frequently asked questions
+        The display field is to order the faqs on screen
+    """
+
     question = models.CharField(max_length=254, blank=False)
     answer = models.TextField(blank=True)
     display = models.IntegerField(
