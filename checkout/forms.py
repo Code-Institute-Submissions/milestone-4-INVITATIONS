@@ -59,10 +59,10 @@ class OrderForm(forms.ModelForm):
             HTML('<button id="order-submit" '
                  'class="btn__default mt-2 float-right">'
                  '<span class="hidden" id="spinner">'
-                 '<i class="fas fa-spinner fa-spin pr-2"></i>  '
+                 '<i class="fas fa-spinner fa-spin mr-2"></i>  '
                  'Processing Payment</span>'
                  '<span id="button-text">'
-                 '<i class="far fa-credit-card pr-2" aria-hidden="true"></i>'
+                 '<i class="far fa-credit-card mr-2" aria-hidden="true"></i>'
                  'Pay Now</span></button>'),
         )
 
