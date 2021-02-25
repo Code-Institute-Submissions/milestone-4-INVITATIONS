@@ -6,15 +6,12 @@ from .models import OrderLineItem
 
 @receiver(post_save, sender=OrderLineItem)
 def update_on_save(sender, instance, created, **kwargs):
-    """
-    Update the grand_total on the order when a lineitem is created or updated
-    """
+    """ Update grand_total on order when a lineitem is created/updated """
     instance.order.update_grand_total()
 
 
 @receiver(post_delete, sender=OrderLineItem)
 def update_on_delete(sender, instance, **kwargs):
-    """
-    Update the grand_total on the order when a lineitem is deleted
-    """
+    """ Update grand_total on order when a lineitem is deleted """
+
     instance.order.update_grand_total()

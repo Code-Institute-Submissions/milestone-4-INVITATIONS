@@ -20,7 +20,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def view_checkout(request):
-    """ A view to show the checkout form and order summary """
+    """ A view to show the checkout form and save the order """
 
     if request.POST:
         current_shopping_cart = cart_contents(request)
@@ -78,8 +78,9 @@ def view_checkout(request):
             return redirect(reverse('checkout_success', args=[order.pk]))
 
         else:
-            messages.error(request, 'Error with form, but I reckon \
-                 we have already took payment. Please check your details.')
+            messages.error(request, 'There was an error with your form entry, \
+                 please contact our sales team to check your order details, \
+                 as payment may have already been processed. Thank you')
     else:
         form_data = {}
         if request.user.is_authenticated:
@@ -97,7 +98,8 @@ def view_checkout(request):
 
 
 def checkout_success(request, order_number):
-    """ Process successful checkout """
+    """ Display successful order confirmation """
+
     if request.user.is_authenticated:
         try:
             order = Order.objects.get(pk=order_number)
@@ -129,7 +131,8 @@ def checkout_success(request, order_number):
 
 
 def order_history(request, order_number):
-    """ Display historic order confirmation"""
+    """ Display an historic order confirmation from user profile """
+
     if request.user.is_authenticated:
         try:
             order = Order.objects.get(pk=order_number)
@@ -158,6 +161,7 @@ def order_history(request, order_number):
 
 def shopping_cart_items(ordered_by, items):
     """ Create metadata containing the order line items to pass to stripe """
+
     meta_data = {}
     meta_data['ordered-by-user'] = ordered_by
     for (i, item) in enumerate(items):
@@ -172,6 +176,8 @@ def shopping_cart_items(ordered_by, items):
 
 @csrf_exempt
 def create_payment_intent(request):
+    """ Create stripe payment intent and pass back to client """
+
     current_shopping_cart = cart_contents(request)
     ordered_by = request.user
     try:
@@ -181,13 +187,11 @@ def create_payment_intent(request):
             metadata=shopping_cart_items(ordered_by,
                                          current_shopping_cart['cart_items']),
         )
-        print('Intent: ', intent['client_secret'])
         return JsonResponse({
           'clientSecret': intent['client_secret']
         })
     except Exception as e:
-        print('Error:', e)
         messages.error(request, 'Problem contacting the Stripe payment  \
-                                system,  please retry your payment later.',
+                                system, please retry your payment later.',
                                 extra_tags='payment processing')
         return JsonResponse({'error': str(e)}, status=400)
