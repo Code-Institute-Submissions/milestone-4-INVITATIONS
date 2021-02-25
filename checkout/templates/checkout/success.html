@@ -123,7 +123,7 @@
                             </p>
                             {% if order_history %}
                                 <p>
-                                    <a class="btn__default btn__smaller" href="{% url 'add_review' item.product.pk item.order.pk %}">Review this product {{ item.product.pk }} order: {{ item.order.pk }}</a>
+                                    <a class="btn__default btn__smaller" href="{% url 'add_review' item.product.pk item.order.pk %}" alt="Review: {{ item.product.name|truncatechars:80 }}..." title="Review: {{ item.product.name|truncatechars:80 }}...">Review this product</a>
                                 </p>
                             {% endif %}
                         </div>
