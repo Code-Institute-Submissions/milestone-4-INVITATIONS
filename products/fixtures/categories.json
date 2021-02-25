@@ -1,0 +1,50 @@
+[
+{
+  "model": "products.category",
+  "pk": 1,
+  "fields": {
+    "name": "wedding",
+    "display_name": "Wedding Invitations"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 2,
+  "fields": {
+    "name": "paper",
+    "display_name": "Paper"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 3,
+  "fields": {
+    "name": "birthday",
+    "display_name": "Birthday Invitations"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 4,
+  "fields": {
+    "name": "social",
+    "display_name": "Social Invitations"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 5,
+  "fields": {
+    "name": "envelopes",
+    "display_name": "Envelopes"
+  }
+},
+{
+  "model": "products.category",
+  "pk": 6,
+  "fields": {
+    "name": "markers_pens",
+    "display_name": "Markers, pens, etc"
+  }
+}
+]
