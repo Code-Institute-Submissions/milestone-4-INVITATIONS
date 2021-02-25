@@ -52,12 +52,12 @@
                         <div class="card-footer bg-white border-0 pt-0">
                             <p class="small mt-1 mb-0">
                                 {% if product.category %}
-                                    <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}" alt="Category: {{ product.category.display_name }}" title="Category: {{ product.category.display_name }}">
+                                    <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}" title="Category: {{ product.category.display_name }}">
                                         <i class="fas fa-tag mr-1"></i>{{ product.category.display_name }}
                                     </a>
                                 {% endif %}
                                 {% if product.featured %}
-                                    <a class="product__featured float-right" href="{% url 'product_info' product.id %}" alt="Featured product" title="Featured product">
+                                    <a class="product__featured float-right" href="{% url 'product_info' product.id %}" title="Featured product">
                                         <i class="fas fa-star icon" title="Featured product"></i>
                                     </a>
                                 {% endif %}
@@ -89,7 +89,7 @@
             {% endfor %}
         </div>
         <div class="page__top-btn nav__icons">
-            <span alt="Page top" title="Page top">
+            <span title="Page top">
                 <i class="fas fa-chevron-circle-up"></i>
             </span>	
         </div>
@@ -99,7 +99,7 @@
 
 {% block postloadjs %}
     {{ block.super }}
-    <script type="text/javascript">
+    <script>
         // Event listener to jump to the top of the page
 		$('.page__top-btn').click(function(e) {
 			window.scrollTo(0,0)

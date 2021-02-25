@@ -85,7 +85,7 @@
             <a class="navbar-brand d-none d-lg-block mr-0" href="{% url 'home' %}">
                 <div class="page__logo nav__logo">- INVITATIONS -</div>
             </a>
-            <button class="custom-toggler navbar-toggler mr-auto" type="button" data-toggle="collapse" data-target="#products-menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="custom-toggler navbar-toggler mr-auto" type="button" data-toggle="collapse" data-target="#products-menu" aria-controls="products-menu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="nav__toggler">
                     <i class="fas fa-bars"></i>
                 </span>
@@ -348,7 +348,7 @@
         </footer>
 
         {% block postloadjs %}
-        <script type="text/javascript">
+        <script>
 
             // Init Bootstrap Toasts
             $('.toast').toast('show');

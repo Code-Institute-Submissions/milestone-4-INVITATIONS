@@ -22,7 +22,7 @@
                     <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ product.name }}">
                 {% endif %}
                 {% if product.featured %}
-                    <a class="product__featured float-right" href="{% url 'products' %}?show=featured" alt="View more featured products" title="View more featured products">
+                    <a class="product__featured float-right" href="{% url 'products' %}?show=featured" title="View more featured products">
                         <i class="fas fa-star icon"></i>
                     </a>
                 {% endif %}
@@ -36,7 +36,7 @@
                         <h5 class="mb-1">{{ product.name }}</h5>
                         {% if product.category %}
                             <p class="mb-2">
-                                <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}" alt="Category: {{ product.category.display_name }}" title="Category: {{ product.category.display_name }}">
+                                <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}" title="Category: {{ product.category.display_name }}">
                                     <i class="fas fa-tag mr-1"></i>{{ product.category.display_name }}
                                 </a>
                             </p>
@@ -152,7 +152,7 @@
 {% if product.customizable and invite_data and product.customize_image %}
     {% include 'products/includes/customize_modal.html' with modaltitle=product.name %}
     {{ product.customize_image.url|json_script:"customize-image" }}
-    <script type="text/javascript">
+    <script>
         DIV_INPUT_TEMPLATE = `{% include "products/includes/div_inputs_template.html" %}`
     </script>    
 {% endif %}
@@ -161,7 +161,7 @@
 {% block postloadjs %}
     {{ block.super }}
     {% include 'cart/includes/quantity_buttons_script.html' %}
-    <script type="text/javascript">
+    <script>
         // Set event listener to hide or show customer product reviews
         // With offset calculation code from: Santiago Angel on stackoverflow.com
         // https://stackoverflow.com/questions/18150090/jquery-scroll-element-to-the-middle-of-the-screen-instead-of-to-the-top-with-a
@@ -189,7 +189,7 @@
 
 {% if product.customizable and invite_data and product.customize_image %}
     <script src="{% static 'products/js/customize.js' %}"></script>
-    <script type="text/javascript">
+    <script>
         // Set event listener for personalize button in product display
         $('.js__invite-data-btn').click(function(e){
             DATA_RETURN_ID = `invite-data-${e.currentTarget.dataset.setInviteBtn}`;
