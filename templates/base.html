@@ -86,7 +86,7 @@
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-white">
             <a class="navbar-brand d-none d-lg-block mr-0" href="{% url 'home' %}">
-                <div class="site__logo nav__logo">- INVITATIONS -</div>
+                <div class="page__logo nav__logo">- INVITATIONS -</div>
             </a>
             <button class="custom-toggler navbar-toggler mr-auto" type="button" data-toggle="collapse" data-target="#products-menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="nav__toggler">
@@ -142,17 +142,17 @@
             <div class="nav__icons-width nav__icons-position">
                 <div class="d-flex justify-content-between mt-2">
                     <div class="d-flex d-lg-none">
-                        <a class="nav-link nav__icons" href="{% url 'home' %}">
+                        <a class="nav-link default__links nav__icons" href="{% url 'home' %}">
                             <i class="fas fa-home icon"></i>
                         </a>
                     </div>
                     <div class="d-flex">
-                        <a href="#" id="nav-search-btn" class="nav-link search__icon"  data-toggle="modal" data-target="#search-modal">
+                        <a href="#" id="nav-search-btn" class="nav-link default__links nav__icons"  data-toggle="modal" data-target="#search-modal">
                             <i class="fas fa-search icon"></i>
                         </a>
                     </div>
                     <div class="d-flex">
-                        <a class="nav-link nav__icons" href="#" id="my-account-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link default__links nav__icons" href="#" id="my-account-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-user-alt icon"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="my-account-dropdown">
@@ -171,7 +171,7 @@
                         </div>
                     </div>
                     <div class="d-flex">
-                        <a class="nav-link nav__icons" href="{% url 'view_cart' %}">
+                        <a class="nav-link default__links nav__icons" href="{% url 'view_cart' %}">
                             <i class="fas fa-shopping-cart icon"></i>
                             <span class="badge badge-light cart__badge">{{ cart_product_count }}</span>
                         </a>
@@ -222,7 +222,7 @@
                                             {% endif %}                                            
                                         </div>
                                         <div class="col-9 font-weight-bolder">
-                                            <p class="toast__item-name mb-0 ml-2">
+                                            <p class="line-h__sm mb-0 ml-2">
                                                 {{ item.name|truncatechars:72 }}
                                             </p>
                                             <p class="mt-0 ml-2">
@@ -257,17 +257,17 @@
                     <h4>My Account</h4>
                     <ul class="list-group list-group-flush mb-3 mb-md-5 pt-0 pr-5">
                         <li class="list-group-item p-1">
-                            <a class="footer__links" href="{% url 'account_login' %}">
+                            <a class="default__links" href="{% url 'account_login' %}">
                                 Login / Register
                             </a>
                         </li>
                         <li class="list-group-item p-1">
-                            <a class="footer__links" href="{% url 'user_profile' %}">
+                            <a class="default__links" href="{% url 'user_profile' %}">
                                 Profile
                             </a>
                         </li>
                         <li class="list-group-item p-1">
-                            <a class="footer__links" href="#">
+                            <a class="default__links" href="#">
                                 Ideas
                             </a>
                         </li>
@@ -278,17 +278,17 @@
                     <h4>Here to Help</h4>
                     <ul class="list-group list-group-flush mb-3 mb-md-5 pt-0 pr-5">
                         <li class="list-group-item p-1">
-                            <a class="footer__links" href="#" target="_blank" rel="noreferrer noopener">
+                            <a class="default__links" href="#" target="_blank" rel="noreferrer noopener">
                                 Contact Us
                             </a>
                         </li>
                         <li class="list-group-item p-1">
-                            <a class="footer__links" href="{% url 'delivery_info' %}">
+                            <a class="default__links" href="{% url 'delivery_info' %}">
                                 Delivery Information
                             </a>
                         </li>
                         <li class="list-group-item p-1">
-                            <a class="footer__links" href="{% url 'faq' %}">
+                            <a class="default__links" href="{% url 'faq' %}">
                                 FAQs
                             </a>
                         </li>
@@ -299,17 +299,17 @@
                     <h4>About Us</h4>
                     <ul class="list-group list-group-flush mb-3 mb-md-5 pt-0 pr-5">
                         <li class="list-group-item p-1">
-                            <a class="footer__links" href="{% url 'our_story' %}">
+                            <a class="default__links" href="{% url 'our_story' %}">
                                 Our Story
                             </a>
                         </li>
                         <li class="list-group-item p-1">
-                            <a class="footer__links" href="{% url 'terms_conditions' %}">
+                            <a class="default__links" href="{% url 'terms_conditions' %}">
                                 Terms &amp; Conditions
                             </a>
                         </li>
                         <li class="list-group-item p-1">
-                            <a class="footer__links" href="{% url 'privacy_policy' %}">
+                            <a class="default__links" href="{% url 'privacy_policy' %}">
                                 Privacy Policy
                             </a>
                         </li>
@@ -320,17 +320,17 @@
                     <h4>Connect with Us</h4>
                     <ul class="list-group list-group-flush list-group-horizontal mb-sm-3 mb-md-5 pt-0 pr-5">
                         <li class="list-group-item border-0 pt-1">
-                            <a class="social__icons" href="https://www.instagram.com" target="_blank" rel="noreferrer noopener">
+                            <a class="default__links" href="https://www.instagram.com" target="_blank" rel="noreferrer noopener">
                                 <i class="fab fa-instagram-square fa-3x"></i>
                             </a>
                         </li>
                         <li class="list-group-item border-0 pt-1">
-                            <a class="social__icons" href="https://www.facebook.com" target="_blank" rel="noreferrer noopener">
+                            <a class="default__links" href="https://www.facebook.com" target="_blank" rel="noreferrer noopener">
                                 <i class="fab fa-facebook-square fa-3x"></i>
                             </a>
                         </li>
                         <li class="list-group-item border-0 pt-1">
-                            <a class="social__icons" href="https://www.twitter.com" target="_blank" rel="noreferrer noopener">
+                            <a class="default__links" href="https://www.twitter.com" target="_blank" rel="noreferrer noopener">
                                 <i class="fab fa-twitter-square fa-3x"></i>
                             </a>
                         </li>
@@ -343,7 +343,7 @@
                     <small>© 2021 Invitations Limited. All Rights Reserved.</small>
                 </div>
                 <div class="col-12 col-md-5 d-flex justify-content-center justify-content-md-end">
-                    <div class="site__logo footer__logo mt-2 mt-md-0">
+                    <div class="page__logo footer__logo mt-2 mt-md-0">
                         - INVITATIONS -
                     </div>
                 </div>

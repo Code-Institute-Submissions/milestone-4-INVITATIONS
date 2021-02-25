@@ -19,6 +19,7 @@ body {
 }
 
 /* Helpers */
+
 .form__default .form-group {
     margin-bottom: 4px;
 }
@@ -32,7 +33,7 @@ body {
 }
 
 .border__bottom {
-    border-bottom: 1px dashed rgb(0, 0, 0, 0.1) 0, 0.1);
+    border-bottom: 1px dashed rgb(0, 0, 0, 0.1);
 }
 
 hr.border__dashed {
@@ -40,15 +41,17 @@ hr.border__dashed {
 }
 
 .bg__action-grey {
-    background: rgb(221, 221, 221);
+    background: var(--themeActionGrey);
 }
 
 .cursor__pointer {
     cursor: pointer;
 }
 
-/* from Bulma: to create a reliable square container for icons */
+/* Buttons */
+
 .icon {
+    /* from Bulma: to create a reliable square container for icons */
     display: inline-flex !important;
     height: 1.5em;
     width: 1.5em;
@@ -71,7 +74,6 @@ hr.border__dashed {
     color: #fff;
     background-color: #0069d9;
     text-decoration: none;
-
 }
 
 .btn__smaller {
@@ -84,15 +86,6 @@ hr.border__dashed {
     font-size: 1.25rem;
 }
 
-.site__logo {
-    display: inline-block;
-    padding: 12px 16px;
-    color: #000;
-    border: 2px solid var(--themeLogoGrey);
-    font-size: 2.2em;
-    font-weight: 500;
-}
-
 .header__tagline {
     height: 2em;
     padding: 5px 0;
@@ -102,6 +95,33 @@ hr.border__dashed {
 }
 
 /* Pages */
+.page__logo {
+    display: inline-block;
+    padding: 12px 16px;
+    color: #000;
+    border: 2px solid var(--themeLogoGrey);
+    font-size: 2.2em;
+    font-weight: 500;
+}
+
+.default__links {
+    padding: 0;
+    font-size: 0.8em;
+    color: var(--themeDarkGrey);
+}
+
+.default__links:hover,
+.default__links:focus,
+.default__links:active {
+    color: var(--themeButtonBlue);
+    text-decoration: none;
+    transition: ease-in-out, .35s;
+}
+
+i {
+    vertical-align: middle;
+}
+
 .page__default {
     min-height: 70vh;
     background: var(--themePageGrey);
@@ -133,7 +153,6 @@ hr.border__dashed {
     font-size: 1.6em !important;
     cursor: pointer;
 }
-
 
 /* Allauth forms and default button */
 .allauth-form-inner-content label:not([class='form-check-label']) {
@@ -215,7 +234,6 @@ hr.border__dashed {
 
 .nav__icons-width {
     width: 200px;
-    /* width: 225px; */
 }
 
 .nav__icons-position {
@@ -226,32 +244,7 @@ hr.border__dashed {
 
 .nav__icons {
     padding: 0;
-    font-size: 1.4em;
-    color: var(--themeDarkGrey);
-}
-
-.nav__icons:hover,
-.nav__icons:focus,
-.nav__icons:active {
-    color: var(--themeButtonBlue) !important;
-    background: transparent;
-    transition: ease-in-out, .35s;
-}
-
-.search__icon {
-    padding: 0;
-    font-size: 1.4em;
-    color: var(--themeDarkGrey);
-}
-
-.search__icon:hover {
-    color: var(--themeButtonBlue) !important;
-    transition: ease-in-out, .35s;
-}
-
-.search__icon:focus,
-.search__icon:active {
-    color: var(--themeDarkGrey);
+    font-size: 1.4em !important;
 }
 
 .nav__links {
@@ -278,10 +271,6 @@ hr.border__dashed {
 .product__container {
     width: 90%;
     margin: 0 auto;
-}
-
-.product__card {
-    border-radius: 0;
 }
 
 .product__title {
@@ -324,11 +313,6 @@ hr.border__dashed {
     text-decoration: none;
 }
 
-
-.product__admin {
-
-}
-
 .product__admin-btn {
     padding: 2px 8px;
     margin-left: 10px;
@@ -348,20 +332,20 @@ hr.border__dashed {
 }
 
 /* Cart */
-
 .cart__container {
     width: 75%;
     margin: 0 auto;
 }
 
 .cart__badge {
-    border-radius: 50%;
+    border-radius: 25%;
     position: absolute;
     top: 0;
     right: -6px;
     padding: .2em .36em;
     background: limegreen;
     color: white;
+    font-size: 64%;
     font-weight: 600;
 }
 
@@ -407,26 +391,28 @@ hr.border__dashed {
     background: #fefefe;
 }
 
-.toast__item-name {
-    line-height: 1.2;
-}
-
-/* Checkout */
-.checkout__container {
-    width: 85%;
-    margin: 0 auto;
-}
-
 /* Reviews */
-.fa-stack {
-    font-size: 8px;
-}
 
 .review__product-name {
     font-size: 1.2em;
 }
 
-/* Override bootstrap checkbox */
+.fa-stack {
+    /* Needs to be fixed size half that of rating__star */
+    font-size: 8px;
+}
+
+.rating__star {
+    font-size: 16px;
+    color: gold;
+}
+
+.rating__none {
+    font-size: 16px;
+    color: #e9e9e9;
+}
+
+/* Override bootstrap checkbox for our delete review checkbox*/
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
   background-color: rgb(248, 4, 4)!important;
 }
@@ -441,20 +427,6 @@ hr.border__dashed {
   background-color: rgb(255, 200, 200); 
 }  
 
-i {
-    vertical-align: middle;
-}
-
-.rating__star {
-    font-size: 16px;
-    color: gold;
-}
-
-.rating__none {
-    font-size: 16px;
-    color: #e9e9e9;
-}
-
 /* Footer */
 .footer__logo {
     padding: 2px 4px;
@@ -465,36 +437,6 @@ footer h4 {
     font-size: 1em;
 }
 
-.footer__links {
-    padding: 0;
-    font-size: 0.8em;
-    color: var(--themeDarkGrey);
-}
-
-.footer__links:hover,
-.footer__links:focus,
-.footer__links:active {
-    color: #000 !important;
-    background: transparent;
-    text-decoration: none;
-    transition: ease-in-out, .35s;
-}
-
-.social__icons {
-    padding: 0;
-    font-size: 0.8em;
-    color: var(--themeIconBlack);
-}
-
-.social__icons:hover,
-.social__icons:focus,
-.social__icons:active {
-    color: var(--themeButtonBlue) !important;
-    background: transparent;
-    transition: ease-in-out, .35s;
-}
-
-
 /* Media Queries */
 
 /* Small devices (tablets, 576px and up) */
@@ -503,7 +445,6 @@ footer h4 {
     .cart__container {
         width: 95%;
     }
-
 
     .nav__icons-width {
         width: 300px;
@@ -538,10 +479,5 @@ footer h4 {
     .border__left {
         border-left: 1px dashed rgb(0, 0, 0, 0.1);
     }
-
-}
-
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
 
 }
