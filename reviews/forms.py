@@ -7,7 +7,7 @@ from products.models import ProductReviews
 
 
 class ReviewForm(forms.ModelForm):
-    """ Crispy form for Product reviews """
+    """ Form layout for product reviews """
 
     def __init__(self, *args, **kwargs):
         self.is_add = kwargs.pop("is_add", False)

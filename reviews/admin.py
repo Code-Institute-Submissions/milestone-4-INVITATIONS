@@ -3,7 +3,8 @@ from products.models import ProductReviews
 
 
 class ProductReviewAdmin(admin.ModelAdmin):
-    """ Reviews layout for django admin """
+    """ Admin layout details for product reviews """
+
     list_display = (
         'pk',
         'date_created',
