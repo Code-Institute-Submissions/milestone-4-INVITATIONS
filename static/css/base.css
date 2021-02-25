@@ -64,7 +64,7 @@ hr.border__dashed {
 	/* based on bootstrap btn btn-primary */
     padding: .3rem .7rem;
     color: #fff;
-    background: #007bff;
+    background: #0872e3;
     border: 6px ridge #2488f1;
     border-radius: 0;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,box-shadow .15s ease-in-out;
