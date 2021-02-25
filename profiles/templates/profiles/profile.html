@@ -4,7 +4,7 @@
 
 {% block content %}
 <main class="container-fluid page__default">
-    <div class="checkout__container pt-5 pb-5">
+    <div class="page__container pt-5 pb-5">
         <!-- Page header -->
         <div class="row">
             <div class="col-12">
@@ -45,6 +45,7 @@
                                 <p class="mb-0">£{{ order.grand_total|floatformat:2 }}</p>
                             </div>
                         </div>
+                        <hr class="mt-1 mb-1">
                     {% empty %}
                         <div class="row mt-1">
                             <div class="col-12">
@@ -88,6 +89,7 @@
                                 </p>
                             </div>
                         </div>
+                        <hr class="mt-1 mb-1">
                     {% empty %}
                         <div class="row mt-1">
                             <div class="col-12">
