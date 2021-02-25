@@ -6,6 +6,7 @@ from crispy_forms.layout import Layout, Row, Column, HTML, Field
 
 
 class OrderForm(forms.ModelForm):
+    """ Form layout for user details at order checkout """
 
     def __init__(self, *args, **kwargs):
         super(OrderForm, self).__init__(*args, **kwargs)
@@ -40,13 +41,13 @@ class OrderForm(forms.ModelForm):
                 Column(Field('town_or_city', css_class="rounded-0"),
                        css_class='form-group col-sm-6 mb-0'),
                 Column(Field('county', css_class="rounded-0"),
-                       css_class='form-group col-sm-6 mb-0 pl-0 pr-1'),
+                       css_class='form-group col-sm-6 mb-0 pl-0-sm'),
                 css_class='form-row'),
             Row(
                 Column(Field('postcode', css_class="rounded-0"),
                        css_class='form-group col-sm-6 mb-0'),
                 Column(Field('country', css_class="rounded-0"),
-                       css_class='form-group col-sm-6 mb-0 pl-0 pr-1'),
+                       css_class='form-group col-sm-6 mb-0 pl-0-sm'),
                 css_class='form-row'
             ),
             Field('stripe_pid', type='hidden'),
@@ -61,8 +62,8 @@ class OrderForm(forms.ModelForm):
                  '<i class="fas fa-spinner fa-spin"></i>  '
                  'Processing Payment</span>'
                  '<span class="" id="button-text">'
-                 '<i class="far fa-credit-card" aria-hidden="true"></i>'
-                 '&nbsp;&nbsp;Pay Now</button></span>'),
+                 '<i class="far fa-credit-card pr-2" aria-hidden="true"></i>'
+                 'Pay Now</button></span>'),
         )
 
         self.fields['full_name'].widget.attrs['autofocus'] = True
