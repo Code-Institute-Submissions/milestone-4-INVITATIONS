@@ -82,7 +82,7 @@
 
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-white">
-            <a class="navbar-brand d-none d-lg-block mr-0" href="{% url 'home' %}">
+            <a class="navbar-brand d-none d-lg-block mr-0" href="{% url 'home' %}" title="Home page">
                 <div class="page__logo nav__logo">- INVITATIONS -</div>
             </a>
             <button class="custom-toggler navbar-toggler mr-auto" type="button" data-toggle="collapse" data-target="#products-menu" aria-controls="products-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -103,33 +103,33 @@
                             <a class="dropdown-item" href="#">By Category</a>
                             <a class="dropdown-item" href="#">By Rating</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'products' %}?show=new">New Products</a>
-                            <a class="dropdown-item" href="{% url 'products' %}?show=featured">Featured Products</a>
-                            <a class="dropdown-item" href="{% url 'products' %}">All Products</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?show=new" title="View new products">New Products</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?show=featured" title="View featured products">Featured Products</a>
+                            <a class="dropdown-item" href="{% url 'products' %}" title="View all products">All Products</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown mr-lg-4">
-                        <a class="nav-link nav__links" href="#" id="invitations-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link nav__links" title="Invitations" href="#" id="invitations-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Invitations
                         </a>
                         <div class="dropdown-menu" aria-labelledby="invitations-dropdown">
-                            <a class="dropdown-item" href="{% url 'products' %}?category=wedding">Wedding</a>
-                            <a class="dropdown-item" href="{% url 'products' %}?category=birthday">Birthday</a>
-                            <a class="dropdown-item" href="{% url 'products' %}?category=social">Social Event</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?category=wedding" title="Wedding invitations">Wedding</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?category=birthday" title="Birthday invitations">Birthday</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?category=social" title="Social invitations">Social Event</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'products' %}?show=invitations&category=wedding,birthday,social">All Invitations</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?show=invitations&category=wedding,birthday,social" title="All invitations">All Invitations</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link nav__links" href="#" id="stationery-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link nav__links" title="Stationery" href="#" id="stationery-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Stationery
                         </a>
                         <div class="dropdown-menu" aria-labelledby="stationery-dropdown">
-                            <a class="dropdown-item" href="{% url 'products' %}?category=paper">Paper</a>
-                            <a class="dropdown-item" href="{% url 'products' %}?category=envelopes">Envelopes</a>
-                            <a class="dropdown-item" href="{% url 'products' %}?category=markers_pens">Markers, pens, etc</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?category=paper" title="Paper products">Paper</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?category=envelopes" title="Envelope products">Envelopes</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?category=markers_pens" title="Marker & Pen products">Markers, pens, etc</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'products' %}?show=stationery&category=paper,envelopes,markers_pens">All Stationery</a>
+                            <a class="dropdown-item" href="{% url 'products' %}?show=stationery&category=paper,envelopes,markers_pens" title="All stationery products">All Stationery</a>
                         </div>
                     </li>
                 </ul>
@@ -140,39 +140,39 @@
                 <div class="d-flex justify-content-between mt-2">
                     <!-- Home -->
                     <div class="d-flex d-lg-none">
-                        <a class="nav-link default__links nav__icons" href="{% url 'home' %}">
+                        <a class="nav-link default__links nav__icons" href="{% url 'home' %}" title="Home page">
                             <i class="fas fa-home icon"></i>
                         </a>
                     </div>
                     <!-- Search -->
                     <div class="d-flex">
-                        <a href="#" id="nav-search-btn" class="nav-link default__links nav__icons"  data-toggle="modal" data-target="#search-modal">
+                        <a href="#" title="Text search" id="nav-search-btn" class="nav-link default__links nav__icons"  data-toggle="modal" data-target="#search-modal">
                             <i class="fas fa-search icon"></i>
                         </a>
                     </div>
                     <!-- Profile -->
                     <div class="d-flex">
-                        <a class="nav-link default__links nav__icons" href="#" id="my-account-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link default__links nav__icons" title="User profile" href="#" id="my-account-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-user-alt icon"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="my-account-dropdown">
                             {% if not user.is_authenticated %}
-                                <a class="dropdown-item" href="{% url 'account_login' %}">Login</a>
-                                <a class="dropdown-item" href="{% url 'account_signup' %}">Register</a>
+                                <a class="dropdown-item" href="{% url 'account_login' %}" title="User login">Login</a>
+                                <a class="dropdown-item" href="{% url 'account_signup' %}" title="User registration">Register</a>
                             {% endif %}
                             {% if user.is_authenticated %}
-                                <a class="dropdown-item" href="{% url 'user_profile' %}">My Profile</a>
-                                <a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a>
+                                <a class="dropdown-item" href="{% url 'user_profile' %}" title="View your profile">My Profile</a>
+                                <a class="dropdown-item" href="{% url 'account_logout' %}" title="Logout of your account">Logout</a>
                             {% endif %}
                             {% if request.user.is_superuser %}
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Product Management</a>
+                                <a class="dropdown-item" href="#" title="Site admin">Site Management</a>
                             {% endif %}
                         </div>
                     </div>
                     <!-- Shopping cart with badge -->
                     <div class="d-flex">
-                        <a class="nav-link default__links nav__icons" href="{% url 'view_cart' %}">
+                        <a class="nav-link default__links nav__icons" href="{% url 'view_cart' %}" title="View shopping cart">
                             <i class="fas fa-shopping-cart icon"></i>
                             <span class="badge badge-light cart__badge">{{ cart_product_count }}</span>
                         </a>
@@ -214,11 +214,11 @@
                                         <div class="col-3">
                                             {% if item.image %}
                                                 <a href="{% url 'product_info' item.product_id %}">
-                                                    <img class="card-img-top img-fluid" src="{{ item.image.url }}" alt="{{ item.name }}">
+                                                    <img class="card-img-top img-fluid" src="{{ item.image.url }}" alt="{{ item.name }}" title="{{ item.name }}">
                                                 </a>
                                                 {% else %}
                                                 <a href="{% url 'product_info' item.product_id %}">
-                                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ item.name }}">
+                                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ item.name }} " title="{{ item.name }}">
                                                 </a>
                                             {% endif %}                                            
                                         </div>
@@ -259,12 +259,12 @@
                     <h4>My Account</h4>
                     <ul class="list-group list-group-flush mb-3 mb-md-5 pt-0 pr-5">
                         <li class="list-group-item p-1">
-                            <a class="default__links" href="{% url 'account_login' %}">
+                            <a class="default__links" href="{% url 'account_login' %}" title="User login and registration">
                                 Login / Register
                             </a>
                         </li>
                         <li class="list-group-item p-1">
-                            <a class="default__links" href="{% url 'user_profile' %}">
+                            <a class="default__links" href="{% url 'user_profile' %}" title="View user profile">
                                 Profile
                             </a>
                         </li>
@@ -275,7 +275,7 @@
                     <h4>Here to Help</h4>
                     <ul class="list-group list-group-flush mb-3 mb-md-5 pt-0 pr-5">
                         <li class="list-group-item p-1">
-                            <a class="default__links" href="#" target="_blank" rel="noreferrer noopener">
+                            <a class="default__links" href="#">
                                 Contact Us
                             </a>
                         </li>
@@ -340,9 +340,11 @@
                     <small>© 2021 Invitations Limited. All Rights Reserved.</small>
                 </div>
                 <div class="col-12 col-md-5 d-flex justify-content-center justify-content-md-end">
-                    <div class="page__logo footer__logo mt-2 mt-md-0">
-                        - INVITATIONS -
-                    </div>
+                    <a href="{% url 'home' %}" title="Home page">
+                        <div class="page__logo footer__logo mt-2 mt-md-0">
+                            - INVITATIONS -
+                        </div>
+                    </a>
                 </div>
             </div>
         </footer>
