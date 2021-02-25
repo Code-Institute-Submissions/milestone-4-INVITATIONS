@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-from django.db.models import Sum
 
 from django_countries.fields import CountryField
 
@@ -37,14 +36,24 @@ class Order(models.Model):
     def update_grand_total(self):
         """ When an item line is added calculate the grand total """
 
-        result = self.lineitems.aggregate(total=Sum('lineitem_total'))
-        self.order_total = result['total']
+        order_lines = self.lineitems.all()
+
+        self.order_total = 0
+        invites_in_cart = 0
+
+        for item in order_lines:
+            self.order_total += item.lineitem_total
+            if item.product.customizable:
+                invites_in_cart += 1
 
         if self.order_total is not None:
-            if self.order_total > settings.FREE_DELIVERY_AMOUNT:
-                self.delivery_cost = 0
+            if self.order_total < settings.FREE_DELIVERY_AMOUNT:
+                if invites_in_cart == len(order_lines):
+                    self.delivery_cost = 0
+                else:
+                    self.delivery_cost = settings.STANDARD_DELIVERY_CHARGE
             else:
-                self.delivery_cost = settings.STANDARD_DELIVERY_CHARGE
+                self.delivery_cost = 0
 
             self.grand_total = self.order_total + self.delivery_cost
             self.save()
