@@ -145,7 +145,6 @@
                 <p class="small text-muted cursor__pointer js__product-reviews">Hide reviews</p>
             </div>
         </div>
-
     </section>
 </main>
 {% if product.customizable and invite_data and product.customize_image %}
@@ -160,19 +159,7 @@
 {% block postloadjs %}
     {{ block.super }}
     {% include 'cart/includes/quantity_buttons_script.html' %}
-    <script src="{% static 'products/js/customize.js' %}"></script>
     <script type="text/javascript">
-        // Set event listener for personalize button in product display
-        $('.js__invite-data-btn').click(function(e){
-            DATA_RETURN_ID = `invite-data-${e.currentTarget.dataset.setInviteBtn}`;
-            customiseInvite.inviteFields = JSON.parse($(`#${DATA_RETURN_ID}`).val());
-            $('#design-preview').children().filter(':not(.btn)').remove();
-            customiseInvite.setupInviteActionButtons();
-            customiseInvite.copyInviteFields();
-            customiseInvite.setupInviteFields();
-            $('#customize-modal').modal('show');
-        });
-
         // Set event listener to hide or show customer product reviews
         // With offset calculation code from: Santiago Angel on stackoverflow.com
         // https://stackoverflow.com/questions/18150090/jquery-scroll-element-to-the-middle-of-the-screen-instead-of-to-the-top-with-a
@@ -195,7 +182,22 @@
                 $('html, body').animate({scrollTop: 0}, 0);
                 $('#product-reviews').toggleClass('d-none');
             }
-            
         });
-    </script>     
+    </script>
+
+{% if product.customizable and invite_data and product.customize_image %}
+    <script src="{% static 'products/js/customize.js' %}"></script>
+    <script type="text/javascript">
+        // Set event listener for personalize button in product display
+        $('.js__invite-data-btn').click(function(e){
+            DATA_RETURN_ID = `invite-data-${e.currentTarget.dataset.setInviteBtn}`;
+            customiseInvite.inviteFields = JSON.parse($(`#${DATA_RETURN_ID}`).val());
+            $('#design-preview').children().filter(':not(.btn)').remove();
+            customiseInvite.setupInviteActionButtons();
+            customiseInvite.copyInviteFields();
+            customiseInvite.setupInviteFields();
+            $('#customize-modal').modal('show');
+        });
+    </script>
+{% endif %}
 {% endblock %}
