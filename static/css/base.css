@@ -107,6 +107,11 @@ hr.border__dashed {
     background: var(--themePageGrey);
 }
 
+.page__container {
+    width: 85%;
+    margin: 0 auto;
+}
+
 .page__title {
     color: var(--themeTitleBlack);
     font-size: 2.2em;
