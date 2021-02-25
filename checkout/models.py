@@ -9,6 +9,8 @@ from django.contrib.auth.models import User
 
 
 class Order(models.Model):
+    """ Model for order details """
+
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.SET_NULL,
@@ -33,17 +35,10 @@ class Order(models.Model):
                                   blank=False, default='')
 
     def update_grand_total(self):
-        """
-        When an item line is added calculate the grand total
-        """
+        """ When an item line is added calculate the grand total """
+
         result = self.lineitems.aggregate(total=Sum('lineitem_total'))
         self.order_total = result['total']
-
-        print('Order total:', self.order_total)
-        print(type(self.order_total))
-
-        print('Delivery check:', settings.FREE_DELIVERY_AMOUNT)
-        print(type(settings.FREE_DELIVERY_AMOUNT))
 
         if self.order_total is not None:
             if self.order_total > settings.FREE_DELIVERY_AMOUNT:
@@ -59,6 +54,8 @@ class Order(models.Model):
 
 
 class OrderLineItem(models.Model):
+    """ Model for order line details """
+
     order = models.ForeignKey(Order, null=False,
                               blank=False, on_delete=models.CASCADE,
                               related_name='lineitems')
@@ -71,9 +68,8 @@ class OrderLineItem(models.Model):
     invite_data = models.TextField(blank=True, default='')
 
     def save(self, *args, **kwargs):
-        """
-        Override save method to calculate the lineitem total
-        """
+        """ Override save method to calculate the lineitem total """
+
         self.lineitem_total = self.product.price * self.quantity
         super().save(*args, **kwargs)
 
