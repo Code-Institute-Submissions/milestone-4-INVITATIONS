@@ -1,3 +1,4 @@
+/* Fonts used in personalising invites  */
 @import url('https://fonts.googleapis.com/css2?family=Clicker+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Londrina+Solid&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
@@ -10,6 +11,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Waiting+for+the+Sunrise&display=swap');
 
+/* Scale factor used on calculate values based on the raw position values */
 :root {
     --customizeScale:6;
 }
@@ -34,6 +36,7 @@
     z-index: 2000;
 }
 
+/* Fields */
 .custom__field {
     position: absolute;
     width: 291px;
@@ -46,28 +49,7 @@
 }
 
 .field__margin {
-    /* margin: 2px 0; */
     margin: 0 0 4px 0;
-}
-
-.btn__field-action {
-    width: 30%;
-    /* margin: 2px 0; */
-    border-radius: 0;
-}
-
-#btn-invite-edit, #btn-invite-reset {
-    position: absolute;
-    z-index: 3000;
-    bottom: 0;
-}
-
-#btn-invite-edit {
-    left: 0;
-}
-
-#btn-invite-reset {
-    right: 0;
 }
 
 .input__field {
@@ -90,6 +72,27 @@
     border: 1px dotted grey;
 }
 
+/* Buttons */
+.btn__field-action {
+    width: 30%;
+    border-radius: 0;
+}
+
+#btn-invite-edit, #btn-invite-reset {
+    position: absolute;
+    z-index: 3000;
+    bottom: 0;
+}
+
+#btn-invite-edit {
+    left: 0;
+}
+
+#btn-invite-reset {
+    right: 0;
+}
+
+
 /* Small devices (tablets, 576px and up) */
 @media (min-width: 576px) {
 
@@ -111,6 +114,5 @@
         padding: 8px 24px 8px 0;
         background: darkgray;
     }
-
 
 }
