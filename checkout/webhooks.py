@@ -83,7 +83,10 @@ def generate_invite(invite):
     filename = 'cInv' + secrets.token_urlsafe(32) + str(invite["order_number"])
 
     # Prepare raw image
-    image_url = settings.BASE_URL + invite['raw_image_url']
+    if settings.USING_AWS:
+        image_url = settings.MEDIA_URL + invite['raw_image_url']
+    else:
+        image_url = settings.DEV_BASE_URL + invite['raw_image_url']
     response = requests.get(image_url, stream=True)
     im = Image.open(response.raw)
     img = im.convert("RGBA")
