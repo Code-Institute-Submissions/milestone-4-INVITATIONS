@@ -184,9 +184,12 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-BASE_URL = 'https://8000-f4dbf2d0-a1ce-4574-8d26-c31113ec3be0.ws-eu03.gitpod.io'
+DEV_BASE_URL = 'https://8000-f4dbf2d0-a1ce-4574-8d26-c31113ec3be0.ws-eu03.gitpod.io'
+
+USING_AWS = False
 
 if 'USE_AWS' in os.environ:
+    USING_AWS = True
     # Cache control
     AWS_S3_OBJECT_PARAMETERS = {
         'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
@@ -209,6 +212,9 @@ if 'USE_AWS' in os.environ:
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 
+    # Override base url
+    BASE_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}'
+
 
 # Delivery values
 FREE_DELIVERY_AMOUNT = 20
@@ -220,5 +226,3 @@ STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET', '')
 
 # Email
 DEFAULT_FROM_EMAIL = 'sales@devtog-invitations.com'
-
-
