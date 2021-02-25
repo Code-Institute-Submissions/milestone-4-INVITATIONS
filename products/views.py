@@ -11,6 +11,7 @@ import math
 
 def check_product_in(the_list, key):
     """ Function to check if a product exists in a list """
+
     for item in the_list:
         if item['product_id'] == str(key):
             return True
@@ -18,8 +19,8 @@ def check_product_in(the_list, key):
 
 def create_review_stars(rating):
     """ Generate the HTML to show the rating stars """
-    rated_out_of = 5
 
+    rated_out_of = 5
     star_yellow = star_half = star_grey = 0
 
     if float(rating).is_integer():
@@ -39,8 +40,6 @@ def create_review_stars(rating):
         html += '<i class="fas fa-star-half rating__star fa-stack-2x"></i>'
         html += '</span>'
     html += ''.join('<i class="far fa-star rating__none"></i>' * star_grey)
-    print('Star HTML is: ', html)
-    print(f'{star_yellow}:Gold - {star_half}:Half - {star_grey}:Grey')
 
     return html
 
@@ -110,7 +109,7 @@ def products(request):
 
 
 def product_info(request, product_id):
-    """ A view to show a products information """
+    """ A view to show a products details """
 
     try:
         product = Product.objects.get(pk=product_id)

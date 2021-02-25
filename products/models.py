@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 
 
 class Category(models.Model):
+    """ Model for product categories """
 
     class Meta:
         verbose_name_plural = 'Categories'
@@ -20,6 +21,8 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    """ Model for products """
+
     category = models.ForeignKey(
         'Category', null=True, blank=True,
         on_delete=models.SET_NULL)
@@ -37,14 +40,12 @@ class Product(models.Model):
                                          default=0.0)
 
     def update_average_rating(self):
-        """
-        When a review is added calculate the average rating
-        Then average rating is round to the nearest .5
+        """ When a review is added calculate the average rating
+            then round average rating to the nearest .5
         """
         result = self.reviews.aggregate(average=Avg('rating'))
 
         if result['average'] is None:
-            print('Avg is none!')
             average_rating = 0.0
         else:
             average_rating = round((round(result['average'], 1)) * 2) / 2
@@ -56,6 +57,7 @@ class Product(models.Model):
 
     class ProductAdminOpts:
         """ Settings to help reversing admin URLs in templates """
+
         app_label = 'products'
         model_name = 'product'
 
@@ -64,6 +66,8 @@ class Product(models.Model):
 
 
 class CustomDetailLine(models.Model):
+    """ Model for customization detail lines"""
+
     FONT_CHOICES = [
         ("'Clicker Script', cursive", "'Clicker Script', cursive"),
         ("'Londrina Solid', cursive", "'Londrina Solid', cursive"),
@@ -123,6 +127,8 @@ class CustomDetailLine(models.Model):
 
 
 class ProductReviews(models.Model):
+    """ Model for product reviews """
+
     RATING_CHOICES = [
         (1, '1'),
         (2, '2'),
