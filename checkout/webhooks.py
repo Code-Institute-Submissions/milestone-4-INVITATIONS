@@ -104,7 +104,13 @@ def generate_invite(invite):
         draw = ImageDraw.Draw(img)
 
         # Apply customised fields
-        font_root = settings.MEDIA_ROOT + '/' + 'fonts/'
+        if settings.USING_AWS:
+            font_root = settings.MEDIA_URL + 'fonts/'
+        else:
+            font_root = settings.MEDIA_ROOT + '/' + 'fonts/'
+
+        print(f'Font folder is: {font_root}')
+
         invite_structure = json.loads(invite['invite_data'])
         for part in invite_structure:
             pos = part['font'].index("'", 2)
@@ -119,12 +125,16 @@ def generate_invite(invite):
                     stroke_fill=part['stroke_fill'])
 
         # Save the invite as PNG and PDF
-        print(f'Media ROOT: -[{settings.MEDIA_ROOT}]-')
-        save_path = settings.MEDIA_ROOT + '/' + filename
+        if settings.USING_AWS:
+          save_path = settings.MEDIA_URL + filename
+        else:
+          save_path = settings.MEDIA_ROOT + '/' + filename
+
+        print(f'Save path: {save_path}')
 
         try:
-            print('Trying to save PNG and PDF')
             img.save(save_path + '.png', resolution=300)
+            print('Trying to save PNG and PDF')
             im_pdf = img.convert('RGB')
             im_pdf.save(save_path + '.pdf', resolution=300)
         except OSError as e:
