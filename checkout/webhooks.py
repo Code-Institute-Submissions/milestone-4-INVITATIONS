@@ -88,12 +88,14 @@ def generate_invite(invite):
         print(f'Image URL: -[{image_url}]-')
     else:
         image_url = settings.DEV_BASE_URL + invite['raw_image_url']
+
     try:
-        print('Trying to load image: ', image_url)
         response = requests.get(image_url, stream=True)
+
     except OSError as e:
         print('Failed loading image: ', e)
         url_to_send = 'Failed to load image'
+
     else:
         im = Image.open(response.raw)
         img = im.convert("RGBA")
