@@ -112,6 +112,7 @@ def generate_invite(invite):
         # Apply customised fields
         if settings.USING_AWS:
             font_root = settings.MEDIA_URL + 'fonts/'
+            font_root = 'fonts/'
         else:
             font_root = 'settings.MEDIA_ROOT' + '/' + 'fonts/'
 
@@ -133,9 +134,16 @@ def generate_invite(invite):
             font_ttf_path = font_root + font_ttf_name
             print('TTF full path is: ', font_ttf_path)
             print('Raw size would be: ', int(part['raw_size']))
+
             print('Setting Font variable')
+
+            print('Open FH')
+            logging.info(f'Open FH for font file: {font_ttf_path}')
+            fh = storage.open(font_ttf_path, "r")
+
             try:
-                font = ImageFont.truetype(font_ttf_path, int(part['raw_size']))
+                font = ImageFont.truetype(fh, int(part['raw_size']))
+                fh.close()
             except IOError as e:
                 print('Failed to load TTF font: ', e)
                 logging.error(f'Could not load TTF font file, Error: {e}')
