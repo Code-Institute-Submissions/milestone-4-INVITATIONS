@@ -7,8 +7,6 @@ from django.core.mail import send_mail
 from PIL import Image, ImageFont, ImageDraw
 from django.core.files.storage import default_storage as storage
 
-import logging
-
 import secrets
 import requests
 import json
@@ -87,17 +85,12 @@ def generate_invite(invite):
     filename = 'cInv' + secrets.token_urlsafe(32) + str(invite["order_number"])
 
     # Prepare raw image
-    if settings.USING_AWS:
-        image_url = invite['raw_image_url']
-    else:
-        image_url = settings.DEV_BASE_URL + invite['raw_image_url']
-
+    image_url = invite['raw_image_url']
     try:
         response = requests.get(image_url, stream=True)
 
-    except OSError as e:
-        logging.error(f'Failed loading image: {e}')
-        url_to_send = 'Failed to load image'
+    except OSError:
+        url_to_send = 'Failed to create invite image, please contact sales.'
 
     else:
         im = Image.open(response.raw)
@@ -105,27 +98,19 @@ def generate_invite(invite):
         image_size = img.size
         draw = ImageDraw.Draw(img)
 
-        # Apply customised fields
-        if settings.USING_AWS:
-            font_root = settings.MEDIA_URL + 'fonts/'
-            font_root = 'fonts/'
-        else:
-            font_root = 'settings.MEDIA_ROOT' + '/' + 'fonts/'
-
+        font_root = 'fonts/'
         invite_structure = json.loads(invite['invite_data'])
 
+        # Apply customised fields
         for part in invite_structure:
             pos = part['font'].index("'", 2)
             font_ttf_name = part['font'][1:pos].replace(' ', '') + '.ttf'
             font_ttf_path = font_root + font_ttf_name
-            logging.error(f'Use FH for font file: {font_ttf_path}')
             fh = storage.open(font_ttf_path, "rb")
-
             try:
                 font = ImageFont.truetype(fh, int(part['raw_size']))
                 fh.close()
-            except IOError as e:
-                logging.error(f'Failed to load TTF font: {fh} | Error: {e}')
+            except IOError:
                 font = ImageFont.load_default()
 
             part_size = font.getsize(part['text'])
@@ -135,13 +120,7 @@ def generate_invite(invite):
                       font=font, stroke_width=stroke_width,
                       stroke_fill=part['stroke_fill'])
 
-        if settings.USING_AWS:
-            save_path = filename
-        else:
-            save_path = 'settings.MEDIA_ROOT' + '/' + filename
-
         # Save the invite as PNG
-        logging.error(f'Save path: {save_path}')
         fh = storage.open(f'{filename}.png', "w")
         format = 'png'
         img.save(fh, format)
@@ -156,7 +135,6 @@ def generate_invite(invite):
 
         if settings.USING_AWS:
             url_to_send = settings.MEDIA_URL + filename
-            logging.error(f'URL filename: -[{url_to_send}.png]-')
         else:
             url_to_send = settings.BASE_URL + settings.MEDIA_URL + filename
 
