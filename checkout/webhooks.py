@@ -139,7 +139,7 @@ def generate_invite(invite):
 
             print('Open FH')
             logging.info(f'Open FH for font file: {font_ttf_path}')
-            fh = storage.open(font_ttf_path, "b")
+            fh = storage.open(font_ttf_path, "rb")
 
             try:
                 font = ImageFont.truetype(fh, int(part['raw_size']))
