@@ -99,9 +99,11 @@ def generate_invite(invite):
     else:
         print('Trying to process the image')
         im = Image.open(response.raw)
+        print('Opened the image')
         img = im.convert("RGBA")
         image_size = img.size
         draw = ImageDraw.Draw(img)
+        print('Drawn the image')
 
         # Apply customised fields
         if settings.USING_AWS:
@@ -112,17 +114,23 @@ def generate_invite(invite):
         print(f'Font folder is: {font_root}')
 
         invite_structure = json.loads(invite['invite_data'])
+
+        print('Loaded invite data')
+
         for part in invite_structure:
             pos = part['font'].index("'", 2)
             font_ttf_name = part['font'][1:pos].replace(' ', '') + '.ttf'
             font_ttf_path = font_root + font_ttf_name
             font = ImageFont.truetype(font_ttf_path, int(part['raw_size']))
+            print(f'Using font: {font_ttf_path}')
             part_size = font.getsize(part['text'])
             x_pos = (image_size[0] - part_size[0]) / 2
             stroke_width = int(part['stroke_width'].replace('px', '')) * 2
             draw.text((x_pos, part['y_pos']), part['text'], part['color'],
-                    font=font, stroke_width=stroke_width,
-                    stroke_fill=part['stroke_fill'])
+                      font=font, stroke_width=stroke_width,
+                      stroke_fill=part['stroke_fill'])
+
+        print('finished loop of fields')
 
         # Save the invite as PNG and PDF
         if settings.USING_AWS:
@@ -133,8 +141,8 @@ def generate_invite(invite):
         print(f'Save path: {save_path}')
 
         try:
-            img.save(save_path + '.png', resolution=300)
             print('Trying to save PNG and PDF')
+            img.save(save_path + '.png', resolution=300)
             im_pdf = img.convert('RGB')
             im_pdf.save(save_path + '.pdf', resolution=300)
         except OSError as e:
