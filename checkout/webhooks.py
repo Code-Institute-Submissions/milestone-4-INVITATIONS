@@ -85,36 +85,54 @@ def generate_invite(invite):
     # Prepare raw image
     if settings.USING_AWS:
         image_url = settings.MEDIA_URL + invite['raw_image_url']
+        print(f'Image URL: -[{image_url}]-')
     else:
         image_url = settings.DEV_BASE_URL + invite['raw_image_url']
-    response = requests.get(image_url, stream=True)
-    im = Image.open(response.raw)
-    img = im.convert("RGBA")
-    image_size = img.size
-    draw = ImageDraw.Draw(img)
+    try:
+        print('Trying to load image: ', image_url)
+        response = requests.get(image_url, stream=True)
+    except:
+        print('Failed loading image')
+        url_to_send = 'Failed to load image'
+    else:
+        im = Image.open(response.raw)
+        img = im.convert("RGBA")
+        image_size = img.size
+        draw = ImageDraw.Draw(img)
 
-    # Apply customised fields
-    font_root = settings.MEDIA_ROOT + '/' + 'fonts/'
-    invite_structure = json.loads(invite['invite_data'])
-    for part in invite_structure:
-        pos = part['font'].index("'", 2)
-        font_ttf_name = part['font'][1:pos].replace(' ', '') + '.ttf'
-        font_ttf_path = font_root + font_ttf_name
-        font = ImageFont.truetype(font_ttf_path, int(part['raw_size']))
-        part_size = font.getsize(part['text'])
-        x_pos = (image_size[0] - part_size[0]) / 2
-        stroke_width = int(part['stroke_width'].replace('px', '')) * 2
-        draw.text((x_pos, part['y_pos']), part['text'], part['color'],
-                  font=font, stroke_width=stroke_width,
-                  stroke_fill=part['stroke_fill'])
+        # Apply customised fields
+        font_root = settings.MEDIA_ROOT + '/' + 'fonts/'
+        invite_structure = json.loads(invite['invite_data'])
+        for part in invite_structure:
+            pos = part['font'].index("'", 2)
+            font_ttf_name = part['font'][1:pos].replace(' ', '') + '.ttf'
+            font_ttf_path = font_root + font_ttf_name
+            font = ImageFont.truetype(font_ttf_path, int(part['raw_size']))
+            part_size = font.getsize(part['text'])
+            x_pos = (image_size[0] - part_size[0]) / 2
+            stroke_width = int(part['stroke_width'].replace('px', '')) * 2
+            draw.text((x_pos, part['y_pos']), part['text'], part['color'],
+                    font=font, stroke_width=stroke_width,
+                    stroke_fill=part['stroke_fill'])
 
-    # Save the invite as PNG and PDF
-    save_path = settings.MEDIA_ROOT + '/' + filename
-    img.save(save_path + '.png', resolution=300)
-    im_pdf = img.convert('RGB')
-    im_pdf.save(save_path + '.pdf', resolution=300)
+        # Save the invite as PNG and PDF
+        print(f'Media ROOT: -[{settings.MEDIA_ROOT}]-')
+        save_path = settings.MEDIA_ROOT + '/' + filename
 
-    url_to_send = settings.BASE_URL + settings.MEDIA_URL + filename
+        try:
+            print('Trying to save PNG and PDF')
+            img.save(save_path + '.png', resolution=300)
+            im_pdf = img.convert('RGB')
+            im_pdf.save(save_path + '.pdf', resolution=300)
+        except:
+            url_to_send = 'save_error'
+
+        if settings.USING_AWS:
+            url_to_send = settings.MEDIA_URL + filename
+            print(f'URL filename: -[{url_to_send}]-')
+        else:
+            url_to_send = settings.BASE_URL + settings.MEDIA_URL + filename
+
     return url_to_send
 
 
