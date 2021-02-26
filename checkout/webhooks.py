@@ -89,7 +89,6 @@ def generate_invite(invite):
     # Prepare raw image
     if settings.USING_AWS:
         image_url = invite['raw_image_url']
-        print(f'Image URL: -[{image_url}]-')
     else:
         image_url = settings.DEV_BASE_URL + invite['raw_image_url']
 
@@ -97,17 +96,14 @@ def generate_invite(invite):
         response = requests.get(image_url, stream=True)
 
     except OSError as e:
-        print('Failed loading image: ', e)
+        logging.error(f'Failed loading image: {e}')
         url_to_send = 'Failed to load image'
 
     else:
-        print('Trying to process the image')
         im = Image.open(response.raw)
-        print('Opened the image')
         img = im.convert("RGBA")
         image_size = img.size
         draw = ImageDraw.Draw(img)
-        print('Drawn the image')
 
         # Apply customised fields
         if settings.USING_AWS:
@@ -116,101 +112,51 @@ def generate_invite(invite):
         else:
             font_root = 'settings.MEDIA_ROOT' + '/' + 'fonts/'
 
-        print(f'Font folder is: {font_root}')
-
         invite_structure = json.loads(invite['invite_data'])
 
-        print('Loaded invite data: ', invite_structure)
-
         for part in invite_structure:
-            print('Invite name: ', part['name'])
-            print('Inside invite loop')
-            print('Setting pos')
             pos = part['font'].index("'", 2)
-            print('Setting TTF name')
             font_ttf_name = part['font'][1:pos].replace(' ', '') + '.ttf'
-            print('Font TTF name is: ', font_ttf_name)
-            print('Setting TTF path')
             font_ttf_path = font_root + font_ttf_name
-            print('TTF full path is: ', font_ttf_path)
-            print('Raw size would be: ', int(part['raw_size']))
-
-            print('Setting Font variable')
-
-            print('Open FH')
-            logging.info(f'Open FH for font file: {font_ttf_path}')
+            logging.error(f'Use FH for font file: {font_ttf_path}')
             fh = storage.open(font_ttf_path, "rb")
 
             try:
                 font = ImageFont.truetype(fh, int(part['raw_size']))
                 fh.close()
             except IOError as e:
-                print('Failed to load TTF font: ', e)
-                logging.error(f'Could not load TTF font file, Error: {e}')
+                logging.error(f'Failed to load TTF font: {fh} | Error: {e}')
                 font = ImageFont.load_default()
-                print('Using default font:')
 
-            print(f'May not be Using font: {font_ttf_path}')
-            print('Setting part size')
             part_size = font.getsize(part['text'])
-            print('Part size set:', part_size)
-            print('Setting x_pos')
             x_pos = (image_size[0] - part_size[0]) / 2
-            print('xpos set: ', x_pos)
-            print('Setting stroke_width')
             stroke_width = int(part['stroke_width'].replace('px', '')) * 2
-            print('Stroke width set: ', stroke_width)
-            print('Drawing text')
             draw.text((x_pos, part['y_pos']), part['text'], part['color'],
                       font=font, stroke_width=stroke_width,
                       stroke_fill=part['stroke_fill'])
-            print('Text drawn')
-
-        print('finished loop of fields')
-
-        # Save the invite as PNG and PDF
 
         if settings.USING_AWS:
             save_path = filename
         else:
             save_path = 'settings.MEDIA_ROOT' + '/' + filename
 
-        print(f'Save path: {save_path}')
-
-        print('Trying to save PNG and PDF')
-
-        print('Open FH for PNG storage')
+        # Save the invite as PNG
+        logging.error(f'Save path: {save_path}')
         fh = storage.open(f'{filename}.png', "w")
-        print('Set format')
-        format = 'png'  # You need to set the correct image format here
-        print('Do FH PNG save')
+        format = 'png'
         img.save(fh, format)
-        print('FH PNG save done')
         fh.close()
 
-
-        print('Open FH for PDF storage')
+        # Save the invite as PDF
         fh = storage.open(f'{filename}.pdf', "w")
-        print('Set format PDF')
-        format = 'pdf'  # You need to set the correct image format here
-        print('Do FH PDF save')
+        format = 'pdf'
         im_pdf = img.convert('RGB')
         im_pdf.save(fh, format)
-        print('FH PDF save done')
         fh.close()
-
-
-        # try:
-        #     img.save(save_path + '.png', resolution=300)
-        #     im_pdf = img.convert('RGB')
-        #     im_pdf.save(save_path + '.pdf', resolution=300)
-        # except OSError as e:
-        #     print(f'Save error, saving: {save_path}.png | error {e}')
-        #     url_to_send = 'save_error'
 
         if settings.USING_AWS:
             url_to_send = settings.MEDIA_URL + filename
-            print(f'URL filename: -[{url_to_send}.png]-')
+            logging.error(f'URL filename: -[{url_to_send}.png]-')
         else:
             url_to_send = settings.BASE_URL + settings.MEDIA_URL + filename
 
