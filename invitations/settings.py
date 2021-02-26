@@ -183,7 +183,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEV_BASE_URL = 'https://8000-f4dbf2d0-a1ce-4574-8d26-c31113ec3be0.ws-eu03.gitpod.io'
 

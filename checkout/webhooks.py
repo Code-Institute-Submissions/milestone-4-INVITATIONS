@@ -130,7 +130,7 @@ def generate_invite(invite):
         if settings.USING_AWS:
             font_root = settings.MEDIA_URL + 'fonts/'
         else:
-            font_root = settings.MEDIA_ROOT + '/' + 'fonts/'
+            font_root = 'settings.MEDIA_ROOT' + '/' + 'fonts/'
 
         print(f'Font folder is: {font_root}')
 
@@ -177,17 +177,16 @@ def generate_invite(invite):
         print('finished loop of fields')
 
         # Save the invite as PNG and PDF
-        print('Need to save and then upload if on AWS')
 
         if settings.USING_AWS:
-            print('Save to temp area')
-            save_path = '/uploads/' + filename
+            save_path = filename
         else:
-            print('Saving')
-            save_path = settings.MEDIA_ROOT + '/' + filename
+            save_path = 'settings.MEDIA_ROOT' + '/' + filename
 
         print(f'Save path: {save_path}')
+
         print('Trying to save PNG and PDF')
+
         try:
             img.save(save_path + '.png', resolution=300)
             im_pdf = img.convert('RGB')
@@ -195,12 +194,12 @@ def generate_invite(invite):
         except OSError as e:
             print(f'Save error, saving: {save_path}.png | error {e}')
             url_to_send = 'save_error'
+
+        if settings.USING_AWS:
+            url_to_send = settings.MEDIA_URL + filename
+            print(f'URL filename: -[{url_to_send}]-')
         else:
-            if settings.USING_AWS:
-                print('We should upload to S3 bucket here')
-                url_to_send = 'not-sent-to-S3-yet.txt'
-            else:
-                url_to_send = settings.BASE_URL + settings.MEDIA_URL + filename
+            url_to_send = settings.BASE_URL + settings.MEDIA_URL + filename
 
     return url_to_send
 
