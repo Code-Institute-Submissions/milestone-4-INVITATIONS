@@ -1,11 +1,54 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error processing your request</title>
-</head>
-<body>
-    <h1>Please contact our sales team at sales@devtog-invitations.com</h1>
-</body>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <meta name="description" content="Customisable invites for any occasion,print them yourself and save money or even better email them and save the planet.">
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+        <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <script src="https://kit.fontawesome.com/6cfdba21b4.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+        <title>Sorry we encountered a server error (500)</title>
+    </head>
+    <body>
+        <!-- Tag line -->
+        <div class="container-fluid text-center header__tagline">
+            Oooops
+        </div>
+        <!-- Header -->
+        <div class="container-fluid text-center">
+            <div class="page__logo nav__logo my-3">- Server Error -</div>
+        </div>
+        <!-- Error message -->
+        <main class="container-fluid page__default d-flex align-items-center">
+            <div class="page__container pt-5 pb-5">
+                <div class="row">
+                    <section class="col-12 col-lg-6 text-center">
+                        <p class="error__text display-4 mb-0">ERROR</p>
+                        <p class="error__code display-1">500</p>
+                        <hr class="mt-1 mb-1 d-lg-none">
+                    </section>
+                    <section class="col-12 col-lg-6 text-center border__left">
+                        <p class="mt-3">Sorry, our server encountered an error with your request. Please wait a few minutes and retry, 
+                            if the problem persists please contact our sales team at sales@devtog-invitations.com</p>
+                        <p class="pb-3">Use the button below to get back to our home page.</p>
+                        <p>
+                            <a class="btn__main fz__lg" href="{% url 'home' %}" title="Go to the home page">
+                                -INVITATIONS-
+                            </a>
+                        </p>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </body>
 </html>
