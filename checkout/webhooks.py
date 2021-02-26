@@ -123,8 +123,11 @@ def generate_invite(invite):
             pos = part['font'].index("'", 2)
             print('Setting TTF name')
             font_ttf_name = part['font'][1:pos].replace(' ', '') + '.ttf'
+            print('Font TTF name is: ', font_ttf_name)
             print('Setting TTF path')
             font_ttf_path = font_root + font_ttf_name
+            print('TTF full path is: ', font_ttf_path)
+            print('Raw size would be: ', int(part['raw_size']))
             print('Setting Font variable')
             font = ImageFont.truetype(font_ttf_path, int(part['raw_size']))
             print(f'Using font: {font_ttf_path}')
