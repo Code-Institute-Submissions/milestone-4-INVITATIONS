@@ -84,15 +84,15 @@ def generate_invite(invite):
 
     # Prepare raw image
     if settings.USING_AWS:
-        image_url = settings.MEDIA_URL + invite['raw_image_url']
+        image_url = invite['raw_image_url']
         print(f'Image URL: -[{image_url}]-')
     else:
         image_url = settings.DEV_BASE_URL + invite['raw_image_url']
     try:
         print('Trying to load image: ', image_url)
         response = requests.get(image_url, stream=True)
-    except:
-        print('Failed loading image')
+    except OSError as e:
+        print('Failed loading image: ', e)
         url_to_send = 'Failed to load image'
     else:
         im = Image.open(response.raw)
@@ -124,7 +124,8 @@ def generate_invite(invite):
             img.save(save_path + '.png', resolution=300)
             im_pdf = img.convert('RGB')
             im_pdf.save(save_path + '.pdf', resolution=300)
-        except:
+        except OSError as e:
+            print(f'Save error, saving: {save_path}.png | error {e}')
             url_to_send = 'save_error'
 
         if settings.USING_AWS:
