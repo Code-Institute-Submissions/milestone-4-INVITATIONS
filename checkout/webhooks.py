@@ -7,8 +7,6 @@ from django.core.mail import send_mail
 from PIL import Image, ImageFont, ImageDraw
 from django.core.files.storage import default_storage as storage
 
-import boto3
-from botocore.exceptions import ClientError
 import logging
 
 import secrets
@@ -83,22 +81,6 @@ def check_invites_required(order):
     return invites
 
 
-def upload_file(file_name, bucket, object_name):
-    """Upload a file to an S3 bucket
-    :param file_name: File to upload
-    :param bucket: Bucket to upload to
-    :param object_name: S3 object name. If not specified then file_name is used
-    :return: True if file was uploaded, else False
-    """
-    s3_client = boto3.client('s3')
-    try:
-        s3_client.upload_file(file_name, bucket, object_name)
-    except ClientError as e:
-        logging.error(e)
-        return False
-    return True
-
-
 def generate_invite(invite):
     """ Generate the customers invite design image and return url """
 
@@ -156,6 +138,7 @@ def generate_invite(invite):
                 font = ImageFont.truetype(font_ttf_path, int(part['raw_size']))
             except IOError as e:
                 print('Failed to load TTF font: ', e)
+                logging.error(f'Could not load TTF font file, Error: {e}')
                 font = ImageFont.load_default()
                 print('Using default font:')
 
@@ -188,14 +171,26 @@ def generate_invite(invite):
 
         print('Trying to save PNG and PDF')
 
-        print('Open FH storage')
+        print('Open FH for PNG storage')
         fh = storage.open(f'{filename}.png', "w")
         print('Set format')
         format = 'png'  # You need to set the correct image format here
-        print('Do FH save')
+        print('Do FH PNG save')
         img.save(fh, format)
-        print('FH save done')
+        print('FH PNG save done')
         fh.close()
+
+
+        print('Open FH for PDF storage')
+        fh = storage.open(f'{filename}.pdf', "w")
+        print('Set format PDF')
+        format = 'pdf'  # You need to set the correct image format here
+        print('Do FH PDF save')
+        im_pdf = img.convert('RGB')
+        im_pdf.save(fh, format)
+        print('FH PDF save done')
+        fh.close()
+
 
         # try:
         #     img.save(save_path + '.png', resolution=300)
@@ -207,7 +202,7 @@ def generate_invite(invite):
 
         if settings.USING_AWS:
             url_to_send = settings.MEDIA_URL + filename
-            print(f'URL filename: -[{url_to_send}]-')
+            print(f'URL filename: -[{url_to_send}.png]-')
         else:
             url_to_send = settings.BASE_URL + settings.MEDIA_URL + filename
 
