@@ -115,12 +115,17 @@ def generate_invite(invite):
 
         invite_structure = json.loads(invite['invite_data'])
 
-        print('Loaded invite data')
+        print('Loaded invite data: ', invite_structure)
 
         for part in invite_structure:
+            print('Inside invite loop')
+            print('Setting pos')
             pos = part['font'].index("'", 2)
+            print('Setting TTF name')
             font_ttf_name = part['font'][1:pos].replace(' ', '') + '.ttf'
+            print('Setting TTF path')
             font_ttf_path = font_root + font_ttf_name
+            print('Setting Font variable')
             font = ImageFont.truetype(font_ttf_path, int(part['raw_size']))
             print(f'Using font: {font_ttf_path}')
             part_size = font.getsize(part['text'])
@@ -134,14 +139,15 @@ def generate_invite(invite):
 
         # Save the invite as PNG and PDF
         if settings.USING_AWS:
-          save_path = settings.MEDIA_URL + filename
+            save_path = settings.MEDIA_URL + filename
         else:
-          save_path = settings.MEDIA_ROOT + '/' + filename
+            save_path = settings.MEDIA_ROOT + '/' + filename
 
         print(f'Save path: {save_path}')
 
+        print('Trying to save PNG and PDF')
+
         try:
-            print('Trying to save PNG and PDF')
             img.save(save_path + '.png', resolution=300)
             im_pdf = img.convert('RGB')
             im_pdf.save(save_path + '.pdf', resolution=300)
