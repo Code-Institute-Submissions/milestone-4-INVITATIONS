@@ -6,6 +6,10 @@ from django.conf import settings
 from django.core.mail import send_mail
 from PIL import Image, ImageFont, ImageDraw
 
+import boto3
+from botocore.exceptions import ClientError
+import logging
+
 import secrets
 import requests
 import json
@@ -13,6 +17,7 @@ import json
 from .models import Order
 
 import stripe
+
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 stripe_endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
@@ -75,6 +80,22 @@ def check_invites_required(order):
             }
             invites.append(invite)
     return invites
+
+
+def upload_file(file_name, bucket, object_name):
+    """Upload a file to an S3 bucket
+    :param file_name: File to upload
+    :param bucket: Bucket to upload to
+    :param object_name: S3 object name. If not specified then file_name is used
+    :return: True if file was uploaded, else False
+    """
+    s3_client = boto3.client('s3')
+    try:
+        s3_client.upload_file(file_name, bucket, object_name)
+    except ClientError as e:
+        logging.error(e)
+        return False
+    return True
 
 
 def generate_invite(invite):
@@ -156,15 +177,17 @@ def generate_invite(invite):
         print('finished loop of fields')
 
         # Save the invite as PNG and PDF
+        print('Need to save and then upload if on AWS')
+
         if settings.USING_AWS:
-            save_path = settings.MEDIA_URL + filename
+            print('Save to temp area')
+            save_path = '/uploads/' + filename
         else:
+            print('Saving')
             save_path = settings.MEDIA_ROOT + '/' + filename
 
         print(f'Save path: {save_path}')
-
         print('Trying to save PNG and PDF')
-
         try:
             img.save(save_path + '.png', resolution=300)
             im_pdf = img.convert('RGB')
@@ -172,12 +195,12 @@ def generate_invite(invite):
         except OSError as e:
             print(f'Save error, saving: {save_path}.png | error {e}')
             url_to_send = 'save_error'
-
-        if settings.USING_AWS:
-            url_to_send = settings.MEDIA_URL + filename
-            print(f'URL filename: -[{url_to_send}]-')
         else:
-            url_to_send = settings.BASE_URL + settings.MEDIA_URL + filename
+            if settings.USING_AWS:
+                print('We should upload to S3 bucket here')
+                url_to_send = 'not-sent-to-S3-yet.txt'
+            else:
+                url_to_send = settings.BASE_URL + settings.MEDIA_URL + filename
 
     return url_to_send
 
