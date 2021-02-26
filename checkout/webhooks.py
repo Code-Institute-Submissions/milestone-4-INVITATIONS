@@ -137,12 +137,20 @@ def generate_invite(invite):
                 print('Using default font:')
 
             print(f'May not be Using font: {font_ttf_path}')
+            print('Setting part size')
             part_size = font.getsize(part['text'])
+            print('Part size set:', part_size)
+            print('Setting x_pos')
             x_pos = (image_size[0] - part_size[0]) / 2
+            print('xpos set: ', x_pos)
+            print('Setting stroke_width')
             stroke_width = int(part['stroke_width'].replace('px', '')) * 2
+            print ('Stroke width set: ', stroke_width)
+            print('Drawing text')
             draw.text((x_pos, part['y_pos']), part['text'], part['color'],
                       font=font, stroke_width=stroke_width,
                       stroke_fill=part['stroke_fill'])
+            print('Text drawn')
 
         print('finished loop of fields')
 
