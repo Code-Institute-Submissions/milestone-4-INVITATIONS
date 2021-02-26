@@ -129,8 +129,14 @@ def generate_invite(invite):
             print('TTF full path is: ', font_ttf_path)
             print('Raw size would be: ', int(part['raw_size']))
             print('Setting Font variable')
-            font = ImageFont.truetype(font_ttf_path, int(part['raw_size']))
-            print(f'Using font: {font_ttf_path}')
+            try:
+                font = ImageFont.truetype(font_ttf_path, int(part['raw_size']))
+            except IOError as e:
+                print('Failed to load TTF font: ', e)
+                font = ImageFont.load_default()
+                print('Using default font:')
+
+            print(f'May not be Using font: {font_ttf_path}')
             part_size = font.getsize(part['text'])
             x_pos = (image_size[0] - part_size[0]) / 2
             stroke_width = int(part['stroke_width'].replace('px', '')) * 2
