@@ -97,6 +97,7 @@ def generate_invite(invite):
         url_to_send = 'Failed to load image'
 
     else:
+        print('Trying to process the image')
         im = Image.open(response.raw)
         img = im.convert("RGBA")
         image_size = img.size
