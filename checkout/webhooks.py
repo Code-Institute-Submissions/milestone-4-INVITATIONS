@@ -118,6 +118,7 @@ def generate_invite(invite):
         print('Loaded invite data: ', invite_structure)
 
         for part in invite_structure:
+            print('Invite name: ', part['name'])
             print('Inside invite loop')
             print('Setting pos')
             pos = part['font'].index("'", 2)
@@ -145,7 +146,7 @@ def generate_invite(invite):
             print('xpos set: ', x_pos)
             print('Setting stroke_width')
             stroke_width = int(part['stroke_width'].replace('px', '')) * 2
-            print ('Stroke width set: ', stroke_width)
+            print('Stroke width set: ', stroke_width)
             print('Drawing text')
             draw.text((x_pos, part['y_pos']), part['text'], part['color'],
                       font=font, stroke_width=stroke_width,
