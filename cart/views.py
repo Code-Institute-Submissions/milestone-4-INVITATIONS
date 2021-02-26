@@ -48,9 +48,17 @@ def add_to_cart(request, product_id):
 
                         else:
                             item['quantity'] += quantity
-                            messages.success(request,
-                                             f'{product.name} quantity has been \
-                                             updated to {item["quantity"]}.',
+                            if item['quantity'] > 99:
+                                item['quantity'] = 99
+                                message = f'{product.name} quantity has been \
+                                           set to {item["quantity"]} as you \
+                                           cannot order more than 99 of \
+                                           one item.  If you need to order \
+                                           more please contact our sales team.'
+                            else:
+                                message = f'{product.name} quantity has been \
+                                           updated to {item["quantity"]}.'
+                            messages.success(request, message,
                                              extra_tags='shopping cart')
                             item_already_in_cart = True
 
