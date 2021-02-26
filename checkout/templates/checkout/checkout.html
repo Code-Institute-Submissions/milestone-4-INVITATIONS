@@ -93,11 +93,21 @@
                 </div>
                 <hr class="mt-1 mb-1">
             </div>
+            {% if cart_grand_total < 10000 %}
             <!-- Checkout form -->
-            <div class="col-12 col-lg-6 border__left pl-2 pl-lg-4">
-                <h2 class="page__subtitle pt-3 pt-lg-2">Order Form <span class="small d-inline d-md-none d-lg-inline"> (to complete your order)</span></h2>
-                {% crispy form %}
-            </div>
+                <div class="col-12 col-lg-6 border__left pl-2 pl-lg-4">
+                    <h2 class="page__subtitle pt-3 pt-lg-2">Order Form <span class="small d-inline d-md-none d-lg-inline"> (to complete your order)</span></h2>
+                    {% crispy form %}
+                </div>
+            {% else %}
+            <!-- Very high order value -->
+                <div class="col-12 col-lg-6 border__left pl-2 pl-lg-4">
+                    <h2 class="page__subtitle pt-3 pt-lg-2">Order Value</h2>
+                    <p class="mt-1 text-danger"><strong>Your order value is very high!</strong></p>
+                    <p class="mb-2">Please contact our sales team to discuss trade discounts, I'm sure we can save you some money on your order with us.</p>
+                    <p>Thank you.</p>
+                </div>
+            {% endif %}
         </div>
     </div>
 </main>
