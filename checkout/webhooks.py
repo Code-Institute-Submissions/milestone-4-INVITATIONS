@@ -85,19 +85,23 @@ def generate_invite(invite):
     filename = 'cInv' + secrets.token_urlsafe(32) + str(invite["order_number"])
 
     # Prepare raw image
-    image_url = invite['raw_image_url']
+    if settings.USING_AWS:
+        image_url = invite['raw_image_url']
+    else:
+        image_url = settings.DEV_BASE_URL + invite['raw_image_url']
+
     try:
         response = requests.get(image_url, stream=True)
 
     except OSError:
-        url_to_send = 'Failed to create invite image, please contact sales.'
+        url_to_send = ('System failed to create your invite image, please '
+                       'contact sales.')
 
     else:
         im = Image.open(response.raw)
         img = im.convert("RGBA")
         image_size = img.size
         draw = ImageDraw.Draw(img)
-
         font_root = 'fonts/'
         invite_structure = json.loads(invite['invite_data'])
 
@@ -121,13 +125,13 @@ def generate_invite(invite):
                       stroke_fill=part['stroke_fill'])
 
         # Save the invite as PNG
-        fh = storage.open(f'{filename}.png', "w")
+        fh = storage.open(f'{filename}.png', "wb")
         format = 'png'
         img.save(fh, format)
         fh.close()
 
         # Save the invite as PDF
-        fh = storage.open(f'{filename}.pdf', "w")
+        fh = storage.open(f'{filename}.pdf', "wb")
         format = 'pdf'
         im_pdf = img.convert('RGB')
         im_pdf.save(fh, format)
@@ -136,7 +140,7 @@ def generate_invite(invite):
         if settings.USING_AWS:
             url_to_send = settings.MEDIA_URL + filename
         else:
-            url_to_send = settings.BASE_URL + settings.MEDIA_URL + filename
+            url_to_send = settings.DEV_BASE_URL + settings.MEDIA_URL + filename
 
     return url_to_send
 
