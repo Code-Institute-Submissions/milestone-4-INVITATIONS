@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from django.core.mail import send_mail
 from PIL import Image, ImageFont, ImageDraw
+from django.core.files.storage import default_storage as storage
 
 import boto3
 from botocore.exceptions import ClientError
@@ -187,13 +188,22 @@ def generate_invite(invite):
 
         print('Trying to save PNG and PDF')
 
-        try:
-            img.save(save_path + '.png', resolution=300)
-            im_pdf = img.convert('RGB')
-            im_pdf.save(save_path + '.pdf', resolution=300)
-        except OSError as e:
-            print(f'Save error, saving: {save_path}.png | error {e}')
-            url_to_send = 'save_error'
+        print('Open FH storage')
+        fh = storage.open(f'{filename}.png', "w")
+        print('Set format')
+        format = 'png'  # You need to set the correct image format here
+        print('Do FH save')
+        img.save(fh, format)
+        print('FH save done')
+        fh.close()
+
+        # try:
+        #     img.save(save_path + '.png', resolution=300)
+        #     im_pdf = img.convert('RGB')
+        #     im_pdf.save(save_path + '.pdf', resolution=300)
+        # except OSError as e:
+        #     print(f'Save error, saving: {save_path}.png | error {e}')
+        #     url_to_send = 'save_error'
 
         if settings.USING_AWS:
             url_to_send = settings.MEDIA_URL + filename
