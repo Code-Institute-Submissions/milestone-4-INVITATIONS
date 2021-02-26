@@ -32,6 +32,7 @@ DEBUG = 'DEVELOPMENT' in os.environ
 
 ALLOWED_HOSTS = ['devtog-invitations.herokuapp.com', 'localhost']
 
+ADMINS = [('Admin', 'invitations@iframes.co.uk')]
 
 # Application definition
 
