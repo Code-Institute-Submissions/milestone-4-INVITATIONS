@@ -16,4 +16,5 @@ urlpatterns = [
     path('reviews/', include('reviews.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-handler500 = 'invitations.views.custom_error_view'
+handler404 = 'invitations.views.error_404'
+handler500 = 'invitations.views.error_500'

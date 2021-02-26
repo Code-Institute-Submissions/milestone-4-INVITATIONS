@@ -1,7 +1,9 @@
 from django.shortcuts import render
 
 
-def custom_error_view(request):
-    """ View for custom 500 page """
+def error_404(request, exception, template_name='invitations/404.html'):
+    return render(request, template_name)
 
-    return render(request, '500.html')
+
+def error_500(request, template_name='invitations/500.html'):
+    return render(request, template_name)
