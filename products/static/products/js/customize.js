@@ -217,6 +217,7 @@ const customiseInvite = {
                 $('#form-update-cart').submit();
             } else {
                 $('#js__product-warning').removeClass('d-none');
+                $("#js__product-personalised").removeClass('d-none');
             }
         });
 

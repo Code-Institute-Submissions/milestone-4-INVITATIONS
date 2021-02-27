@@ -15,12 +15,17 @@
         <!-- Product -->
         <div class="row">
             <!-- Product image -->
-            <div class="col-12 col-md-6 offset-lg-1 col-lg-5 pr-0">
+            <div class="col-12 col-md-6 offset-lg-1 col-lg-5 pr-0 w-100">
                 {% if product.view_image %}
                     <img class="card-img-top img-fluid" src="{{ product.view_image.url }}" alt="{{ product.name }}">
                 {% else %}
                     <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ product.name }}">
                 {% endif %}
+                
+                <div id="js__product-personalised" class="product__personalised text-center d-none">
+                    You have personalised this product
+                </div>
+
                 {% if product.featured %}
                     <a class="product__featured float-right" href="{% url 'products' %}?show=featured" title="View more featured products">
                         <i class="fas fa-star icon"></i>
@@ -80,16 +85,26 @@
                                     {%endif %}
                                     <input type="hidden" name="original_path" value="{{ request.path }}">
                             </div>
-                            <div class="col-md-12 text-right">
-                                <p id="js__product-warning" class="mt-2 mb-0 d-none float-right text-danger">
-                                    Add your invite to the shopping cart, otherwise any personalisation will be lost.
+                            <div class="col-md-12 text-right mt-2">
+                                <p id="js__product-warning" class="mt-2 mb-0 p-1 d-none float-right text-danger bg-white">
+                                    Your invite has been personalised, please add it to the shopping cart otherwise your personalisation will be lost.
                                 </p>   
                             </div>
                         </div>
                         <hr>
                         <p>{{ product.description }}</p>
                         {% if product.customizable %}
-                            <p class="small">Please note invites have a fixed quantity of 1, as you can print them yourself as many times as required.</p>
+                            <ul class="small pl-3">
+                                <lh class="">Please note:</lh>
+                                <li class="text-muted">
+                                    Invites have a fixed quantity of 1, as you can print them yourself as many times 
+                                as required.
+                                </li>
+                                <li class="text-muted">
+                                    The water-mark shown when personalising the invite will not be there on the 
+                                full-resolution version you receive after order confirmation.
+                                </li>
+                            </ul>
                         {% endif %}
                     </div>
                 </div>

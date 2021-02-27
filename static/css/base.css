@@ -298,6 +298,13 @@ i {
     font-size: 1.5em;
 }
 
+.product__personalised {
+    color: red;
+    background: #fff;
+    border: 1px solid rgb(0, 0, 0, 0.1);
+    font-size: 1.2em;
+}
+
 .product__featured:hover,
 .product__featured:focus,
 .product__featured:active {
