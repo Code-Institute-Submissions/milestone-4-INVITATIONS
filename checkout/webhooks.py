@@ -172,7 +172,7 @@ def send_customer_emails(request, event_type, stripe_pid, billing_details):
                 invite_list += invite['name'] + '\r\n'
                 invite_url = generate_invite(invite)
                 invite_list += (f'   PDF download link: {invite_url}.pdf' +
-                                '\r\n' +
+                                '\r\n\r\n' +
                                 f'   PNG download link: {invite_url}.png' +
                                 '\r\n\r\n')
 
