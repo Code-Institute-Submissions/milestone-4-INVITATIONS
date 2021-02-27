@@ -35,9 +35,7 @@ The live deployed app can be accessed using the following link: [-INVITATIONS-](
 - [Disclaimer](#disclaimer)
 
 ## Summary
-The purpose of the ‘Invitations’ project is to create an app which will allow users to find & purchase invitation designs to personalise. After 
-purchase they can then download the invite and either print or email them.  As well as invitations the app will also offer other items which could 
-compliment the invites. i.e. Envelopes, paper, Markers, etc.
+The purpose of the ‘Invitations’ project is to create an app which will allow users to find & purchase invitation designs to personalise. After purchase they can then download the invite and either print or email them.  As well as invitations the app will also offer other items which could compliment the invites. i.e. Envelopes, paper, markers, etc.
 
 ## Business Goals
 
@@ -68,18 +66,20 @@ compliment the invites. i.e. Envelopes, paper, Markers, etc.
 ## User Stories
 
 ### Customer Stories
-1. How do I search for invitations using a word or phrase?
-2. How do I find invitations by category?
+1. How do I search for products using a word or phrase?
+2. How do I find products by category?
 3. How do I find newly listed products?
 4. How do I find featured products?
-5. How do I order products?
-6. How can I personalise an invite?
+5. How can I view more details about a product?
+6. How do I add products to my shopping cart?
 7. How can I view/edit my shopping cart contents?
-8. How can I view my previous orders?
-9. How do I update my profile information?
-10. How do I review a product I have purchased?
-11. How can I edit a review I have made?
-12. How can I delete a review I have made?
+8. How can I personalise an invite?
+9. How do I checkout and pay?
+10. How can I view my previous orders?
+11. How do I update my profile information?
+12. How do I review a product I have purchased?
+13. How can I edit a review I have made?
+14. How can I delete a review I have made?
 
 ### Administrator Stories
 1. How do I add new products?
@@ -232,12 +232,9 @@ Click the link below to view a PDF file containing all the wireframe screen desi
 ## Surface
 From the beginning I wanted this app to have a very clean modern feel, where possible.
 
-For the buttons on the site I have kept with some of the standard Bootstrap colors, not just because they are already 
-configured, but I instantly liked the way they popped of the page, in contrast to the general black, white and grey 
-feel of the other page elements.
+For the buttons on the site I have kept with some of the standard Bootstrap colors, not just because they are already configured, but I instantly liked the way they popped of the page, in contrast to the general black, white and grey feel of the other page elements.
 
-The font chosen for the site is google fonts 'Mukta', sans-serif', chosen for it's crisp feel and it looks as good 
-large as it does smaller, and for that reason I chose to just use one font for the site.
+The font chosen for the site is google fonts 'Mukta', sans-serif', chosen for it's crisp feel and it looks as good large as it does smaller, and for that reason I chose to just use one font for the site.
 
 ## Code File Structure
 The 'Invitations' project app is made up of the following apps, apart from the main invitations app itself:
@@ -266,8 +263,7 @@ The 'Invitations' project app is made up of the following apps, apart from the m
 All the app pages have a responsive navigation bar with logo top-left, clicking the logo will take the user to the Home page. 
 The nav-bar is sticky and remains at the top of all pages, so basic navigation is always at hand. 
 
-On smaller screens and mobiles the product categories are collapsed into a mobile style burger menu, and the main logo is not 
-displayed, however a home icon is added to the navbar so it is easy for the user to get back to the home page at any time.
+On smaller screens and mobiles the product categories are collapsed into a mobile style burger menu, and the main logo is not displayed, however a home icon is added to the navbar so it is easy for the user to get back to the home page at any time.
 
 The invite collage is only displayed on the home page.
 
@@ -300,29 +296,23 @@ being shown.
 
 Each product is summarised in a card which depending on the screen size will display in columns of 4, 3, 2 or 1.
 
-Each card is made up of a product image, truncated name, price, category, review rating.  If a super-user is logged-in 
-then a red [Edit] button is displayed in the bottom right-hand corner.
+Each card is made up of a product image, truncated name, price, category, review rating.  If a super-user is logged-in then a red [Edit] button is displayed in the bottom right-hand corner.
 
 Clicking anywhere above the category will take the user to the product detail page.
 
-On the right-edge of the screen is an up-arrow icon which at any point when clicked will take the user to the top 
-of the page.
+On the right-edge of the screen is an up-arrow icon which at any point when clicked will take the user to the top of the page.
 
-At the top of the page or in the 'hamburger' menu on smaller devices are the product category search options. Choosing 
-any of these will show the 'Product Results' page with the requested results.
+At the top of the page or in the 'hamburger' menu on smaller devices are the product category search options. Choosing any of these will show the 'Product Results' page with the requested results.
 
 [Products Detail page](https://devtog-invitations.herokuapp.com/products/15/)
 
 This page displays the product details.
 
-On the left side is the product image and to the right the product details: name, category, price, description and 
-review rating.  If a super-user is logged-in then a red [Edit] button is displayed at the bottom right-hand corner.
+On the left side is the product image and to the right the product details: name, category, price, description and review rating.  If a super-user is logged-in then a red [Edit] button is displayed at the bottom right-hand corner.
 
-To the right of the price is the quantity input field with '+' '-' icons to change the quantity, and below this is 
-the [Add to Cart] button.
+To the right of the price is the quantity input field with '+' '-' icons to change the quantity, and below this is the [Add to Cart] button.
 
-Clicking [Add to Cart] will add the quantity to the users cart and display a pop-up message with the details, this 
-message also contains a [Checkout] button which would take the user to the 'Checkout' page
+Clicking [Add to Cart] will add the quantity to the users cart and display a pop-up message with the details, this message also contains a [Checkout] button which would take the user to the 'Checkout' page
 
 Clicking on the review stars will show the user reviews below the product image.
 
@@ -332,16 +322,11 @@ On smaller screens and mobiles the product details are shown below the product i
 
 This page displays the users shopping cart.
 
-On the left side is a list of the cart contents: product image, name, price, qty and product total.
-If a cart item is an invite then a [View/Edit] button will be displayed below it's image to allow the 
-user to make any last minute changes, prior to purchase. (the cart is automatically updated when the user 
-returns from the view/edit)
+On the left side is a list of the cart contents: product image, name, price, qty and product total. If a cart item is an invite then a [View/Edit] button will be displayed below it's image to allow the user to make any last minute changes, prior to purchase. (the cart is automatically updated when the user returns from the view/edit)
 
-Below the item list are two buttons [Shop More] which takes the user back to a 'Product Results' page and the 
-[Update Cart] button, which will update the cart with any quantity changes made to the cart items.
+Below the item list are two buttons [Shop More] which takes the user back to a 'Product Results' page and the [Update Cart] button, which will update the cart with any quantity changes made to the cart items.
 
-To the right of the item list is a summary of the shopping cart totals and a [Checkout] button, which when clicked 
-will take the user to the 'Checkout' page.
+To the right of the item list is a summary of the shopping cart totals and a [Checkout] button, which when clicked will take the user to the 'Checkout' page.
 
 On smaller screens and mobiles the summary and [Checkout] button are displayed above the item list.
 
@@ -349,12 +334,9 @@ On smaller screens and mobiles the summary and [Checkout] button are displayed a
 
 This page displays the checkout details and order-form.
 
-On the left side an order summary show a list of the items in the shopping cart(image, name, qty & sub-total) and 
-below this are the order totals for(order, delivery & grand total).
+On the left side an order summary show a list of the items in the shopping cart(image, name, qty & sub-total) and below this are the order totals for(order, delivery & grand total).
 
-To the right is the order-form and the [Pay Now] button which when clicked will attempt to contact Stripe and take 
-the users payment, if successful an order confirmation message and screen will be shown, detailing what the user 
-has ordered.
+To the right is the order-form and the [Pay Now] button which when clicked will attempt to contact Stripe and take the users payment, if successful an order confirmation message and screen will be shown, detailing what the user has ordered.
 
 [Checkout - Success confirmation page](#)
 
@@ -365,37 +347,28 @@ This page displays order and product details of what the customer has just order
 
 This page displays user details, order history and reviews made.
 
-To the left is a 'Order History' list showing what orders the user has placed, clicking on an order will show the 
-user the original order confirmation detailing what was ordered and allow the user to review a purchased product.
+To the left is a 'Order History' list showing what orders the user has placed, clicking on an order will show the user the original order confirmation detailing what was ordered and allow the user to review a purchased product.
 
-To the right is the 'User Details' form which they can use to edit their details and then update using the [Update] 
-button below.
+To the right is the 'User Details' form which they can use to edit their details and then update using the [Update] button below.
 
-Below these is a 'My Product Reviews' section which lists the reviews a user has made, clicking on a review will allow 
-the user to edit or delete the review.
+Below these is a 'My Product Reviews' section which lists the reviews a user has made, clicking on a review will allow the user to edit or delete the review.
 
-On smaller screens and mobiles the elements are re-ordered so that the 'User Details' form is at the top, with 'Order History' 
-and 'My Product Reviews' below.
+On smaller screens and mobiles the elements are re-ordered so that the 'User Details' form is at the top, with 'Order History' and 'My Product Reviews' below.
 
 [Profile - Previous order confirmation](#)
 
-This page shows the same information as the 'Success confirmation' page only now there is a [Review Product] button 
-below each order item, which when clicked will allow the user to add a review for that product.
+This page shows the same information as the 'Success confirmation' page only now there is a [Review Product] button below each order item, which when clicked will allow the user to add a review for that product.
 
-Below the order details are two buttons [Shop Now] which takes the user to a 'Products Results' page and a [My Profile] 
-button which will take the user back to their profile page.
+Below the order details are two buttons [Shop Now] which takes the user to a 'Products Results' page and a [My Profile] button which will take the user back to their profile page.
 
 
 [Product Review page](#)
 
 This page allows the user to add, edit or delete their reviews.
 
-To the left is the product image and on the right is the product name and a form allowing the user to enter a short 
-comment and select a rating from 1 to 5. The button will dynamically change between [Add Review] and [Update Review] 
-depending on review action being done.
+To the left is the product image and on the right is the product name and a form allowing the user to enter a short comment and select a rating from 1 to 5. The button will dynamically change between [Add Review] and [Update Review] depending on review action being done.
 
-When editing a review a 'Delete' checkbox is shown which if checked will delete the review when the [Update Review] 
-button is clicked. (the user will be prompted to make sure)
+When editing a review a 'Delete' checkbox is shown which if checked will delete the review when the [Update Review] button is clicked. (the user will be prompted to make sure)
 
 
 ## Future Features
@@ -423,14 +396,11 @@ For running locally and deployment information please use the following link [DE
 
 ## Credits
 ### Text content
-All stationery product titles/text have been copied from various other product realted sites, such as Amazon, 
-Google, Ebay, etc. In some areas I have slightly altered text and for some products just made it up.  If this 
-was not an educational project then all product text would be written in-house or provided by our suppliers.
+All stationery product titles/text have been copied from various other product realted sites, such as Amazon, Google, Ebay, etc. In some areas I have slightly altered text and for some products just made it up.  If this was not an educational project then all product text would be written in-house or provided by our suppliers.
 
 The 'Privacy Policy' and 'Terms & Conditions' text were copied from a website template on [Website Planet](https://www.websiteplanet.com/blog/make-privacy-policy-gdpr-compliant/)
 
-Any trademark names used remain the property of their copyright owner. If this was not an educational project 
-then some products would probably have different names.
+Any trademark names used remain the property of their copyright owner. If this was not an educational project then some products would probably have different names.
 
 ### Logo
 The 'Invitations' logo is just simple text with a border.
@@ -438,20 +408,15 @@ The 'Invitations' logo is just simple text with a border.
 ### Photos / Invites
 The home-page collage was created by myself.
 
-All stationery product photos have been copied from various other product realted sites, such as Amazon, Google, 
-Ebay, etc. If this was not an educational project then all these photos would be taken in-house or provided 
-by our suppliers.
+All stationery product photos have been copied from various other product related sites, such as Amazon, Google, Ebay, etc. If this was not an educational project then all these photos would be taken in-house or provided by our suppliers.
 
-All invite layouts were designed by myself, if an invite uses a photo then this has been taken from Unsplash.com 
-or google. Again if this was not an educational project then permission would have been sought prior to their use.
+All invite layouts were designed by myself, if an invite uses a photo then this has been taken from Unsplash.com or google. Again if this was not an educational project then permission would have been sought prior to their use.
 
 ### Invite Fonts
-All the fonts used to personalise invites are from 'Google Fonts' which I believe are free to use as they are released 
-under open source licenses. However if this was not an educational project I would confirm this.
+All the fonts used to personalise invites are from 'Google Fonts' which I believe are free to use as they are released under open source licenses. However if this was not an educational project I would confirm this.
 
 ### Code
-Thanks to the Stackoverflow, W3 and other communities & blogs for helping solve some issues/problems along the way.  Details 
- listed below:
+Thanks to the Stackoverflow, W3 and other communities & blogs for helping solve some issues/problems along the way.  Details listed below:
 - [Change Bootstrap Hamburger Toggler by Amirreza Mohammadi](https://stackoverflow.com/questions/42586729/bootstrap-4-change-hamburger-toggler-color)
 - [CSS to remove caret from Bootstrap dropdown by FluffyKitten](https://stackoverflow.com/questions/62964610/css-class-to-remove-caret-in-bootstrap-dropdown-menu-being-ignored)
 - [jQuery - back to the top of the page by Explosion Pills](https://stackoverflow.com/questions/14249998/jquery-back-to-top)
@@ -473,13 +438,9 @@ Thanks to the Stackoverflow, W3 and other communities & blogs for helping solve 
 
 
 ## Acknowledgments
-The idea for this project came from recently designing my sisters wedding invitations and when complete thinking this would be a 
-good challenge to create an application which could allow users to personalise invites for themselves, a bit like Moonpig do with 
-greetings cards.
+The idea for this project came from recently designing my sisters wedding invitations and when complete thinking this would be a good challenge to create an application which could allow users to personalise invites for themselves, a bit like Moonpig do with greetings cards.
 
-A big thank you to my mentor, code-institute courses, the Slack community and many great reference sites out there including 
-Stackoverflow and W3Schools, as well as the online documentation for Django, Python, Flask, MongoDB, Amazon S3, Heroku, 
-Bootstrap, Crispy, etc
+A big thank you to my mentor, code-institute courses, the Slack community and many great reference sites out there including Stackoverflow and W3Schools, as well as the online documentation for Django, Python, Flask, MongoDB, Amazon S3, Heroku, Bootstrap, Crispy, etc
 
 Other helpful tutorials and articles accessed:
 - [Article on django signals](https://medium.com/@singhgautam7/django-signals-master-pre-save-and-post-save-422889b2839)
