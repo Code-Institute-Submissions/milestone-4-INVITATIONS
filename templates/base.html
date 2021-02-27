@@ -165,7 +165,7 @@
                             {% endif %}
                             {% if request.user.is_superuser %}
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" title="Site admin">Site Management</a>
+                                <a class="dropdown-item" href="{% url 'admin:index' %}" title="Site admin">Site Management</a>
                             {% endif %}
                         </div>
                     </div>

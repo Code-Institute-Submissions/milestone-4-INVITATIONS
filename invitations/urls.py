@@ -17,3 +17,7 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler500 = 'invitations.views.handler500'
+
+admin.site.site_header = '-INVITATIONS- Administration'
+admin.site.index_title = 'Features area'
+admin.site.site_title = '-INVITATIONS- site admin'
