@@ -7,15 +7,12 @@ The live deployed app can be accessed using the following link: [-INVITATIONS-](
 - [Summary](#summary)
 - [Business Goals](#business-goals)
 - [Customer Goals](#customer-goals)
-- [Advertiser Goals](#advertiser-goals)
 - [UX](#ux)
-  * [Ideal Customer:](#ideal-customer)
-  * [Ideal Administrator:](#ideal-administrator)
-  * [Ideal Advertiser:](#ideal-advertiser)
+  * [Ideal Customer](#ideal-customer)
+  * [Ideal Administrator](#ideal-administrator)
 - [User Stories](#user-stories)
   * [Customer](#customer-stories)
   * [Administrator](#administrator-stories)
-  * [Advertiser](#advertiser-stories)
 - [Information Architecture](#information-architecture)
 - [Wireframe Designs](#wireframe-designs)
 - [Surface](#surface)
@@ -29,7 +26,7 @@ The live deployed app can be accessed using the following link: [-INVITATIONS-](
 - [Credits](#credits)
   * [Text content](#text-content)
   * [Logo](#logo)
-  * [Photos](#photos)
+  * [Photos](#photos-and-invites)
   * [Code](#code)
 - [Acknowledgments](#acknowledgments)
 - [Disclaimer](#disclaimer)
@@ -55,7 +52,7 @@ The purpose of the ‘Invitations’ project is to create an app which will allo
 
 ## UX
 
-### Ideal Customer:
+### Ideal Customer
 - English speaking (UK & Ireland based/visiting)
 - Looking for invitation design(s) for themselves or the family.
 
@@ -251,7 +248,7 @@ The 'Invitations' project app is made up of the following apps, apart from the m
 - HTML
 - CSS
 - JavaScript
-- Python v3.8.6
+- Python
 - Django - web framework
 - Jinja - template language
 - Bootstrap v4.5
@@ -405,7 +402,7 @@ Any trademark names used remain the property of their copyright owner. If this w
 ### Logo
 The 'Invitations' logo is just simple text with a border.
 
-### Photos / Invites
+### Photos and Invites
 The home-page collage was created by myself.
 
 All stationery product photos have been copied from various other product related sites, such as Amazon, Google, Ebay, etc. If this was not an educational project then all these photos would be taken in-house or provided by our suppliers.
