@@ -24,7 +24,7 @@
 The [screenshots](/docs/customer_stories/) for the customer stories are in /docs/customer_stories/
 
 1. How do I search for products using a word or phrase?
-    1. From any page click the 'Magnigying Glass' icon on the navigation-bar.
+    1. From any page click the 'Magnifying Glass' icon on the navigation-bar.
     2. Enter your search word or phrase.
     3. Click the blue 'Magnifying Glass' on the search window.
     4. The search results will then be displayed.
@@ -122,6 +122,41 @@ The [screenshots](/docs/customer_stories/) for the customer stories are in /docs
     6. Your review will be deleted, a confirmation message will be displayed and you will be returned to your 'User Profile'
 
 
+### Administrator
+
+For all the admin functions you will need to be logged-in as a super-user. At any point if you are not sure about something you should contact the support/development team before going any further.
+
+1. How do I maintain the products?
+    1. You can quickly edit a particular product by finding it in the store and clicking the red [Edit] button displayed in product search results or on product detail pages.
+    2. Here you can edit the required information and click [Save] at the bottom of the screen or you can delete the product by clicking the [Delete] button.
+    3. The 'CUSTOM DETAIL LINES' are used to set the layout of fields for customisable invites, other products don't need the. These fields generally are self-explanatory, the Y_POS field is approx. the number of pixels from the top of the raw_image to position the text, The name field should only contain letters, numbers or '_' '-'.
+    4. The 'View image' is the image which all products require to display as a product.
+    5. The 'Raw image' is only for invites and is used to create a customers final downloadable invite, these images must be (1748px x 2480px) currently the site only supports portrait invites.
+    6. The 'Customize image' is only for invites and is used to allow the user to personalise the invite on-screen, these images are the same as the 'Raw image' but water-marked and sized to (437px x 620px).
+    7. If you are adding an invite you must also tick the 'Customizable' checkbox and the images mentioned in points 5 & 6 are mandatory.
+
+2. How do I maintain the order information?
+    1. If you are already in the '-INVITATIONS- Administration' you can just click 'Orders' under the 'CHECKOUT' tab on the left-side of the window. If you are on the main site then first go to 'My Profile' and click on 'Site Management'.
+    2. From here you can edit/delete existing orders and order lines and also add in a new order if required.(however no card processing will take place from here)
+
+3. How do I maintain the FAQs?
+    1. If you are already in the '-INVITATIONS- Administration' you can just click 'Faqs' under the 'FAQ' tab on the left-side of the window. If you are on the main site then first go to 'My Profile' and click on 'Site Management'.
+    2. From here you can edit/delete existing 'FAQs' and also add in a new FAQ.
+    3. The 'Display' field dictates how high up the screen a FAQ will appear, the lower the number the closer to the top.
+
+4. How do I maintain the product reviews?
+    1. If you are already in the '-INVITATIONS- Administration' you can just click 'Reviews' under the 'PRODUCTS' tab on the left-side of the window. If you are on the main site then first go to 'My Profile' and click on 'Site Management'.
+    2. From here you can edit/delete existing 'Reviews' and also add in a new Review.
+
+5. How do I maintain the product categories?
+    1. If you are already in the '-INVITATIONS- Administration' you can just click 'Categories' under the 'PRODUCTS' tab on the left-side of the window. If you are on the main site then first go to 'My Profile' and click on 'Site Management'.
+    2. From here you can edit/delete existing 'Categories' and also add in a new Category.
+    3. Adding / Deleting a Category is not recommended without talking to the software developers first.
+
+6. How do I maintain the user accounts?
+    1. If you are already in the '-INVITATIONS- Administration' you can just click 'Users' under the 'AUTHENTICATION AND AUTHORIZATION' tab on the left-side of the window. If you are on the main site then first go to 'My Profile' and click on 'Site Management'.
+    2. From here you can edit/delete existing 'Users' and also add in a new User.
+    3. You may also need to access the 'Email Addresses' option under the 'ACCOUNTS' tab if there is an issue with a users email verification.
 
 
 ## Testing elements and functionality of the project

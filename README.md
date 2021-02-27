@@ -82,12 +82,12 @@ The purpose of the ‘Invitations’ project is to create an app which will allo
 14. How can I delete a review I have made?
 
 ### Administrator Stories
-1. How do I add new products?
-2. How do I edit existing products?
-3. How do I remove an existing product?
-4. How do I view order information?
-5. How do I add/edit/remove an FAQ?
-6. How do I add/edit/remove an unsuitable review?
+1. How do I maintain the products?
+2. How do I maintain the order information?
+3. How do I maintain the FAQs?
+4. How do I maintain the product reviews?
+5. How do I maintain the product categories?
+6. How do I maintain the user accounts?
 
 ## Information Architecture
 ### Database Choice
