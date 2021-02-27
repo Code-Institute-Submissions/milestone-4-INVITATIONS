@@ -127,7 +127,7 @@ i {
 }
 
 .page__default {
-    min-height: 70vh;
+    min-height: 80vh;
     background: var(--themePageGrey);
 }
 
