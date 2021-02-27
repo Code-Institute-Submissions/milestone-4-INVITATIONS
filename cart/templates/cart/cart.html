@@ -140,12 +140,14 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12">
-                                <a class="btn__default float-left" href="{% url 'products' %}">
+                            <div class="col-12 col-sm-4 col-md-3 order-2 order-sm-1 mt-4 mt-sm-0">
+                                <a class="btn__default w-100 px-1" href="{% url 'products' %}">
                                     <i class="fas fa-shopping-cart"></i>
                                     <span class="pl-1">SHOP MORE</span>
                                 </a>
-                                <button class="btn__default float-right" id="btn-update-cart" type="submit">
+                            </div>
+                            <div class="col-12 col-sm-4 col-md-3 offset-sm-4 offset-md-6 order-1 order-sm-2">
+                                <button class="btn__default w-100 px-1" id="btn-update-cart" type="submit">
                                     <i class="fas fa-sync-alt"></i>
                                     <span class="pl-1">UPDATE CART</span>
                                 </button>
