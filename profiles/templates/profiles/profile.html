@@ -32,7 +32,7 @@
                 <hr class="mt-1 mb-1">
                 <!-- Order history lines -->
                 <div class="profile__list">
-                    {% for order in order_history %}
+                    {% for order in order_history reversed %}
                         <div data-set-order-line="{{ order.pk }}" class="row no-gutters profile__order-line p-1 mt-1">
                             <div class="col-6 col-sm-4">
                                 <p class="mb-0">{{ order.pk|stringformat:"010d" }}</p>
@@ -79,7 +79,7 @@
                 <hr class="mt-1 mb-1">
                 <!-- Review lines -->
                 <div id="review-list" class="profile__list">
-                    {% for review in product_reviews %}
+                    {% for review in product_reviews reversed %}
                         <div data-set-review-line="{{ review.pk }}" class="row no-gutters profile__review-line p-1 mt-1">
                             <div class="col-7 col-lg-8">
                                 <p class="mb-0">{{ review.product.name }}</p>
