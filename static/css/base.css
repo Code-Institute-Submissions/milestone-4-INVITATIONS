@@ -148,13 +148,13 @@ i {
 }
 
 .page__top-btn {
-    height: 42px;
-    width: 42px;
+    height: 40px;
+    width: 40px;
     position: fixed;
     /* 86px is the height of the nav area */
     bottom: calc((100% - 86px) / 2);
-    right: 0;
-    font-size: 1.6em !important;
+    right: -4px;
+    font-size: 1.8em;
     cursor: pointer;
 }
 
@@ -468,6 +468,10 @@ footer h4 {
     }
 
     .review__product-name {
+        font-size: 1.6em;
+    }
+
+    .page__top-btn {
         font-size: 1.6em;
     }
 
