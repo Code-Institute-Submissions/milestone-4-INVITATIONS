@@ -7,6 +7,8 @@
 ## Table of Contents
 - [Software Tools](#software-tools)
 - [User story testing](#user-story-testing)
+- [Customer - user story testing](#customer)
+- [Administrator - user story testing](#administrator)
 - [Testing elements and functionality of the project](#testing-elements-and-functionality-of-the-project)
 - [Additional Testing](#additional-testing)
 - [Errors and Issues Found](#errors-and-issues-found)
@@ -166,54 +168,60 @@ For all the admin functions you will need to be logged-in as a super-user. At an
 - Make sure that all app pages display as they should.
 - Ensure that the logo and navigation display correctly on different device screen sizes.
 - Check that all navigation and logo links are working.
+- Check that footer links are working and the information pages display correctly.
 - Check that the alt/title text appears on the logo image.
 - Ensure that font sizes are readable on different devices.
 - Check that footer social links are working.
+- Make sure user messages are displaying when & where they should.
+- Check all pages display properly on different screen sizes.
 
 ### Home page
-1. Check the search text input works and the [Search] button functions.
-2. Check expected search results.
+1. Check the [Shop Now] button link.
+2. Check hero-image displays correctly.
 
-### About page
-1. Check that the text displays correctly
-2. Ensure that the DB stats are correct.
+### Text Search
+1. Check that the text search is working as expected.
+2. Check the [X] button closes the search.
+3. Check the clear text button works.
 
-### Activities (menu)
-1. Check that the menu displays as it should on all devices.
-2. Ensure each menu option (All, Featured, Recently Added, Animals, Attraction, Crafting, Food, Nature, Sport and Leisure) give the expected results.
+### Product Search Results
+1. Check that the title is correct for different categories and search options.
+2. Ensure we get the expected search results.
+3. Make sure the products display correctly on different devices.
+4. Check the [Edit] button works as expected.
+5. Make sure the 'Category' link displays products from same category.
+6. Check the 'page-top' arrow icon on the right-side is working.
 
-### Submit/Edit an Activity
-1. Confirm all the input fields work as expected and the [Add Activity] button functions and displays processing indicator.
-2. Confirm that an 'admin' user can edit any activity.
-3. Check client and server side form validation is working as expected.
-4. Check [x] link in the top-right allows the user to abort the submit/edit.
+### Product Details
+1. Check that all product details are correctly displayed.
+2. Make sure the quantity buttons and [Update Cart] button work as expected
+
+### Shopping Cart
+1. Check that the cart is displaying correctly on different screen sizes.
+2. Confirm all buttons and inputs are working correctly and as expected.
+3. Double-check that values are correct.
+
+### Checkout
+1. Check that the checkout is displaying correctly on different screen sizes.
+2. Confirm all buttons and inputs are working correctly and as expected.
+3. Double-check that values are correct.
+4. Ensure the form is working as expected.
+5. Check that order confirmation is correct.
+6. Confirm that user emails for confirmation and download links have been received and are formatted as expected.
+7. Check the database has been updated with the order/user information.
 
 ### Login/Register
-1. Check the email and password input fields work and the [Login] button functions and a user can actually be logged-in.
-2. Check the [Register] button takes the user to the 'User Registration'.
-3. At 'User Registration' confirm all the input fields work as expected and the [Register] button functions.
-4. Check that a user actually gets registered.
-5. Check the 'HERE' to login link works.
+1. Confirm all buttons and inputs are working correctly and as expected.
+2. Check that new a user can register, confirm and login.
+3. Check the database has been updated with user information.
 
-### Profile (menu)
-1. Check that the menu displays as it should on all devices.
-2. Ensure each menu option (View Profile, My Favourites, Submitted by Me, Logout) give the user the expected results.
+### Profile
+1. Confirm all buttons and inputs are working correctly and as expected.
+2. Check order history and reviews are showing the correct data.
 
-### Displayed Results (from Activities or Profile menu options)
-1. Check that the results are displayed in the correct format depending on the screen size.
-2. Has the correct flash message been displayed.
-3. Ensure that the image and [More Details] button link to the full activity view.
-4. Check that the [Edit] button only displays if the user originally submitted the activity or the current user is an admin/moderator.
-5. Confirm that the correct data has been displayed.
-
-### Activity View
-1. Check that the results are displayed in the correct format depending on the screen size.
-2. Ensure that the 'Add to Activity Favourites' heart-icon works as expected.
-3. Check the alt/title text changes on the heart-icon.
-4. Ensure activity links work and only appear if the data is present.
-5. Are the activity flag-icons correct.
-6. Check the 'creator' info at the bottom of the view.
-7. Confirm that the correct data has been displayed.
+### Reviews
+1. Confirm all buttons and inputs are working correctly and as expected.
+2. Check the database to make sure any changes the user makes are updated.
 
 ## Additional Testing
 1. Asked friends and family to use the application on their phone, tablets and desktops where possible and let me know any issues. Got good feedback, with no real issues.
@@ -223,19 +231,12 @@ For all the admin functions you will need to be logged-in as a super-user. At an
 ## Errors and Issues Found
 (only includes main errors/issues rather than easy to solve coding, typos, alignment, etc which caused only minor errors)
 
-1. **Uploaded images on Heroku**
-As far as user images on this project, I did not realise that we could just use a link rather than getting the users to actually upload images. So I did go down the route of image uploads, cropping, resizing, etc.  This all worked well while testing on GitPod, however when I deployed the app to Heroku the images no longer appeared. Other than the tutor led course material I had never used Heroku before, so was a little puzzled but after some research I realized that while the image is actually uploaded to Heroku it doesn't actually store the image for very long.  I had a decision to make, undo all the effort and coding I had done for the images or spend time to find a solution. After further investigation I discovered AWS S3 Bucket was a place for my app to upload the images to and serve them back to the users.  This took more time than I thought, but I feel it was well worth it in the end.
+**Generating Invite Images after deployment**
 
-2. **Image cropping/resizing**
-When resizing images occasionally a landscape image being resized/cropped ends up with black bars either side of the image.  Due to time constraints I have not yet had time to solve this issue.
+Before deployment, generating the invites was perfectly fine, I always had a feeling that there would be a little issue to sort once deployed, but it wasn't so little.  Once all the storage was being handled by the 'S3 Bucket' generating invites didn't work! 
 
-3. **Additional location value**
-During testing and data entry it became obvious that we really needed an additional value for the 'location' field to deal with activities which were 'Out & About' but did not have a specific venue.  So, 'At a Venue' was added for activities with a specific address.
+At first it could find the 'Raw' image file, solved that, but then the problem was deeper, it couldn't load the fonts.  Found a way to temporary by-pass the font issue with a default system font, that way I could crack on to getting it to save the invite. However the existing save method which worked fine in development on GitPod just didn't work. 
 
-4. **https:// changing to http://**
-While testing on Heroku I have noticed that while the site starts off on a  secure 'https://' url, as soon as you do an activity/view it changes to a 'http://' url. Even though at the base of the browser window it clearly says it is linking to a 'https://' url.  In 'heroku logs --tail' you can see the protocol change to 'http'.
-Due to time constraints I have not had the time to investigate this further yet, but think this issue could be related to the fact that I haven't specifically added an SSL certificate to my Heroku Dyno or the fact that I am not using a paid Dyno.
-Either way this issue would need to be solved before going fully live.
+After much searching, eventually I found a different way of saving the image file using 'default_storage' imported from 'django.core.files.storage', which after reading seemed a very logical/django way of doing it.  I applied this method into my code and it worked, and then once applied to the font issue as well I could then correctly generate the invites! The stackoverflow answer I found was by 'minism' and is shown below:
 
-5. **Image file-input field**
-On an actual Android mobile and tablet the 'file-input' filename still overflowed, but in Google Dev Tools it does not. Performed an update for Chrome on both devices and now it works as expected on the tablet but the mobile still has the issue, further investigation is required.
+[Django - Getting PIL Image save method to work with Amazon s3boto Storage](https://stackoverflow.com/questions/14680323/django-getting-pil-image-save-method-to-work-with-amazon-s3boto-storage)
