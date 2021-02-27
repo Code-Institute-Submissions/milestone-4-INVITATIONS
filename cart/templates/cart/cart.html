@@ -112,8 +112,14 @@
                             <input type="hidden" value="{{ item.invite_data }}" name="invite-data-{{ item.product_id }}" id="invite-data-{{ item.product_id }}">
                             <div class="col-12 col-sm-2 text-right">
                                 <p class="mt-1 mt-sm-0 mb-0 fz__md">
-                                    <span class="d-sm-none"><strong>Product Total: </strong></span>
-                                    £{{ item.line_total }}
+                                    <span class="d-sm-none pr-2">Product Total: </span>
+                                    <span class="fz__lg d-sm-none">
+                                        <strong>£{{ item.line_total }}</strong>
+                                    </span>
+                                    <span class="d-none d-sm-inline">
+                                        <strong>£{{ item.line_total }}</strong>
+                                    </span>
+                                    
                                 </p>
                             </div>
                             {% if item.invite_data %}
