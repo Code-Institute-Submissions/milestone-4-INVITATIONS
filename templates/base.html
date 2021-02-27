@@ -208,7 +208,7 @@
                             {% if 'ADDED' in msg_title or 'UPDATE' in msg_title %}
                                 <hr class="mt-2 mb-1">
                                 <p>Your shopping cart contains: {{ cart_product_count }} item(s)</p>   
-                                {% for item in cart_items %}
+                                {% for item in cart_items reversed %}
                                     <div class="row toast__shopping-cart no-gutters mt-1">
                                         <div class="col-3">
                                             {% if item.image %}
