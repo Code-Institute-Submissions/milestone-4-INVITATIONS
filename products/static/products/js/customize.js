@@ -218,6 +218,8 @@ const customiseInvite = {
             } else {
                 $('#js__product-warning').removeClass('d-none');
                 $("#js__product-personalised").removeClass('d-none');
+                $("#js__add-to-cart-btn").prop('disabled', false);
+                $("#js__add-to-cart-msg").addClass('d-none');
             }
         });
 

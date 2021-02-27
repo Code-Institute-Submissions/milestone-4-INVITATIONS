@@ -78,10 +78,11 @@
                                             Already in your shopping cart
                                         </a>
                                     {% else %}
-                                        <button type="submit" class="btn btn__default" title="Add product to the shopping cart">
+                                        <button id="js__add-to-cart-btn" type="submit" disabled class="btn btn__default" title="Add product to the shopping cart">
                                             <i class="fas fa-shopping-cart"></i>
                                             <span class="pl-1">ADD TO CART</span>
                                         </button>
+                                        <p id="js__add-to-cart-msg" class="text-muted small mt-1 mb-0">(button disabled until invite personalised)</p>
                                     {%endif %}
                                     <input type="hidden" name="original_path" value="{{ request.path }}">
                             </div>
