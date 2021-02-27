@@ -100,34 +100,34 @@ def view_checkout(request):
 def checkout_success(request, order_number):
     """ Display successful order confirmation """
 
-    if request.user.is_authenticated:
-        try:
-            order = Order.objects.get(pk=order_number)
-        except Order.DoesNotExist:
-            messages.error(request,
-                           f'Sorry cannot locate confirmation data for \
-                           order number {int(order_number):010}',
-                           extra_tags='order confirmation')
+    try:
+        order = Order.objects.get(pk=order_number)
+    except Order.DoesNotExist:
+        messages.error(request,
+                       f'Sorry cannot locate confirmation data for \
+                       order number {int(order_number):010}',
+                       extra_tags='order confirmation')
 
-            return redirect('home')
+        return redirect('home')
 
-        else:
-            if order.user == request.user:
-                context = {
-                    'order': order,
-                }
+    else:
+        if request.user.is_authenticated:
+            if order.user != request.user:
+                messages.error(request,
+                               f'Sorry cannot view the confirmation for \
+                               number {int(order_number):010}',
+                               extra_tags='order confirmation')
 
-                if 'cart' in request.session:
-                    del request.session['cart']
+                return redirect('home')
 
-                return render(request, 'checkout/success.html', context)
+        context = {
+            'order': order,
+        }
 
-    messages.error(request,
-                   f'Sorry cannot view the confirmation for order number \
-                   {int(order_number):010}',
-                   extra_tags='order confirmation')
+        if 'cart' in request.session:
+            del request.session['cart']
 
-    return redirect('home')
+        return render(request, 'checkout/success.html', context)
 
 
 def order_history(request, order_number):
