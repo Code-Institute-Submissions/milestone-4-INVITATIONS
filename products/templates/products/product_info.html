@@ -47,9 +47,9 @@
                             </p>
                         {% endif %}
                         <!-- Quantity to add -->
-                        <div class="row">
+                        <div class="row d-flex align-items-center">
                             <div class="col-6 col-sm-8 col-md-6 col-xl-7">
-                                <p class="product__price mt-0 mb-0">£{{ product.price }}</p>
+                                <p class="product__price mt-0 mb-0 font-weight-bold">£{{ product.price }}</p>
                             </div>
                             <div class="col-6 col-sm-4 col-md-6 col-xl-5">
                                 {% with product.customizable as custom %}
@@ -59,7 +59,7 @@
                                             <i class="fas fa-minus icon"></i>
                                         </button>
                                     </div>
-                                    <input class="form-control form-control-sm text-center" {% if custom %}readonly{% endif %} type="number" min="1" max="99" value="1" name="qty-item-{{ product.id }}" id="qty-item-{{ product.id }}">
+                                    <input class="form-control form-control-sm text-center p-0" {% if custom %}readonly{% endif %} type="number" min="1" max="99" value="1" name="qty-item-{{ product.id }}" id="qty-item-{{ product.id }}">
                                     <div class="input-group-append">
                                         <button class="btn btn-light rounded-0 p-0 qty__btn" {% if custom %}disabled{% endif %} type="button" id="btn-plus-item-{{ product.id }}">
                                             <i class="fas fa-plus icon"></i>
