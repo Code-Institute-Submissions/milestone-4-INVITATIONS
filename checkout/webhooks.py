@@ -73,7 +73,6 @@ def check_invites_required(order):
                'invite_data': item.invite_data,
                'raw_image_url': item.product.raw_image.url,
                'order_number': order.pk,
-               'user_id': order.user.pk,
             }
             invites.append(invite)
     return invites
