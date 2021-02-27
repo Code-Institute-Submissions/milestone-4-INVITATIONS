@@ -4,7 +4,7 @@
 {% block extra_title %}Home page{% endblock %}
 
 {% block content %}
-<main class="container-fluid page__default pt-2 pb-3">
+<main class="container-fluid page__default pt-2 pb-3 d-flex align-items-center">
     <section class="row">
         <div class="col-12 col-lg-5 text-center mt-2 my-lg-auto order-1 order-lg-2">
             <div class="d-block d-lg-none">
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="offset-xs-2 col-xs-10 col-lg-7 text-center mt-2 my-lg-auto order-2 order-lg-1">
-            <img src="{{ MEDIA_URL }}home-page.png" class="img-fluid" alt="Home page samples" title="Home page samples">
+            <img width="75%" class="img-fluid" src="{{ MEDIA_URL }}home_sm.png" srcset="{{ MEDIA_URL }}home_md.png 600w, {{ MEDIA_URL }}home_lg.png 1000w" alt="Home page samples" title="Home page samples">
         </div>
     </section>
 </main>
