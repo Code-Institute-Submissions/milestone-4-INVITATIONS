@@ -24,6 +24,10 @@ body {
     margin-bottom: 4px;
 }
 
+.fz__md {
+    font-size: 1.1em;
+}
+
 .fz__lg {
     font-size: 1.5em;
 }

@@ -80,11 +80,11 @@
                             </div>
                             <!-- Item name -->
                             <div class="col-12 col-sm-3">
-                                <p id="invite-title-{{ item.product_id }}" class="mt-2 mt-sm-0">{{ item.name }}</p>
+                                <p id="invite-title-{{ item.product_id }}" class="mt-2 mt-sm-0 fz__md">{{ item.name }}</p>
                             </div>
                             <!-- Item price -->
                             <div class="col-5 col-sm-2 text-sm-right">
-                                <p>
+                                <p class=" fz__md">
                                     <span class="d-sm-none"><strong>Price:<br></strong></span>
                                     £{{ item.price }}
                                 </p>
@@ -96,22 +96,22 @@
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <button class="btn btn-light rounded-0 p-0 qty__btn js__item-btn" {% if custom %}disabled{% endif %} type="button" id="btn-minus-item-{{ item.product_id }}">
-                                                    <i class="fas fa-minus icon"></i>
+                                                    <i class="fas fa-minus fz__md icon"></i>
                                                 </button>
                                             </div>
-                                            <input class="form-control form-control-sm text-center js__cart-qty" {% if custom %}readonly{% endif %} type="number" min="0" max="99" value="{{ item.quantity }}" name="qty-item-{{ item.product_id }}" id="qty-item-{{ item.product_id }}">
+                                            <input class="form-control form-control-sm text-center fz__md p-0 js__cart-qty" {% if custom %}readonly{% endif %} type="number" min="0" max="99" value="{{ item.quantity }}" name="qty-item-{{ item.product_id }}" id="qty-item-{{ item.product_id }}">
                                             <div class="input-group-append">
                                                 <button class="btn btn-light rounded-0 p-0 qty__btn js__item-btn" {% if custom %}disabled{% endif %} type="button" id="btn-plus-item-{{ item.product_id }}">
-                                                    <i class="fas fa-plus icon"></i>
+                                                    <i class="fas fa-plus fz__md icon"></i>
                                                 </button>
                                             </div>
                                         </div>
                                         {% endwith %}
-                                    <a class="float-right" href="{% url 'remove_item' item.product_id %}"><small>Remove Item</small></a>
+                                    <a class="float-right fz__md" href="{% url 'remove_item' item.product_id %}"><small>Remove Item</small></a>
                             </div>
                             <input type="hidden" value="{{ item.invite_data }}" name="invite-data-{{ item.product_id }}" id="invite-data-{{ item.product_id }}">
                             <div class="col-12 col-sm-2 text-right">
-                                <p class="mt-1 mt-sm-0 mb-0">
+                                <p class="mt-1 mt-sm-0 mb-0 fz__md">
                                     <span class="d-sm-none"><strong>Product Total: </strong></span>
                                     £{{ item.line_total }}
                                 </p>
