@@ -3,7 +3,10 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header p-0">
-                <h5 class="modal-title p-2 pl-3" id="customize-modal-title">{{ modaltitle }}</h5>
+                <h5 class="modal-title p-2 pl-3" id="customize-modal-title">
+                    <span class="d-sm-none">{{ modaltitle|truncatechars:27 }}</span>
+                    <span class=" d-none d-md-block">{{ modaltitle|truncatechars:70 }}</span>
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
