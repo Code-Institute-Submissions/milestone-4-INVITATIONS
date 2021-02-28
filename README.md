@@ -397,6 +397,8 @@ All stationery product titles/text have been copied from various other product r
 
 The 'Privacy Policy' and 'Terms & Conditions' text were copied from a website template on [Website Planet](https://www.websiteplanet.com/blog/make-privacy-policy-gdpr-compliant/)
 
+The 'Delivery' text was copied from [Rymans](https://www.ryman.co.uk/delivery-options). If this was not an educational project I would have written our own, or obtained a commercially available template.
+
 Any trademark names used remain the property of their copyright owner. If this was not an educational project then some products would probably have different names.
 
 ### Logo
