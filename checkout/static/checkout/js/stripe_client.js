@@ -116,7 +116,6 @@
     // Shows a success message when the payment is complete
     var orderComplete = function(paymentIntentId) {
         loading(false);
-        console.log({paymentIntentId})
         document.querySelector(".result-message").classList.remove("hidden");
         document.querySelector("button").disabled = true;
     };
