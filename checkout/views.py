@@ -86,11 +86,12 @@ def view_checkout(request):
         if grand_total > 0:
             form_data = {}
             if request.user.is_authenticated:
-                form_data = {
-                    'full_name': f'{request.user.first_name.title()} '
-                                f'{request.user.last_name.title()}',
-                    'email': request.user.email,
-                }
+                if len(request.user.first_name) > 0:
+                    fullname = (f'{request.user.first_name.title()} '
+                                f'{request.user.last_name.title()}')
+                    form_data['full_name'] = fullname
+
+                form_data['email'] = request.user.email
 
             form = OrderForm(initial=form_data)
             context = {
