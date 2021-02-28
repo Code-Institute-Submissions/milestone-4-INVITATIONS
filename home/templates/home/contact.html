@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}Our story{% endblock %}
+
+{% block content %}
+<main class="container-fluid page__default">
+    <div class="page__container pt-5 pb-5">
+        <div class="row">
+            <section class="col-12 offset-lg-1 col-lg-10">
+                <h1 class="mb-4 page__title">Contact Us</h1>
+                <p>
+                    To get in-touch please use one of our social media accounts below. Thank you
+                </p>
+                <div class="row mt-3 mb-5">
+                    <div class="col-12 col-sm-4 mt-5 text-center">
+                        <a class="default__links" href="https://www.instagram.com" title="Visit our Instagram" target="_blank" rel="noreferrer noopener">
+                            <i class="fab fa-instagram-square display-1"></i>
+                        </a>
+                    </div>
+                    <div class="col-12 col-sm-4 mt-5 text-center">
+                        <a class="default__links" href="https://www.facebook.com" title="Visit our Facebook" target="_blank" rel="noreferrer noopener">
+                            <i class="fab fa-facebook-square display-1"></i>
+                        </a>
+                    </div>
+                    <div class="col-12 col-sm-4 mt-5 text-center">
+                        <a class="default__links" href="https://www.twitter.com" title="Visit our Twitter" target="_blank" rel="noreferrer noopener">
+                            <i class="fab fa-twitter-square display-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+{% endblock %}

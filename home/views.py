@@ -10,7 +10,7 @@ def index(request):
 def our_story(request):
     """ Our Story page view """
 
-    return render(request, 'home/our-story.html')
+    return render(request, 'home/our_story.html')
 
 
 def terms_conditions(request):
@@ -29,3 +29,9 @@ def delivery_info(request):
     """ Delivery Information page view """
 
     return render(request, 'home/delivery.html')
+
+
+def contact_us(request):
+    """ Contact Us page view """
+
+    return render(request, 'home/contact.html')
