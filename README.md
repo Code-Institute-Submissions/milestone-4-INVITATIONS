@@ -222,9 +222,7 @@ and change the display order.
 
 ## Wireframe Designs
 
-Click the link below to view a PDF file containing all the wireframe screen designs for Desktop, Tablet (portrait) & Mobile.
-
-[Wireframe PDF](docs/wireframes.pdf)  (ctrl-click to open in a new tab)
+The [Wireframes](/docs/customer_stories/) for the site are located in /docs/customer_stories/
 
 ## Surface
 From the beginning I wanted this app to have a very clean modern feel, where possible.
