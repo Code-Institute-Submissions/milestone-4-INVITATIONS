@@ -36,14 +36,14 @@
                     <div class="card h-100 rounded-0">
                         {% if product.view_image %}
                             <a href="{% url 'product_info' product.id %}">
-                                <img class="card-img-top img-fluid" src="{{ product.view_image.url }}" alt="{{ product.name }}">
+                                <img class="card-img-top img-fluid" src="{{ product.view_image.url }}" alt="{{ product.name }}" title="View product details for {{ product.name }}">
                             </a>
                             {% else %}
                             <a href="{% url 'product_info' product.id %}">
-                                <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ product.name }}">
+                                <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ product.name }}" title="View product details for {{ product.name }}">
                             </a>
                         {% endif %}
-                        <a class="product__link" href="{% url 'product_info' product.id %}">
+                        <a class="product__link" href="{% url 'product_info' product.id %}" title="View product details for {{ product.name }}">
                             <div class="card-body pt-0 pb-0">
                                 <h5 class="card-title product__title">{{ product.name }}</h5>
                                 <p class="card-text product__price mb-0">£{{ product.price }}</p>
