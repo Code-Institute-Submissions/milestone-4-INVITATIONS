@@ -22,8 +22,8 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 def view_checkout(request):
     """ A view to show the checkout form and save the order """
 
+    current_shopping_cart = cart_contents(request)
     if request.POST:
-        current_shopping_cart = cart_contents(request)
         form_data = {
             'full_name': request.POST['full_name'],
             'email': request.POST['email'],
@@ -82,19 +82,24 @@ def view_checkout(request):
                  please contact our sales team to check your order details, \
                  as payment may have already been processed. Thank you')
     else:
-        form_data = {}
-        if request.user.is_authenticated:
-            form_data = {
-                'full_name': f'{request.user.first_name.title()} '
-                             f'{request.user.last_name.title()}',
-                'email': request.user.email,
-            }
+        grand_total = current_shopping_cart['cart_grand_total']
+        if grand_total > 0:
+            form_data = {}
+            if request.user.is_authenticated:
+                form_data = {
+                    'full_name': f'{request.user.first_name.title()} '
+                                f'{request.user.last_name.title()}',
+                    'email': request.user.email,
+                }
 
-        form = OrderForm(initial=form_data)
-        context = {
-            'form': form,
-        }
-        return render(request, 'checkout/checkout.html', context)
+            form = OrderForm(initial=form_data)
+            context = {
+                'form': form,
+            }
+            return render(request, 'checkout/checkout.html', context)
+
+        else:
+            return redirect('view_cart')
 
 
 def checkout_success(request, order_number):
