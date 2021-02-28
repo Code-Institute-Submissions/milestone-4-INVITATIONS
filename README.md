@@ -439,6 +439,8 @@ The idea for this project came from recently designing my sisters wedding invita
 
 A big thank you to my mentor, code-institute courses, the Slack community and many great reference sites out there including Stackoverflow and W3Schools, as well as the online documentation for Django, Python, Flask, MongoDB, Amazon S3, Heroku, Bootstrap, Crispy, etc
 
+Note: With more time I would have liked to have added more invite designs.
+
 Other helpful tutorials and articles accessed:
 - [Article on django signals](https://medium.com/@singhgautam7/django-signals-master-pre-save-and-post-save-422889b2839)
 - [Crispy forms tutorial](https://simpleisbetterthancomplex.com/tutorial/2018/11/28/advanced-form-rendering-with-django-crispy-forms.html)
