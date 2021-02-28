@@ -240,3 +240,11 @@ At first it could find the 'Raw' image file, solved that, but then the problem w
 After much searching, eventually I found a different way of saving the image file using 'default_storage' imported from 'django.core.files.storage', which after reading seemed a very logical/django way of doing it.  I applied this method into my code and it worked, and then once applied to the font issue as well I could then correctly generate the invites! The stackoverflow answer I found was by 'minism' and is shown below:
 
 [Django - Getting PIL Image save method to work with Amazon s3boto Storage](https://stackoverflow.com/questions/14680323/django-getting-pil-image-save-method-to-work-with-amazon-s3boto-storage)
+
+<br>
+
+**Personalising Invites on very small device screens**
+
+Personalising invites works ok on all screens sizes apart from really small 320px wide screens.  Functionality wise it works fine but some of the fields push down the screen and don't align correctly.  However the final version emailed to a customer is properly aligned.
+I still need to resolve this but just don't have the time before project sub-mission.
+
