@@ -191,6 +191,22 @@ i {
     text-decoration: none;
 }
 
+/* FAQs */
+
+.faq__links {
+    padding: 0;
+    font-size: 1.1em;
+    color: var(--themeDarkGrey);
+}
+
+.faq__links:hover,
+.faq__links:focus,
+.faq__links:active {
+    color: var(--themeButtonBlue);
+    text-decoration: none;
+    transition: ease-in-out, .35s;
+}
+
 /* Profile */
 .profile__order-line, .profile__review-line {
     background-color: transparent !important;

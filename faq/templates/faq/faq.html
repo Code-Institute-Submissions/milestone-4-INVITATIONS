@@ -10,17 +10,23 @@
             <section class="col-12 offset-lg-1 col-lg-10">
                 <h1 class="mb-4 page__title d-none d-sm-block">frequently asked questions</h1>
                 <h1 class="mb-4 page__title d-sm-none">FAQs</h1>
-                <!-- List FAQs -->
-                <ul>
+                <!-- Collapsible FAQs list -->
+                <div id="accordion">
                     {% for faq in faqs %}
-                        <li>
-                            <strong>{{ faq.question }}?</strong>
-                            <p>
-                                {{ faq.answer }}
-                            </p>
-                        </li>
+                        <div class="card border-0 rounded-0">
+                            <div class="card-header">
+                                <a class="faq__links" data-toggle="collapse" href="#collapse-{{ faq.pk }}">
+                                    Q:&nbsp;<strong>{{ faq.question }}?</strong>
+                                </a>
+                            </div>
+                            <div id="collapse-{{ faq.pk }}" class="collapse {% if forloop.first %}show{% endif %}" data-parent="#accordion">
+                                <div class="card-body">
+                                    {{ faq.answer }}
+                                </div>
+                            </div>
+                        </div>
                     {% endfor %}
-                </ul>
+                </div>
             </section>
         </div>
     </div>
