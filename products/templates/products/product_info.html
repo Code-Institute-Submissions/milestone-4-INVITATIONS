@@ -173,7 +173,7 @@
     {% include 'products/includes/customize_modal.html' with modaltitle=product.name %}
     {{ product.customize_image.url|json_script:"customize-image" }}
     <script>
-        DIV_INPUT_TEMPLATE = `{% include "products/includes/div_inputs_template.html" %}`
+        let DIV_INPUT_TEMPLATE = `{% include "products/includes/div_inputs_template.html" %}`
     </script>    
 {% endif %}
 
@@ -212,7 +212,7 @@
     <script>
         // Set event listener for personalize button in product display
         $('.js__invite-data-btn').click(function(e){
-            DATA_RETURN_ID = `invite-data-${e.currentTarget.dataset.setInviteBtn}`;
+            let DATA_RETURN_ID = `invite-data-${e.currentTarget.dataset.setInviteBtn}`;
             customiseInvite.inviteFields = JSON.parse($(`#${DATA_RETURN_ID}`).val());
             $('#design-preview').children().filter(':not(.btn)').remove();
             customiseInvite.setupInviteActionButtons();

@@ -182,7 +182,7 @@
 {% if cart_contains_invite %}
     {% include 'products/includes/customize_modal.html' %}
     <script type="text/javascript">
-        DIV_INPUT_TEMPLATE = `{% include "products/includes/div_inputs_template.html" %}`
+        let DIV_INPUT_TEMPLATE = `{% include "products/includes/div_inputs_template.html" %}`
     </script>    
 {% endif %}
 
@@ -204,12 +204,12 @@
 
             // Set event listeners for personalise buttons in the cart display
             $('.js__invite-data-btn').click(function(e){
-                itemClicked = e.currentTarget.dataset.setInviteBtn;
-                DATA_RETURN_ID = `invite-data-${itemClicked}`;
+                let itemClicked = e.currentTarget.dataset.setInviteBtn;
+                let DATA_RETURN_ID = `invite-data-${itemClicked}`;
                 customiseInvite.originPage = 'cart';
-                inviteModalTitle = $(`#invite-title-${itemClicked}`).text();
+                let inviteModalTitle = $(`#invite-title-${itemClicked}`).text();
                 $('#customize-modal-title').text(inviteModalTitle);
-                inviteImage = e.currentTarget.dataset.setInviteImg;
+                let inviteImage = e.currentTarget.dataset.setInviteImg;
                 $('#invite-customize-image').attr('src',e.currentTarget.dataset.setInviteImg);
                 customiseInvite.inviteFields = JSON.parse($(`#${DATA_RETURN_ID}`).val());
                 $("#design-preview").children().filter(':not(.btn)').remove();

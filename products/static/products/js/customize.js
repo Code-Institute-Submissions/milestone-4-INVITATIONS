@@ -8,7 +8,7 @@ const customiseInvite = {
 
     hideFieldDetailDivs:(divNotToHide) => {
         // Hide all other field detail divs incase they were not closed.
-        for (i in customiseInvite.inviteFields) {
+        for (let i in customiseInvite.inviteFields) {
             if (customiseInvite.inviteFields[i].name != divNotToHide) {
                 $('#fields-' + customiseInvite.inviteFields[i].name).hide();
             }
@@ -24,7 +24,7 @@ const customiseInvite = {
         fieldLink.id = `edit-${fieldDetails.name}`;
         fieldLink.title = `Edit '${customiseInvite.fieldDisplayName(fieldDetails.name)}'`;
         fieldLink.classList = 'edit__field custom__field';
-        fieldLinkStyle = `top: ${(fieldDetails.y_pos / customiseInvite.customScale)}px;`;
+        let fieldLinkStyle = `top: ${(fieldDetails.y_pos / customiseInvite.customScale)}px;`;
         fieldLinkStyle += `height: ${((fieldDetails.raw_size / customiseInvite.customScale) * 1.5)}px;`;
         fieldLink.style = fieldLinkStyle;
         $('#design-preview').append(fieldLink);
@@ -51,11 +51,11 @@ const customiseInvite = {
     setFieldDivPosition:(fontSize, y_pos) => {
         // Set the field divPosition based on text y_pos, current font size,
         // height of the invite, height of the input div(120px) and customScale
-        let defaultInputDivHeight = 120
+        let defaultInputDivHeight = 120;
         let divPosition = 120;
         if (customiseInvite.customScale == 4) {
             divPosition = ((y_pos / customiseInvite.customScale) + (fontSize * 1.5));
-            inviteHeight = $('#design-preview').height();
+            let inviteHeight = $('#design-preview').height();
             if ((divPosition + defaultInputDivHeight) > inviteHeight) {
                 divPosition = (y_pos / customiseInvite.customScale) - defaultInputDivHeight;
             }
@@ -70,15 +70,15 @@ const customiseInvite = {
         let div = document.createElement('div');
         div.classList = 'input__field';
         div.id = 'fields-' + fieldDetails.name;
-        divPosition = customiseInvite.setFieldDivPosition((fieldDetails.raw_size / customiseInvite.customScale), fieldDetails.y_pos);
-        divStyle = 'top: ' + divPosition + 'px;';
+        let divPosition = customiseInvite.setFieldDivPosition((fieldDetails.raw_size / customiseInvite.customScale), fieldDetails.y_pos);
+        let divStyle = 'top: ' + divPosition + 'px;';
         div.style = divStyle;
         $('#design-preview').append(div);
     },
 
     fieldDisplayName:(fieldName) => {
         // Create field display name by replacing dash or underscore with a space
-        let words = fieldName.replace(' ', '').replace(/-|_/g, ' ').toLowerCase().substr(0, 11).split(' ');;
+        let words = fieldName.replace(' ', '').replace(/-|_/g, ' ').toLowerCase().substr(0, 11).split(' ');
         let fieldTitle = words.map(word => {
             return word[0].toUpperCase() + word.substring(1);
         }).join(' ');
@@ -90,9 +90,9 @@ const customiseInvite = {
         fieldDetails.name = fieldDetails.name.replace(' ', '');
         $('#' + fieldDetails.name + '-text-color').val(fieldDetails.color);
         $('#' + fieldDetails.name + '-text-font').val(fieldDetails.font);
-        resetSize = parseInt(fieldDetails.raw_size);
+        let resetSize = parseInt(fieldDetails.raw_size);
         $('#' + fieldDetails.name + '-text-size').val(resetSize);
-        resetStrokeWidth = fieldDetails.stroke_width;
+        let resetStrokeWidth = fieldDetails.stroke_width;
         $('#' + fieldDetails.name + '-stroke-width').val(resetStrokeWidth);
         $('#' + fieldDetails.name + '-stroke-color').val(fieldDetails.stroke_fill);
     },
@@ -120,7 +120,7 @@ const customiseInvite = {
         divTemplate = divTemplate.replace(fontLine, fontLineSelected);
 
         // Set selected size within the template string
-        fontOptionScaler = customiseInvite.customScale;
+        let fontOptionScaler = customiseInvite.customScale;
         if (customiseInvite.customScale == 6) { fontOptionScaler = customiseInvite.customScale / 1.5; }
         let sizeLine = `<option value="${fieldDetails.raw_size}">${(fieldDetails.raw_size / fontOptionScaler)}</option>`;
         let sizeLineSelected = `<option value="${fieldDetails.raw_size}" selected>${(fieldDetails.raw_size / fontOptionScaler)}</option>`;
@@ -146,16 +146,15 @@ const customiseInvite = {
         // Update the div contents and styles to reflect the changes applied
         fieldDetails.name = fieldDetails.name.replace(' ', '');
         $('#fields-' + fieldDetails.name).hide();
-        newText = $('#' + fieldDetails.name + '-text-content').val();
+        let newText = $('#' + fieldDetails.name + '-text-content').val();
         if (newText == '') { newText = ' '; }
-        newColor = $('#' + fieldDetails.name + '-text-color').val();
-        newFont = $('#' + fieldDetails.name + '-text-font').val();
-        newRawSize = $('#' + fieldDetails.name + '-text-size').val()
-        newSize = `${newRawSize / customiseInvite.customScale}px`;
-        testSize = Math.ceil($('#' + fieldDetails.name + '-text-size').val() / customiseInvite.customScale);
-        newStrokeWidth = $('#' + fieldDetails.name + '-stroke-width').val();
-        newStrokeColor = $('#' + fieldDetails.name + '-stroke-color').val();
-        newStroke = newStrokeWidth + ' ' + newStrokeColor;
+        let newColor = $('#' + fieldDetails.name + '-text-color').val();
+        let newFont = $('#' + fieldDetails.name + '-text-font').val();
+        let newRawSize = $('#' + fieldDetails.name + '-text-size').val();
+        let newSize = `${newRawSize / customiseInvite.customScale}px`;
+        let newStrokeWidth = $('#' + fieldDetails.name + '-stroke-width').val();
+        let newStrokeColor = $('#' + fieldDetails.name + '-stroke-color').val();
+        let newStroke = newStrokeWidth + ' ' + newStrokeColor;
         $('#show-' + fieldDetails.name).text(newText);
         $('#show-' + fieldDetails.name).css('color', newColor);
         $('#show-' + fieldDetails.name).css('-webkit-text-stroke', newStroke);
@@ -163,16 +162,16 @@ const customiseInvite = {
         $('#show-' + fieldDetails.name).css('font-size', newSize);
 
         // Change the height of the dotted link box
-        newLinkHeight = `${($('#' + fieldDetails.name + '-text-size').val() * 1.5) / customiseInvite.customScale}px`;
+        let newLinkHeight = `${($('#' + fieldDetails.name + '-text-size').val() * 1.5) / customiseInvite.customScale}px`;
         $('#edit-' + fieldDetails.name).height(newLinkHeight);
 
         // Move the top position of the fieldDiv
-        divPosition = customiseInvite.setFieldDivPosition(parseInt(newSize), fieldDetails.y_pos);
+        let divPosition = customiseInvite.setFieldDivPosition(parseInt(newSize), fieldDetails.y_pos);
         let newTop = divPosition + 'px';
         $('#fields-' + fieldDetails.name).css('top', newTop);
 
         // Update customized fields array
-        newFieldDetails = {
+        let newFieldDetails = {
             'name': fieldDetails.name,
             'text': newText,
             'y_pos': fieldDetails.y_pos,
@@ -181,8 +180,8 @@ const customiseInvite = {
             'color': newColor,
             'stroke_fill': newStrokeColor,
             'stroke_width': newStrokeWidth,
-        }
-        replaceInviteLine = customiseInvite.customized_fields.findIndex((field) => field.name === fieldDetails.name);
+        };
+        let replaceInviteLine = customiseInvite.customized_fields.findIndex((field) => field.name === fieldDetails.name);
         customiseInvite.customized_fields[replaceInviteLine] = newFieldDetails;
 
     },
@@ -237,4 +236,4 @@ const customiseInvite = {
         customiseInvite.customized_fields = [...customiseInvite.inviteFields];
     }
 
-}
+};

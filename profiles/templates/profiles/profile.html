@@ -122,13 +122,13 @@
 
         // Add click event listeners for order history lines
         $('.profile__order-line').click(function (e) {
-            orderNumber = e.currentTarget.dataset.setOrderLine;
+            let orderNumber = e.currentTarget.dataset.setOrderLine;
             window.location.href = `/checkout/history/${orderNumber}`;
         });
 
         // Add click event listeners for product review lines
         $('.profile__review-line').click(function (e) {
-            reviewId = e.currentTarget.dataset.setReviewLine;
+            let reviewId = e.currentTarget.dataset.setReviewLine;
             window.location.href = `/reviews/edit/${reviewId}`;
         });
 
