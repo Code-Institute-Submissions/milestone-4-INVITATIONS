@@ -131,8 +131,11 @@
                         <hr>
                     {% empty %}
                         <div class="row">
-                            <div class="col-12 col-sm-6 mb-2">
-                                <p>Your shopping cart is currently empty.</p>
+                            <div class="col-12 mb-2">
+                                <p class="mb-5">Your shopping cart is currently empty.</p>
+                                <p class="fz__lg">
+                                    <a href="{% url 'products' %}" title="Shop for our products" class="btn btn__main btn__shop py-3">SHOP NOW</a>
+                                </p>
                             </div>
                         </div>
                     {% endfor %}
