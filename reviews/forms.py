@@ -33,7 +33,7 @@ class ReviewForm(forms.ModelForm):
                        css_class='form-group col-12 mb-0'),
                 css_class='form-row mt-2'),
             Row(
-                Column(HTML('<p class="mb-0">Review rating</p>'),
+                Column(HTML('<p class="mb-0">Star rating</p>'),
                        css_class='form-group col-12 mb-0'),
                 css_class='form-row'),
             Row(
