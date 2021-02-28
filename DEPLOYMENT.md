@@ -46,14 +46,17 @@ For more information and troubleshooting on cloning a repository from GitHub cli
   | --- | ---- |
   | SECRET_KEY | <your_secret_key_here> |
   | STRIPE_SECRET_KEY | <your_stripe_secret_key> testing key! |
-  | STRIPE_WEBHOOK_SECRET | <your_stripe_webhook_secret> |
   | DEVELOPMENT | True |
 
-Documentation on getting your Stripe keys is available when you sign-up for your free Stripe account.
+To get your Stripe secret key, in Stripe click 'Developer' and then 'API Keys'
+Only your Stripe SECRET_KEY needs to be added, as according to Stripe themselves:
+'Publishable API keys are meant solely to identify your account with Stripe, they aren’t secret. In other words, they can safely be published in places like your Stripe.js JavaScript code, or in an Android or iPhone app.'
+
+More documentation on Stripe is available from stripe.com
 
 ### Other settings required
 
-In the settings.py file update the DEV_BASE_URL setting to reflect your own local testing URL.
+In the settings.py file update the DEV_BASE_URL setting to reflect your own local testing server URL.
 
 ### Running the app
 
@@ -84,28 +87,29 @@ Use the steps below to deploy this app on Heroku:
   | Key | Value |
   | --- | ---- |
   | DATABASE_URL | <your_database_url> from when you setup Postgres earlier |
-  | STRIPE_SECRET_KEY | <your_stripe_secret_key> |
-  | STRIPE_WEBHOOK_SECRET | <your_stripe_webhook_secret> |
-  | AWS_ACCESS_KEY_ID | <your_aws_access_key_id_here> |
-  | AWS_SECRET_ACCESS_KEY | <your_aws_secret_access_key_here> |
+
 <br>
 
 ### Setup databases
 1. Stop the server, if running (ctrl-c).
 2. Temporarily delete the 'DEVELOPMENT' environment variable.
 3. Run the migrations
-- Open a terminal window in your IDE
-- Stop the server, if running (ctrl-c)
-- Run the migrations
-- Type in:
+4. Open a terminal window in your IDE
+5. Stop the server, if running (ctrl-c)
+6. Run the migrations, type in:
   ```
   python3 manage.py showmigrations
   ```
-- then if no issues
-- Type in:
+- Then if no issues type in:
   ```
   python3 manage.py migrate
   ```
+7. Create a superuser for the store
+```
+python3 manage.py createsuperuser 
+```
+8. Enter details: username, email, password, and password confirm.
+
 
 ### Configure Heroku
 1. At the terminal login to heroku and temporarily disable collect static
@@ -123,14 +127,13 @@ git push heroku master
 5. On the 'Deployment method' set it to 'Connect to GitHub'
 6. In 'Connect to Git Hub, search for your repository and click [Connect]
 7. In 'Automatic deploys'  click [Enable Automatic Deploys] 
-8. Push to Heroku
+8. Back in your IDE make a small comment change in the settings.py file, so we can do a git push.
 ```
 git add .
 git commit -m
 git push
 ```
 9. Check Heroku activity, to see build progress.
-
 
 ### Create AWS S3 Image Bucket
 1. Login to your AWS Console.
@@ -206,7 +209,47 @@ git push
 22. Select the group we created and click [Next: Tags]						
 23. Click [Next:  Review], click [Create user]						
 24. Click [Download .csv] to download the csv file which will contain the users access key and secret access key which we will use to authenticate them from our django app.
-								
 
+<br>
 For more information and troubleshooting on creating an AWS S3 Bucket click [here](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/create-bucket.html)
 
+
+### Add more Heroku environment variables
+1. Go to your Heroku account and select your app.
+2. From the app menu select 'Settings'.
+3. Click [Reveal Config Vars] to show the keys and the values.
+4. Set the keys and values as below, replacing the <> entries with your values:
+
+  | Key | Value |
+  | --- | ---- |
+  | AWS_ACCESS_KEY_ID | <your_aws_access_key_id_here> |
+  | AWS_SECRET_ACCESS_KEY | <your_aws_secret_access_key_here> |
+  | USE_AWS | True |
+
+5. Delete the DISABLE_COLLECTSTATIC variable
+6. Back in your IDE make a small comment change in the settings.py file, so we can do a git push.
+```
+git add .
+git commit -m
+git push
+```
+7. View build activity in Heroku dashboard, Activity tab, should show static files collected.
+
+### Confirm super user email address
+1. In Django admin for our site, go to Accounts and Email address.
+2. Click on your email address
+3. Select 'Verified' and 'Primary' and click [Save]
+
+### Stripe webhook
+1. In your Stripe account.
+2. In 'Developers', 'Webhooks', click [Add endpoint]
+3. Enter the 'Endpoint URL' https://<your_ap_name_here>.herokuapp.com/checkout/webhook/
+4. Click 'receive all events'
+5. Click [Add endpoint]
+6. Under 'Signing secret' click the [Click to reveal] and copy the key.
+7. Add this to our Heroku config Vars using the key STRIPE_WEBHOOK_SECRET
+8. Send test webhook to make sure our listener is working
+
+For more information on Webhooks refer to the Stripe on-line documentation.
+
+Site now deployed, you're ready to start adding your categories and products in the 'Admin' pages to get the site up and running.
