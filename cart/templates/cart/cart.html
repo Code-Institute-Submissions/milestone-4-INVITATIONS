@@ -132,7 +132,11 @@
                     {% empty %}
                         <div class="row">
                             <div class="col-12 mb-2">
-                                <p class="mb-5">Your shopping cart is currently empty.</p>
+                                <p class="mb-2">Your shopping cart is currently empty.</p>
+                                <p class="mb-5">
+                                    Before adding any products, consider registering an account with us, as then you can 
+                                    easily view your order history and also review any products you have bought. You can register now
+                                    by clicking <a class="text-muted font-weight-bold" href="{% url 'account_signup' %}">HERE</a></p>
                                 <p class="fz__lg">
                                     <a href="{% url 'products' %}" title="Shop for our products" class="btn btn__main btn__shop py-3">SHOP NOW</a>
                                 </p>
