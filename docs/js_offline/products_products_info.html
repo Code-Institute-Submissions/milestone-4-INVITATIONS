@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'products/css/customize.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="container-fluid page__default">
+    <div class="product__container pt-5 pb-5">
+        <!-- Product -->
+        <div class="row">
+            <!-- Product image -->
+            <div class="col-12 col-md-6 offset-lg-2 col-lg-4 pr-0">
+                {% if product.view_image %}
+                    <img class="card-img-top img-fluid" src="{{ product.view_image.url }}" alt="{{ product.name }}">
+                {% else %}
+                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}image-not-available.png" alt="{{ product.name }}">
+                {% endif %}
+                {% if product.featured %}
+                    <a class="product__featured float-right" href="{% url 'products' %}?show=featured" alt="View more featured products" title="View more featured products">
+                        <i class="fas fa-star icon"></i>
+                    </a>
+                {% endif %}
+            </div>
+            <!-- Product details -->
+            <div class="col-12 col-md-6 col-lg-4 d-flex flex-column justify-content-between">
+                <!-- Product name, price, qty and description -->
+                <form class="form" action="{% url 'add_to_cart' product.id %}" method="POST">
+                <div class="row">
+                    <div class="col-12">
+                        <h5 class="product__title">{{ product.name }}</h5>
+                        <div class="row">
+                            <div class="col-6 col-sm-8 col-md-6 col-xl-7">
+                                <p class="product__price mt-0 mb-0">£{{ product.price }}</p>
+                            </div>
+                            <!-- Quantity to add to the cart -->
+                            <div class="col-6 col-sm-4 col-md-6 col-xl-5">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-light rounded-0 p-0 qty__btn" type="button" id="btn-minus-item-{{ product.id }}">
+                                            <i class="fas fa-minus icon"></i>
+                                        </button>
+                                    </div>
+                                    <input class="form-control form-control-sm text-center" type="number" min="1" max="99" value="1" name="qty-item-{{ product.id }}" id="qty-item-{{ product.id }}">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-light rounded-0 p-0 qty__btn" type="button" id="btn-plus-item-{{ product.id }}">
+                                            <i class="fas fa-plus icon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn__default">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        <span class="pl-1">ADD TO CART</span>
+                                    </button>
+                                    <!-- <input type="submit" class="btn__default" value="Add to Cart"> -->
+                                    <input type="hidden" name="original_path" value="{{ request.path }}">
+                            </div>
+                        </div>
+                        <hr>
+                        <p class="product__descr">{{ product.description }}</p>
+                    </div>
+                </div>
+                    <input type="hidden" name="custom-lines" id="custom-lines" value="{{ custom_lines }}">
+                </form>
+                <!-- Product category tag, admin links -->
+                <div class="row">
+                    <div class="col-12">
+                        {% if product.customizable and custom_lines and product.customize_image %}
+                            <button type="button" class="btn btn__default mb-3 float-right" data-toggle="modal" data-target="#customize-modal">
+                                <i class="far fa-edit"></i>
+                                <span class="pl-1">PERSONALISE</span>
+                            </button>
+                        {% endif %}
+                    </div>
+                    <div class="col-12">
+                        {% if product.category %}
+                            <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}" alt="Category: {{ product.category.display_name }}" title="Category: {{ product.category.display_name }}">
+                                <i class="fas fa-tag mr-1"></i>{{ product.category.display_name }}
+                            </a>
+                        {% endif %}
+                        {% if request.user.is_superuser %}
+                                <a href="#edit" class="btn btn-success product__admin-btn" role="button" >EDIT</a>
+                                <a href="#delete" class="btn btn-danger product__admin-btn" role="button" >DELETE</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% if product.customizable and custom_lines and product.customize_image %}
+    {% include 'products/includes/customize_modal.html' %}
+    {{ product.customize_image.url|json_script:"customize-image" }}
+    <script type="text/javascript">
+        DIV_INPUT_TEMPLATE = `{% include "products/includes/div_inputs_template.html" %}`
+    </script>
+{% endif %}
+
+{% endblock %}
+{% block postloadjs %}
+    {{ block.super }}
+    {% include 'cart/includes/quantity_buttons_script.html' %}
+    {% if product.customizable and custom_lines and product.customize_image %}
+        <script src="{% static 'products/js/customize.js' %}"></script>
+    {% endif %}
+{% endblock %}

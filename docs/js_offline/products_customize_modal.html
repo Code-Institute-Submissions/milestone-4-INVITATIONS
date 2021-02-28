@@ -1,0 +1,42 @@
+<!-- Customize invite modal -->
+<div class="modal fade" id="customize-modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header p-0">
+        <h5 class="modal-title p-2" id="staticBackdropLabel">Customise Invite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="customize-modal-body" class="modal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center">
+                            <div class="preview__size">
+                                <img class="img-fluid" src="{{ product.customize_image.url }}" alt="">
+                            </div>
+                            <div id="design-preview" class="preview__size preview__overlay">
+                                <button id="btn-invite-reset" type="button" title="Reset all fields to default settings" class="btn btn-secondary btn-sm btn__invite-action">
+                                    <i class="fas fa-undo-alt"></i>
+                                </button>
+                                <button id="btn-invite-edit" type="button" title="Pause editing (helps pinch zoom on mobiles)" class="btn btn-secondary btn-sm btn__invite-action">
+                                    <i class="fas fa-ban"></i>
+                                </button>
+                            </div>
+                            <div id="design-pause-overlay" class="preview__size preview__overlay">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer p-0">
+        <button type="button" class="btn btn__default" data-dismiss="modal">CLOSE</button>
+        <button type="button" class="btn btn__default">DONE</button>
+      </div>
+    </div>
+  </div>
+</div>

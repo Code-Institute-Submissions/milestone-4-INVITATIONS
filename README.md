@@ -222,7 +222,7 @@ and change the display order.
 
 ## Wireframe Designs
 
-The [Wireframes](/docs/customer_stories/) for the site are located in /docs/customer_stories/
+The [Wireframes](/docs/wireframes/) for the site are located in /docs/customer_stories/
 
 ## Surface
 From the beginning I wanted this app to have a very clean modern feel, where possible.

@@ -228,6 +228,9 @@ For all the admin functions you will need to be logged-in as a super-user. At an
 2. I have tested the app on a desktop using the following modern browsers: Chrome, Firefox and Edge. As well as testing on Android phone/tablet and Apple iPhone.
 3. The application has not been written to work on Internet Explorer. In the real World if a client wanted an application to work on IE then that is fine, but a lot of the newer methods of coding Javascript, etc does not work on IE. IE has had it's day and I wanted to code the app using some of these newer methods.
 
+### Off-line concept testing
+The [JS Off-line](/docs/js_offline) folder contains early work I did on the customising process for the invites.
+
 ## Errors and Issues Found
 (only includes main errors/issues rather than easy to solve coding, typos, alignment, etc which caused only minor errors)
 
