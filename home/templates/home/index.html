@@ -22,7 +22,14 @@
             </div>
         </div>
         <div class="offset-xs-2 col-xs-10 col-lg-7 text-center mt-2 my-lg-auto order-2 order-lg-1">
-            <img width="75%" class="img-fluid" src="{{ MEDIA_URL }}home_sm.png" srcset="{{ MEDIA_URL }}home_md.png 600w, {{ MEDIA_URL }}home_lg.png 1000w" alt="Home page samples" title="Home page samples">
+            <div class="text-center w-75 mx-auto">
+            <picture>
+                <source media="(min-width:1000px)" srcset="{{ MEDIA_URL }}home_lg.png">
+                <source media="(min-width:600px)" srcset="{{ MEDIA_URL }}home_md.png">
+                <img class="img-fluid" src="{{ MEDIA_URL }}home_sm.png" alt="Home page samples" title="Home page samples">
+            </picture>
+            </div>
+            <!-- <img class="img-fluid" src="{{ MEDIA_URL }}home_sm.png" srcset="{{ MEDIA_URL }}home_md.png 600w, {{ MEDIA_URL }}home_lg.png 1000w" alt="Home page samples" title="Home page samples"> -->
         </div>
     </section>
 </main>
